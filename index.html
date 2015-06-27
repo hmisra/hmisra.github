@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>hmisra.github.io by hmisra</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>hmisra.github.io</h1>
+        <h2></h2>
+        <a href="https://github.com/hmisra" class="button"><small>Follow me on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p></p>Exploratory Data Analysis, San Francisco Crime Data
+
+
+
+<p>
+</p>
+
+
+
+
+
+
+
+code{white-space: pre;}
+
+<p></p>
+
+
+
+
+  pre:not([class]) {
+    background-color: white;
+  }
+
+
+
+
+<p></p>
+
+<p></p>
+
+
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
+}
+
+
+<div>
+
+
+<div id="header">
+<h1>
+<a id="exploratory-data-analysis-san-francisco-crime-data" class="anchor" href="#exploratory-data-analysis-san-francisco-crime-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exploratory Data Analysis, San Francisco Crime Data</h1>
+</div>
+
+<hr>
+
+<div id="data-set">
+<h3>
+<a id="data-set" class="anchor" href="#data-set" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Set</h3>
+<hr>
+<p><a href="https://www.kaggle.com/c/sf-crime/data"><strong>You can download the data set here.</strong></a></p>
+<div id="description-of-data-fields-as-mentioned-on-the-kaggle-website.">
+<h4>
+<a id="description-of-data-fields-as-mentioned-on-the-kaggle-website" class="anchor" href="#description-of-data-fields-as-mentioned-on-the-kaggle-website" aria-hidden="true"><span class="octicon octicon-link"></span></a>Description of data fields (as mentioned on the kaggle website).</h4>
+<ol>
+<li>Dates - timestamp of the crime incident</li>
+<li>Category - category of the crime incident (only in train.csv). This is the target variable you are going to predict. Descript - detailed description of the crime incident (only in train.csv)</li>
+<li>DayOfWeek - the day of the week</li>
+<li>PdDistrict - name of the Police Department District</li>
+<li>Resolution - how the crime incident was resolved (only in train.csv)</li>
+<li>Address - the approximate street address of the crime incident</li>
+<li>X - Longitude</li>
+<li>Y - Latitude</li>
+</ol>
+<hr>
+</div>
+
+<p></p>
+</div>
+
+<div id="exploratory-analysis">
+<h3>
+<a id="exploratory-analysis" class="anchor" href="#exploratory-analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exploratory Analysis</h3>
+<hr>
+<ol>
+<li><strong><em>Variation of frequency of each crime wrt. Day of the week</em></strong></li>
+</ol>
+<p>To create a graph for this lets load the required libraries.</p>
+<pre><code>library(RColorBrewer)
+library(ggplot2)</code></pre>
+<p>Take an overview of the dataset, you can use any command of your choice (<em>summary()</em>, <em>head()</em>, <em>tail()</em> etc.) here I am using <em>str()</em> command to get details of data structures and names of the data fields available.</p>
+<pre><code>data &lt;- read.csv("train.csv")
+str(data)</code></pre>
+<pre><code>## 'data.frame':    878049 obs. of  9 variables:
+##  $ Dates     : Factor w/ 389257 levels "2003-01-06 00:01:00",..: 389257 389257 389256 389255 389255 389255 389255 389255 389254 389254 ...
+##  $ Category  : Factor w/ 39 levels "ARSON","ASSAULT",..: 38 22 22 17 17 17 37 37 17 17 ...
+##  $ Descript  : Factor w/ 879 levels "ABANDONMENT OF CHILD",..: 867 811 811 405 405 407 740 740 405 405 ...
+##  $ DayOfWeek : Factor w/ 7 levels "Friday","Monday",..: 7 7 7 7 7 7 7 7 7 7 ...
+##  $ PdDistrict: Factor w/ 10 levels "BAYVIEW","CENTRAL",..: 5 5 5 5 6 3 3 1 7 2 ...
+##  $ Resolution: Factor w/ 17 levels "ARREST, BOOKED",..: 1 1 1 12 12 12 12 12 12 12 ...
+##  $ Address   : Factor w/ 23228 levels "0 Block of  HARRISON ST",..: 19791 19791 22698 4267 1844 1506 13323 18055 11385 17659 ...
+##  $ X         : num  -122 -122 -122 -122 -122 ...
+##  $ Y         : num  37.8 37.8 37.8 37.8 37.8 ...</code></pre>
+<p>As you can see the data type for Category and Day of Week is <em>Factor</em> with <em>Factor levels</em> 39 and 7 respectively <em>(i.e. Category and DayOfWeek are Categorical variables with 39 and 7 possible values respectively)</em>.</p>
+<p>Before ploting the graph lets get the frequency of the crimes on each day of week. For this first we will order the labels for <em>DayOfWeek</em> from sunday to saturday. After that we will use <em>table</em> command to get the frequency of each <em>Category</em> wrt to <em>DayOfWeek</em> and convert the resulting table to a <em>Data Frame</em>.</p>
+<pre><code>freq_cat_day &lt;- data.frame(table(data$Category, factor(data$DayOfWeek, levels = c("Sunday", 
+    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))))
+
+summary(freq_cat_day)</code></pre>
+<pre><code>##                  Var1            Var2         Freq      
+##  ARSON             :  7   Sunday   :39   Min.   :    0  
+##  ASSAULT           :  7   Monday   :39   1st Qu.:  156  
+##  BAD CHECKS        :  7   Tuesday  :39   Median :  626  
+##  BRIBERY           :  7   Wednesday:39   Mean   : 3216  
+##  BURGLARY          :  7   Thursday :39   3rd Qu.: 4231  
+##  DISORDERLY CONDUCT:  7   Friday   :39   Max.   :27217  
+##  (Other)           :231   Saturday :39</code></pre>
+<p>For our convinience lets assign appropriate names to each of the column of the <em>freq_cat_day</em> <em>data frame</em>. As you might have observed in the output of summary of the dataframe that the frequencies of the crime varies from 0 to 27217. So to reduce the variablity lets convert our frequencies to the scale of 1+log(x).</p>
+<pre><code># Assign Names to Columns
+names(freq_cat_day) &lt;- c("Category", "Day", "Frequency")
+
+# Scale frequency
+freq_cat_day$Frequency &lt;- freq_cat_day$Frequency + 1
+freq_cat_day$Frequency &lt;- log10(freq_cat_day$Frequency)</code></pre>
+<p>Now we are ready to plot the graph. For this we will use <em>ggplot</em> function and also add few stying options.</p>
+<pre><code>ggplot(data = freq_cat_day, aes(x = Category, y = Frequency, fill = Day)) + 
+    geom_bar(stat = "identity") + scale_fill_manual(values = brewer.pal(7, "Dark2")) + 
+    scale_x_discrete(labels = abbreviate) + ggtitle("Crime VS Day") + ylab("Frequency (1+ln)") + 
+    xlab("Crime Category")</code></pre>
+<p><img title alt width="1920"></p>
+
+
+<hr>
+<div id="observation">
+<h5>
+<a id="observation" class="anchor" href="#observation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Observation</h5>
+<hr>
+</div>
+
+<p></p>
+</div>
+
+<p></p>
+</div>
+
+
+
+
+
+
+
+<p>
+</p>
+        </section>
+
+        <aside id="sidebar">
+
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-58701251-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
