@@ -1,0 +1,68 @@
+# Dependencies
+markdown:         kramdown
+highlighter:      pygments
+kramdown:
+  auto_ids:       true
+  footnote_nr:    1
+  entity_output:  as_char
+  footnote_backlink: "&#x21a9;&#xfe0e;"
+  toc_levels:     1..6
+  smart_quotes:   lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
+#timezone
+timezone:         America/Los_Angeles
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            entangledDimensions
+tagline:          ''
+description:      'Blog Description'
+url:              http://hmisra.github.io
+
+author:
+  name:           'Himanshu Misra'
+  url:            https://twitter.com/himanshumisra
+  email:          himanshumisra1990@gmail.com
+    avatar: avatar.jpg
+  job: "Data Scientist"
+  bio: " Job Description"
+  email: himanshumisra1990@gmail.com
+  disqus-shortname: himanshumisra1990
+  twitter: himanshumisra #username
+  facebook: #username
+  google:
+    plus: #username
+    analytics: 
+    verify:
+    ad-client:
+    ad-slot:
+  bing-verify:
+  github: hmisra #username
+  stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
+  linkedin: #username
+  xing: #username
+  instagram: #username
+  lastfm: #username
+  tumblr: #username
+  pinterest: #username
+  foursquare: #username
+  steam: #username
+  dribbble: #username
+  youtube: #username
+  soundcloud: #username
+  weibo: #username
+  flickr: #username
+  codepen: #username
+
+
+paginate:         2
+
+# Custom vars
+
+
+github:
+  repo:           https://github.com/hmisra
+
+gems: [jekyll-paginate]
