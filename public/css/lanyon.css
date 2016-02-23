@@ -93,6 +93,12 @@ h1, h2, h3, h4, h5, h6 {
 .masthead-title a {
   color: #505050;
 }
+
+.masthead-title a:hover {
+  color: #505050;
+  text-decoration: none;
+}
+
 .masthead-title small {
   font-size: 75%;
   font-weight: 400;
