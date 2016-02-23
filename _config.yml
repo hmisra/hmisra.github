@@ -25,36 +25,38 @@ author:
   name:           'Himanshu Misra'
   url:            https://twitter.com/himanshumisra
   email:          himanshumisra1990@gmail.com
-  avatar: avatar.jpg
-  job: "Data Scientist"
-  bio: " Job Description"
-  email: himanshumisra1990@gmail.com
-  disqus-shortname: himanshumisra1990
-  twitter: himanshumisra #username
-  facebook: #username
-  google:
+
+owner:
+    avatar: avatar.jpg
+    job: "Data Scientist"
+    bio: " Job Description"
+    email: himanshumisra1990@gmail.com
+    disqus-shortname: hmisra
+    twitter: himanshumisra #username
+    facebook: #username
+    google:
     plus: #username
     analytics: 
     verify:
     ad-client:
     ad-slot:
-  bing-verify:
-  github: hmisra #username
-  stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
-  linkedin: #username
-  xing: #username
-  instagram: #username
-  lastfm: #username
-  tumblr: #username
-  pinterest: #username
-  foursquare: #username
-  steam: #username
-  dribbble: #username
-  youtube: #username
-  soundcloud: #username
-  weibo: #username
-  flickr: #username
-  codepen: #username
+    bing-verify:
+    github: hmisra #username
+    stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
+    linkedin: #username
+    xing: #username
+    instagram: #username
+    lastfm: #username
+    tumblr: #username
+    pinterest: #username
+    foursquare: #username
+    steam: #username
+    dribbble: #username
+    youtube: #username
+    soundcloud: #username
+    weibo: #username
+    flickr: #username
+    codepen: #username
 
 
 paginate:         2
