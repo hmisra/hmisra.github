@@ -26,9 +26,9 @@ baseurl:             '/'
 
 # About/contact
 author:
-  name:              Alex Gil
-  url:               https://twitter.com/elotroalex
-  email:             colibri.alex@gmail.com
+  name:              Himanshu Misra
+  url:               https://twitter.com/himanshumisra
+  email:             himanshumisra1990@gmail.com
 
 # Custom vars
 version:             0.0.3
