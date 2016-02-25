@@ -306,7 +306,14 @@ a.sidebar-nav-item:focus {
 .post-title,
 .post-title a {
   color: #303030;
+    text-decoration: none;
 }
+
+.post-title a:hover {
+  color: #303030;
+    text-decoration: none;
+}
+
 .page-title,
 .post-title {
   margin-top: 0;
@@ -365,7 +372,7 @@ a.sidebar-nav-item:focus {
 /* Pagination items can be `span`s or `a`s */
 .pagination-item {
   display: block;
-  padding: 1rem;
+  padding: 0.1rem;
   border: 1px solid #eee;
 }
 .pagination-item:first-child {
@@ -379,7 +386,7 @@ a.pagination-item:hover {
 
 @media (min-width: 30rem) {
   .pagination {
-    margin: 3rem 0;
+    margin: 0.1rem 0;
   }
   .pagination-item {
     float: left;
