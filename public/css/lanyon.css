@@ -178,6 +178,22 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.header
+{
+    position: relative;
+}
+.header img {
+   float: left;
+    position: relative;
+    margin-right: 10px;
+    top: -1;
+    
+}
+
+.header h2 {
+  position: relative;
+  
+}
 
 /*
  * Sidebar
@@ -382,7 +398,7 @@ a.sidebar-nav-item:focus {
 }
 
 .post-grid {
-    width: 30%;
+    width: 20%;
     
     margin-right: 3%;
     display: inline-block;
@@ -454,7 +470,7 @@ a.sidebar-nav-item:focus {
 
 .post-book
 {
-    height: 400px;
+    height: 300px;
     
 }
 
@@ -471,6 +487,7 @@ a.sidebar-nav-item:focus {
 }
 .transparent-box-text{
    overflow: hidden;
+    text-overflow:clip;
     height: 120px;
     margin: 5%;
     font-weight: bold;
