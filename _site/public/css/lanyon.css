@@ -471,6 +471,7 @@ a.sidebar-nav-item:focus {
 }
 .transparent-box-text{
    overflow: hidden;
+    text-overflow:clip;
     height: 120px;
     margin: 5%;
     font-weight: bold;
