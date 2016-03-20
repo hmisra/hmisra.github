@@ -3,6 +3,7 @@ layout: post
 title: Example content
 excerpt: Summary for this post
 comments: true
+background: /2.jpg
 ---
 
 <div class="message">

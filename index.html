@@ -1,20 +1,25 @@
 ---
 layout: default
 ---
-
+<div class="container-content-text" >
 <div class="posts">
+  
   {% for post in paginator.posts %}
-  <div class="post">
-    <h1 class="post-title">
-      <a href="{{ post.url }}">
+    <a href="{{ post.url }}">
+  <div class="post post-grid post-book" style="background-image: url({{post.background}}); text-align:center; background-size: contain; ">
+      <div class="transparent-box">
+          <div class="transparent-box-text">
+    <h3 class="post-title" style="opacity:1.0; font-weight: bold;">
+      
         {{ post.title }}
-      </a>
-    </h1>
+      
+    </h3>
     <span class="post-date">{{ post.date | date_to_string }}<br> {{ post.excerpt }}</span>
-<!--      {{ post.content }}-->
+          </div></div>
   </div>
+    </a>
   {% endfor %}
-</div>
+
 
 <div class="pagination">
   {% if paginator.next_page %}
@@ -32,3 +37,4 @@ layout: default
     <span class="pagination-item newer">Newer</span>
   {% endif %}
 </div>
+    </div>

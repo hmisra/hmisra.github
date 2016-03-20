@@ -59,19 +59,82 @@ h1, h2, h3, h4, h5, h6 {
  */
 
 .container {
-  max-width: 28rem;
+  max-width: 75%;
 }
-@media (min-width: 38rem) {
+@media (min-width: 43rem) {
   .container {
-    max-width: 32rem;
+    max-width: 75%;
   }
 }
-@media (min-width: 56rem) {
+@media (min-width: 43rem) {
   .container {
-    max-width: 38rem;
+    max-width: 75%;
   }
 }
 
+.container-content {
+  max-width: 100%;
+    
+}
+@media (min-width: 100%) {
+  .container-content {
+    max-width: 100%;
+      
+  }
+}
+@media (min-width: 100%) {
+  .container-content {
+    max-width: 100%;
+      
+  }
+}
+
+.container-content-text {
+    position: relative;
+    left: 14%;
+    
+  max-width: 75%;
+}
+@media (min-width: 43rem;) {
+  .container-content-text {
+    max-width: 75%;
+      position: relative;
+     
+    left: 14%;
+  }
+}
+@media (min-width: 43rem;) {
+  .container-content-text {
+    max-width: 75%;
+      position: relative;
+   
+    left: 14%;
+  }
+}
+
+
+.container-content-text-main {
+    position: relative;
+    left: 14%;
+    
+  max-width: 60%;
+}
+@media (min-width: 43rem;) {
+  .container-content-text-main {
+    max-width: 60%;
+      position: relative;
+     
+    left: 14%;
+  }
+}
+@media (min-width: 43rem;) {
+  .container-content-text-main {
+    max-width: 60%;
+      position: relative;
+   
+    left: 14%;
+  }
+}
 
 /*
  * Masthead
@@ -82,7 +145,7 @@ h1, h2, h3, h4, h5, h6 {
 .masthead {
   padding-top:    1rem;
   padding-bottom: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 0rem;
   border-bottom: 1px solid #eee;
 }
 .masthead-title {
@@ -296,9 +359,33 @@ a.sidebar-nav-item:focus {
  * page is wrapped in `.page` and is only used on the page layout.
  */
 
-.page,
+.posts a:hover{
+    text-decoration: none;
+}
+
+.page
+{
+    padding: 15px;
+    
+    padding-bottom: 0em;
+    margin-top: 1em;
+  margin-bottom: 1em;
+    border: 1px solid #eee;
+}
 .post {
-  margin-bottom: 4em;
+    
+    
+    padding-bottom: 0em;
+    margin-top: 1em;
+  margin-bottom: 1em;
+    border: 1px solid #eee;
+}
+
+.post-grid {
+    width: 30%;
+    
+    margin-right: 3%;
+    display: inline-block;
 }
 
 /* Blog post or page title */
@@ -308,16 +395,22 @@ a.sidebar-nav-item:focus {
   color: #303030;
     text-decoration: none;
 }
-
+.page-title,
+.page-title a {
+    color: #303030;
+    text-decoration: none;
+}
+.post,
 .post-title a:hover {
   color: #303030;
     text-decoration: none;
 }
-
-.page-title,
-.post-title {
-  margin-top: 0;
+.page-title a:hover {
+  color: #303030;
+    text-decoration: none;
 }
+
+
 
 /* Meta data line below post title */
 .post-date {
@@ -325,6 +418,7 @@ a.sidebar-nav-item:focus {
   margin-top: -.5rem;
   margin-bottom: 1rem;
   color: #9a9a9a;
+  font-size: 70%;    
 }
 
 /* Related posts */
@@ -352,6 +446,39 @@ a.sidebar-nav-item:focus {
   color: inherit;
 }
 
+
+/*
+* class for transparent box
+*
+*/
+
+.post-book
+{
+    height: 400px;
+    
+}
+
+.transparent-box{
+    position: relative;
+    top: 29%;
+    margin-bottom: 0%;
+  background-color: #ffffff;
+  border: 1px solid #eee; ;
+  opacity: 0.8;
+  filter: alpha(opacity=80); /* For IE8 and earlier */
+    text-align: center;
+    vertical-align: center;
+}
+.transparent-box-text{
+   overflow: hidden;
+    height: 120px;
+    margin: 5%;
+    font-weight: bold;
+    color: #000000;
+    vertical-align: center;
+    text-align: center;
+    
+}
 
 /*
  * Pagination
@@ -453,6 +580,8 @@ a.pagination-item:hover {
 .theme-base-08 #sidebar-checkbox:checked ~ .wrap .sidebar-toggle {
   background-color: #ac4142;
 }
+.theme-base-08 .page-title,
+.theme-base-08 .post-title,
 .theme-base-08 .container a,
 .theme-base-08 .sidebar-toggle,
 .theme-base-08 .related-posts li a:hover {
@@ -465,6 +594,8 @@ a.pagination-item:hover {
 .theme-base-09 #sidebar-checkbox:checked ~ .wrap .sidebar-toggle {
   background-color: #d28445;
 }
+.theme-base-09 .page-title,
+.theme-base-09 .post-title,
 .theme-base-09 .container a,
 .theme-base-09 .sidebar-toggle,
 .theme-base-09 .related-posts li a:hover {
@@ -477,6 +608,8 @@ a.pagination-item:hover {
 .theme-base-0a #sidebar-checkbox:checked ~ .wrap .sidebar-toggle {
   background-color: #f4bf75;
 }
+.theme-base-0a .page-title,
+.theme-base-0a .post-title,
 .theme-base-0a .container a,
 .theme-base-0a .sidebar-toggle,
 .theme-base-0a .related-posts li a:hover {
@@ -489,6 +622,8 @@ a.pagination-item:hover {
 .theme-base-0b #sidebar-checkbox:checked ~ .wrap .sidebar-toggle {
   background-color: #90a959;
 }
+.theme-base-0b .page-title,
+.theme-base-0b .post-title,
 .theme-base-0b .container a,
 .theme-base-0b .sidebar-toggle,
 .theme-base-0b .related-posts li a:hover {
@@ -501,6 +636,8 @@ a.pagination-item:hover {
 .theme-base-0c #sidebar-checkbox:checked ~ .wrap .sidebar-toggle {
   background-color: #75b5aa;
 }
+.theme-base-0c .page-title,
+.theme-base-0c .post-title,
 .theme-base-0c .container a,
 .theme-base-0c .sidebar-toggle,
 .theme-base-0c .related-posts li a:hover {
@@ -508,11 +645,14 @@ a.pagination-item:hover {
 }
 
 /* Blue */
+
 .theme-base-0d .sidebar,
 .theme-base-0d .sidebar-toggle:active,
 .theme-base-0d #sidebar-checkbox:checked ~ .wrap .sidebar-toggle {
   background-color: #6a9fb5;
 }
+.theme-base-0d .page-title,
+.theme-base-0d .post-title,
 .theme-base-0d .container a,
 .theme-base-0d .sidebar-toggle,
 .theme-base-0d .related-posts li a:hover {
@@ -520,11 +660,14 @@ a.pagination-item:hover {
 }
 
 /* Magenta */
+
 .theme-base-0e .sidebar,
 .theme-base-0e .sidebar-toggle:active,
 .theme-base-0e #sidebar-checkbox:checked ~ .wrap .sidebar-toggle {
   background-color: #aa759f;
 }
+.theme-base-0e .page-title,
+.theme-base-0e .post-title,
 .theme-base-0e .container a,
 .theme-base-0e .sidebar-toggle,
 .theme-base-0e .related-posts li a:hover {
@@ -537,15 +680,33 @@ a.pagination-item:hover {
 .theme-base-0f #sidebar-checkbox:checked ~ .wrap .sidebar-toggle {
   background-color: #8f5536;
 }
+.theme-base-0f .page-title,
+.theme-base-0f .post-title,
 .theme-base-0f .container a,
 .theme-base-0f .sidebar-toggle,
 .theme-base-0f .related-posts li a:hover {
   color: #8f5536;
 }
 
+/* Royal Blue */
+.theme-base-15 .sidebar,
+.theme-base-15 .sidebar-toggle:active,
+.theme-base-15 #sidebar-checkbox:checked ~ .wrap .sidebar-toggle {
+  background-color: #102366;
+}
+.theme-base-15 .page-title,
+.theme-base-15 .post-title,
+.theme-base-15 .container a,
+.theme-base-15 .sidebar-toggle,
+.theme-base-15 .related-posts li a:hover {
+  color: #102366;
+}
+
+
 .share-buttons {
   padding-top: 1em;
   border-top: 1px solid #ddd;
+  text-align: center;
   ul {
     margin: 0;
     padding: 0;
