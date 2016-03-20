@@ -184,9 +184,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .header img {
    float: left;
-    position: relative;
     margin-right: 10px;
-    top: -1;
     
 }
 
@@ -194,7 +192,12 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   
 }
-
+.header a {
+  text-decoration: none;
+}
+.header a:hover {
+  text-decoration: none;
+}
 /*
  * Sidebar
  *
@@ -711,6 +714,7 @@ a.pagination-item:hover {
 .theme-base-15 #sidebar-checkbox:checked ~ .wrap .sidebar-toggle {
   background-color: #102366;
 }
+
 .theme-base-15 .page-title,
 .theme-base-15 .post-title,
 .theme-base-15 .container a,
