@@ -3,7 +3,7 @@ layout: post
 title: Introducing Lanyon
 excerpt: Summary for this post 
 comments: true
-background: /1.png
+background: /network.jpg
 ---
 
 Lanyon is an unassuming [Jekyll](http://jekyllrb.com) theme that places content first by tucking away navigation in a hidden drawer. It's based on [Poole](http://getpoole.com), the Jekyll butler.

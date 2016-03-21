@@ -10,7 +10,7 @@
 
   <title>
     
-      Estimating Truth Using Recursive Bayesian Filter &middot; entangledDimensions
+      Recursive Bayesian Filter &middot; entangledDimensions
     
   </title>
 
@@ -66,8 +66,6 @@
     
       
     
-      
-    
 
 <!--    <a class="sidebar-nav-item" href="https://github.com/hmisra/archive/v.zip">Download</a>-->
 <!--    <a class="sidebar-nav-item" href="https://github.com/hmisra">GitHub project</a>-->
@@ -108,8 +106,8 @@
 
 <div class="posts">
 <div class="post" style="padding: 20px;">
-  <h1 class="post-title" >Estimating Truth Using Recursive Bayesian Filter</h1>
-  <span class="post-date">31 Dec 2013</span>
+  <h1 class="post-title" >Recursive Bayesian Filter</h1>
+  <span class="post-date">15 Jul 2015</span>
   <h2 id="introduction">Introduction</h2>
 <hr />
 <p>Whenever we make any critical decision in our life we tend to take suggestions and recommendations from different people. We try to analyze information from various sources and based on our analysis, we decide what to do.</p>
@@ -135,16 +133,15 @@
 
 <p>Assume that you have a random variable A which can take values from 1 to 6. Now you want to know which value of A is the most probable value. You think that it is somewhere close to 3.5 and your belief can be described by a normal distribution around 3.5 with a variance of 0.5. This distribution can be plotted as follows</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>Now you start getting data B from some source. To calculate P(A</td>
-      <td>B) we need the distribution P(A,B), a joint distribution of our prior knowledge and the data. In real life getting this distribution is hard and we normally employ various assumptions and approximation techniques to get this distribution. Later in this article while solving a toy problem we would use a simple assumption to estimate this distribution. For now let’s assume you already have this distribution and can be represented by the 3-D plot drawn below. Now by multiplying our prior distribution and this joint distribution so that we can get an updated distribution. But as you can see our prior is a uni-variate distribution and P(A,B) is bi-variate, so we can not directly multiply these 2 distribution. We would take a slice out the P(A,B) which is shown in graph below as conditional probability P(B</td>
-      <td>A=3). Now if you are familiar with basic rules of probability theory you must already know that The sum of probability of all the events is equal to 1, i.e. ∫P(A)=1 and also ∫P(A,B)=1 or in simple words area under the surface/curve of a probability distribution must be 1. As we know that the distribution P(A,B) is a probability distribution and the area under the surface of distribution is 1, so if we take a slice out of this distribution, this conditional distribution P(B</td>
-      <td>A=3) is no more a valid probability distribution. Therefore, if we multiply this distribution with our prior we would get an invalid probability distribution. Hence we need to normalize it by dividing by P(B) so that we get a valid posterior probability distribution.</td>
-    </tr>
-  </tbody>
-</table>
+<center>
+<img src="/recursive1.png" />
+</center>
+
+<p>Now you start getting data B from some source. To calculate <code class="highlighter-rouge">P(A|B)</code> we need the distribution <code class="highlighter-rouge">P(A,B)</code>, a joint distribution of our prior knowledge and the data. In real life getting this distribution is hard and we normally employ various assumptions and approximation techniques to get this distribution. Later in this article while solving a toy problem we would use a simple assumption to estimate this distribution. For now let’s assume you already have this distribution and can be represented by the 3-D plot drawn below. Now by multiplying our prior distribution and this joint distribution so that we can get an updated distribution. But as you can see our prior is a uni-variate distribution and <code class="highlighter-rouge">P(A,B)</code> is bi-variate, so we can not directly multiply these 2 distribution. We would take a slice out the <code class="highlighter-rouge">P(A,B)</code> which is shown in graph below as conditional probability <code class="highlighter-rouge">P(B|A=3)</code>. Now if you are familiar with basic rules of probability theory you must already know that The sum of probability of all the events is equal to 1, i.e. <code class="highlighter-rouge">∫P(A)=1</code> and also <code class="highlighter-rouge">∫P(A,B)=1</code> or in simple words area under the surface/curve of a probability distribution must be 1. As we know that the distribution <code class="highlighter-rouge">P(A,B)</code> is a probability distribution and the area under the surface of distribution is 1, so if we take a slice out of this distribution, this conditional distribution <code class="highlighter-rouge">P(B|A=3)</code> is no more a valid probability distribution. Therefore, if we multiply this distribution with our prior we would get an invalid probability distribution. Hence we need to normalize it by dividing by <code class="highlighter-rouge">P(B)</code> so that we get a valid posterior probability distribution.</p>
+
+<center>
+<img src="/recursive2.png" />
+</center>
 
 <p>So let’s summarize what we have covered so far, we had our prior knowledge about the world, we took some data, computed the conditional distribution of data and normalized it with the distribution of data. By plugging these values in Bayes theorem, we would get a posterior distribution. Now in later iterations when we will get a new piece of data we would consider this posterior as our prior and again compute our posterior.</p>
 
@@ -171,9 +168,17 @@ Now let’s describe a toy problem and try to solve it using Recursive Bayesian 
   </li>
 </ol>
 
+<center>
+<img src="/recursive3.png" />
+</center>
+
 <p>So as we can see the true location of Whiplash is at the red dot in the map, but after taking 100 readings from infrared sensor Iron man can only see the blue dots. Our job now is to estimate the position of the red dot by looking at these 100 dots.</p>
 
 <p>Next to start using Recursive Bayesian we need a prior distribution which would represent our initial knowledge about the world. Now for this we can either assume that Iron man does not know anything about the location of Whiplash and would use a uniform distribution (i.e. he would assume that Whiplash can be anywhere with equal probability.) or if he saw Whiplash going from left side of the wall then we can create a distribution incorporating this knowledge. To keep things simple for now, I would assume that he does not know anything about the location of Whiplash.</p>
+
+<center>
+<img src="/recursive4.png" />
+</center>
 
 <p>As you can see the distribution is uniform and the probability of Whiplash being at any point on this wall is equal.</p>
 
@@ -196,7 +201,11 @@ Now let’s describe a toy problem and try to solve it using Recursive Bayesian 
 
 <p>At the end of iterating through 100 data points, you can clearly see that we have estimated that the location of whiplash is near 20,20 as the probability near 20,20 is maximum.</p>
 
+<center><iframe width="420" height="315" src="https://www.youtube.com/embed/vUFoFwtBqXU" frameborder="0" allowfullscreen=""></iframe>
+</center>
+
 <h2 id="real-world-applications">Real world applications</h2>
+
 <ol>
   <li>
     <p>In application that uses geospatial data for example UBER, where there is a need to locate the precise location of an object through GPS (in case of Uber, a car), we can use this method to estimate the precise location of the car.</p>
@@ -214,19 +223,19 @@ Now let’s describe a toy problem and try to solve it using Recursive Bayesian 
   <ul id ="button-share">
       
     <li>
-      <a href="https://twitter.com/intent/tweet?text=http://hmisra.github.io/2013/12/31/whats-jekyll-copy/"  title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+      <a href="https://twitter.com/intent/tweet?text=http://hmisra.github.io/2015/07/15/Estimating-Truth_Using-Recursive-Bayesian-Filter/"  title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
     </li>
     <li>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=http://hmisra.github.io/2013/12/31/whats-jekyll-copy/"  title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=http://hmisra.github.io/2015/07/15/Estimating-Truth_Using-Recursive-Bayesian-Filter/"  title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
     </li>
     <li>
-      <a href="https://plus.google.com/share?url=http://hmisra.github.io/2013/12/31/whats-jekyll-copy/"  title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+      <a href="https://plus.google.com/share?url=http://hmisra.github.io/2015/07/15/Estimating-Truth_Using-Recursive-Bayesian-Filter/"  title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
     </li>
     <li>
-      <a href="https://news.ycombinator.com/submitlink?u=http://hmisra.github.io/2013/12/31/whats-jekyll-copy/" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
+      <a href="https://news.ycombinator.com/submitlink?u=http://hmisra.github.io/2015/07/15/Estimating-Truth_Using-Recursive-Bayesian-Filter/" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
     </li>
     <li>
-      <a href="https://www.reddit.com/submit?url=http://hmisra.github.io/2013/12/31/whats-jekyll-copy/"  title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
+      <a href="https://www.reddit.com/submit?url=http://hmisra.github.io/2015/07/15/Estimating-Truth_Using-Recursive-Bayesian-Filter/"  title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
     </li>
   </ul>
 </div><!-- end share-buttons -->
@@ -261,18 +270,18 @@ Now let’s describe a toy problem and try to solve it using Recursive Bayesian 
     
       <li>
         <h3>
-          <a href="/2014/01/02/introducing-lanyon-copy/">
-            Introducing Lanyon
-            <small>02 Jan 2014</small>
+          <a href="/2014/01/01/example-content/">
+            Example content
+            <small>01 Jan 2014</small>
           </a>
         </h3>
       </li>
     
       <li>
         <h3>
-          <a href="/2014/01/02/introducing-lanyon-copy-3/">
-            Introducing Lanyon
-            <small>02 Jan 2014</small>
+          <a href="/2013/12/31/whats-jekyll/">
+            What's Jekyll?
+            <small>31 Dec 2013</small>
           </a>
         </h3>
       </li>
@@ -284,5 +293,15 @@ Now let’s describe a toy problem and try to solve it using Recursive Bayesian 
     </div>
     <div class="footbar" style="border: 1px solid #eee; position: relative; top:90%;bottom: 0px; height:50px; text-align:left; padding-left:50px; vertical-align:center; "></div>
     <script id="dsq-count-scr" src="//himanshumisra.disqus.com/count.js" async></script>
+      <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75408923-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
   </body>
 </html>
