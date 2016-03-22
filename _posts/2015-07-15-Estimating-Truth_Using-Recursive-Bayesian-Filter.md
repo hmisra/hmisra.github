@@ -98,4 +98,4 @@ At the end of iterating through 100 data points, you can clearly see that we hav
 
 1. In application that uses geospatial data for example UBER, where there is a need to locate the precise location of an object through GPS (in case of Uber, a car), we can use this method to estimate the precise location of the car.
 
-2. Improved methods (like Kalman Filters, Particle Based Estimation methods etc.) based on Recursive Bayesian Filters are used in Radars to track missiles (http://down.cenet.org.cn/upfile/28/20051117121144185.pdf).
+2. Improved methods (like Kalman Filters, Particle Based Estimation methods etc.) based on Recursive Bayesian Filters are used in Radars to track missiles. Check out this [Paper](http://down.cenet.org.cn/upfile/28/20051117121144185.pdf) for more details.
