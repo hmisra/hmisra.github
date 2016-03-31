@@ -18,7 +18,7 @@ layout: default
 // Only works after `FB.init` is called
 function myFacebookLogin() {
     console.log("function called");
-  FB.login(function(){FB.api('/me', {fields: 'last_name'}, function(response) {console.log(response);})}, {scope: 'publish_actions'});};
+  FB.login(function(){FB.api('/me', {fields: 'last_name'}, function(response) {console.log(response);})}, {scope: 'public_profile'});};
 </script>
 <button onclick="myFacebookLogin();">Login with Facebook</button></center>
     <br>
