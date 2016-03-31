@@ -12,13 +12,15 @@ layout: default
 </div>
     </div>
 <div class="share-buttons">
-    <center>Share     <script>
+    <center>Share     
+        
+<script>
 // Only works after `FB.init` is called
 function myFacebookLogin() {
     console.log("function called");
-  FB.login(function(){FB.api('/me', {fields: 'last_name'}, function(response) {console.log(response);})}, {scope: 'publish_actions'});
+  FB.login(function(){FB.api('/me', {fields: 'last_name'}, function(response) {console.log(response);})}, {scope: 'publish_actions'});};
 </script>
-<button onclick="myFacebookLogin()">Login with Facebook</button></center>
+<button onclick="myFacebookLogin();">Login with Facebook</button></center>
     <br>
   <ul id ="button-share">
       
