@@ -1,15 +1,15 @@
 ---
 layout: post
-title: Similarities and Distances
+title: Nature and Humans
 excerpt: A survey on Similarity Metrics
 comments: true
 background: /distance.gif
+published: true
 ---
+
 
 ## Introduction
 <hr>
+We humans have significantly transformed earth over past 300 years. Images taken from space, one like shown below, are perfect example of this fact. The rate at which we have extended our capabilities and transformed our planet has grown exponentially. 
+Since the time we started evolving from Monkeys we were driven by our insatiable curiosity to understand the nature around us. And this curiosity to understand and explore has been very fruitful for us. Understanding nature has helped us create tools which can manipulate forces of nature to serve us. For example, we invented fire to extract locked energy in wood to keep us warm and cook food. We created wheels to efficiently transport weight from one place to another and the list goes on. (Correlation between us and tools). But if you notice the machines we were using before 17th century were capable of improving our efficiency may be 2 or 3 folds. For example if before invention of wheel if someone took a day to take a parcel from one part of the city to another, after invention of wheel and bicycle that time got reduced to hours. 
 
-```
-Human mind perceives information from environment around it and use that information to make intelligent decisions.
-```
-This statement would be pretty evident to most of us. But I would like you to take a minute and think about the following question `What is Information?` If we consider this question as a subjective question we can define *Information* in many different ways, one possible candidate definition would be `A fact about some object in the real world`, you might have some other definition/explanation of *Information*.  
