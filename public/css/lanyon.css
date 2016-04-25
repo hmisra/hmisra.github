@@ -322,6 +322,14 @@ a.sidebar-nav-item:focus {
   }
 }
 
+/* for removing link styling from all the pages
+*
+*
+*/
+
+#pages-link-removal p a{
+    text-decoration: none;
+}
 
 /* Slide effect
  *

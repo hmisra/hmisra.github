@@ -1,5 +1,6 @@
 ---
 layout: post
+type: blog
 title: Recursive Bayesian Filter
 excerpt: Truth Estimation using RBF
 comments: true

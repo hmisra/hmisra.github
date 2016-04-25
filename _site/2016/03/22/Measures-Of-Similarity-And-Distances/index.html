@@ -10,7 +10,7 @@
 
   <title>
     
-      Similarities and Distances &middot; entangledDimensions
+      Nature and Humans &middot; entangledDimensions
     
   </title>
 
@@ -32,6 +32,23 @@
 
 
   <body class="theme-base-15">
+      <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1577054755955354',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 
     <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
      styles, `#sidebar-checkbox` for behavior. -->
@@ -44,7 +61,7 @@
   </div>
 
   <nav class="sidebar-nav">
-    <a class="sidebar-nav-item" href="/">Home</a>
+    <a class="sidebar-nav-item" href="/">Blog</a>
 
     
 
@@ -56,7 +73,7 @@
     
       
         
-          <a class="sidebar-nav-item" href="/about/">About</a>
+            
         
       
     
@@ -65,8 +82,22 @@
       
     
       
+        
+            
+        
+      
     
-
+      
+        
+            
+          <a class="sidebar-nav-item" href="/knowledge/">Knowledge</a>
+      
+        
+      
+    
+      
+    
+<a class="sidebar-nav-item" href="/about">About</a>
 <!--    <a class="sidebar-nav-item" href="https://github.com/hmisra/archive/v.zip">Download</a>-->
 <!--    <a class="sidebar-nav-item" href="https://github.com/hmisra">GitHub project</a>-->
 <!--    <span class="sidebar-nav-item">Currently v</span>-->
@@ -106,20 +137,27 @@
 
 <div class="posts">
 <div class="post" style="padding: 20px;">
-  <h1 class="post-title" >Similarities and Distances</h1>
+  <h1 class="post-title" >Nature and Humans</h1>
   <span class="post-date">22 Mar 2016</span>
   <h2 id="introduction">Introduction</h2>
 <hr />
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Human mind perceives information from environment around it and use that information to make intelligent decisions.
-</code></pre>
-</div>
-<p>This statement would be pretty evident to most of us. But I would like you to take a minute and think about the following question <code class="highlighter-rouge">What is Information?</code> If we consider this question as a subjective question we can define <em>Information</em> in many different ways, one possible candidate definition would be <code class="highlighter-rouge">A fact about some object in the real world</code>, you might have some other definition/explanation of <em>Information</em>.</p>
+<p>We humans have significantly transformed earth over past 300 years. Images taken from space, one like shown below, are perfect example of this fact. The rate at which we have extended our capabilities and transformed our planet has grown exponentially. 
+Since the time we started evolving from Monkeys we were driven by our insatiable curiosity to understand the nature around us. And this curiosity to understand and explore has been very fruitful for us. Understanding nature has helped us create tools which can manipulate forces of nature to serve us. For example, we invented fire to extract locked energy in wood to keep us warm and cook food. We created wheels to efficiently transport weight from one place to another and the list goes on. (Correlation between us and tools). But if you notice the machines we were using before 17th century were capable of improving our efficiency may be 2 or 3 folds. For example if before invention of wheel if someone took a day to take a parcel from one part of the city to another, after invention of wheel and bicycle that time got reduced to hours.</p>
+
 
 </div>
     </div>
 <div class="share-buttons">
-    <center>Share</center>
+    <center>Share     
+        
+<script>
+// Only works after `FB.init` is called
+function myFacebookLogin() {
+    console.log("function called");
+  FB.login(function(){FB.api('/me', {fields: 'last_name'}, function(response) {console.log(response);})}, {scope: 'public_profile'});};
+</script>
+<button onclick="myFacebookLogin();">Login with Facebook</button></center>
     <br>
   <ul id ="button-share">
       
@@ -174,7 +212,7 @@
 </div>
       </div>
     </div>
-    <div class="footbar" style="border: 1px solid #eee; position: relative; top:90%;bottom: 0px; height:50px; text-align:left; padding-left:50px; vertical-align:center; "></div>
+    
     <script id="dsq-count-scr" src="//himanshumisra.disqus.com/count.js" async></script>
       <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

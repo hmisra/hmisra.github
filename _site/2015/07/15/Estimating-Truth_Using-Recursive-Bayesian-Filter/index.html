@@ -32,6 +32,23 @@
 
 
   <body class="theme-base-15">
+      <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1577054755955354',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 
     <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
      styles, `#sidebar-checkbox` for behavior. -->
@@ -44,7 +61,7 @@
   </div>
 
   <nav class="sidebar-nav">
-    <a class="sidebar-nav-item" href="/">Home</a>
+    <a class="sidebar-nav-item" href="/">Blog</a>
 
     
 
@@ -56,7 +73,7 @@
     
       
         
-          <a class="sidebar-nav-item" href="/about/">About</a>
+            
         
       
     
@@ -65,8 +82,22 @@
       
     
       
+        
+            
+        
+      
     
-
+      
+        
+            
+          <a class="sidebar-nav-item" href="/knowledge/">Knowledge</a>
+      
+        
+      
+    
+      
+    
+<a class="sidebar-nav-item" href="/about">About</a>
 <!--    <a class="sidebar-nav-item" href="https://github.com/hmisra/archive/v.zip">Download</a>-->
 <!--    <a class="sidebar-nav-item" href="https://github.com/hmisra">GitHub project</a>-->
 <!--    <span class="sidebar-nav-item">Currently v</span>-->
@@ -218,7 +249,15 @@ Now let’s describe a toy problem and try to solve it using Recursive Bayesian 
 </div>
     </div>
 <div class="share-buttons">
-    <center>Share</center>
+    <center>Share     
+        
+<script>
+// Only works after `FB.init` is called
+function myFacebookLogin() {
+    console.log("function called");
+  FB.login(function(){FB.api('/me', {fields: 'last_name'}, function(response) {console.log(response);})}, {scope: 'public_profile'});};
+</script>
+<button onclick="myFacebookLogin();">Login with Facebook</button></center>
     <br>
   <ul id ="button-share">
       
@@ -262,7 +301,7 @@ Now let’s describe a toy problem and try to solve it using Recursive Bayesian 
       <li>
         <h3>
           <a href="/2016/03/22/Measures-Of-Similarity-And-Distances/">
-            Similarities and Distances
+            Nature and Humans
             <small>22 Mar 2016</small>
           </a>
         </h3>
@@ -273,7 +312,7 @@ Now let’s describe a toy problem and try to solve it using Recursive Bayesian 
 </div>
       </div>
     </div>
-    <div class="footbar" style="border: 1px solid #eee; position: relative; top:90%;bottom: 0px; height:50px; text-align:left; padding-left:50px; vertical-align:center; "></div>
+    
     <script id="dsq-count-scr" src="//himanshumisra.disqus.com/count.js" async></script>
       <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

@@ -5,6 +5,7 @@ layout: default
 <div class="posts">
   
   {% for post in paginator.posts %}
+    {% if post.type == 'blog' %}
     <a href="{{ post.url }}">
   <div class="post post-grid post-book" style="background-image: url({{post.background}});   text-align:center; background-size: contain; ">
       <div class="transparent-box">
@@ -18,6 +19,7 @@ layout: default
           </div></div>
   </div>
     </a>
+     {% endif %}
   {% endfor %}
 
 

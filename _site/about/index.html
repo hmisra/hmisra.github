@@ -32,6 +32,23 @@
 
 
   <body class="theme-base-15">
+      <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1577054755955354',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 
     <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
      styles, `#sidebar-checkbox` for behavior. -->
@@ -44,7 +61,7 @@
   </div>
 
   <nav class="sidebar-nav">
-    <a class="sidebar-nav-item" href="/">Home</a>
+    <a class="sidebar-nav-item" href="/">Blog</a>
 
     
 
@@ -56,7 +73,7 @@
     
       
         
-          <a class="sidebar-nav-item active" href="/about/">About</a>
+            
         
       
     
@@ -65,8 +82,22 @@
       
     
       
+        
+            
+        
+      
     
-
+      
+        
+            
+          <a class="sidebar-nav-item" href="/knowledge/">Knowledge</a>
+      
+        
+      
+    
+      
+    
+<a class="sidebar-nav-item active" href="/about">About</a>
 <!--    <a class="sidebar-nav-item" href="https://github.com/hmisra/archive/v.zip">Download</a>-->
 <!--    <a class="sidebar-nav-item" href="https://github.com/hmisra">GitHub project</a>-->
 <!--    <span class="sidebar-nav-item">Currently v</span>-->
@@ -102,7 +133,7 @@
 
       <div class="container-content" style="margin-bottom:1%;">
         <div class="container-content-text">
-<div class="page">
+<div class="page" id="pages-link-removal">
   <h2 class="page-title">About</h2>
   <p class="message">
   Hey there! This page is included as an example. Feel free to customize it for your own use upon downloading. Carry on!
@@ -138,7 +169,7 @@
 </div>
       </div>
     </div>
-    <div class="footbar" style="border: 1px solid #eee; position: relative; top:90%;bottom: 0px; height:50px; text-align:left; padding-left:50px; vertical-align:center; "></div>
+    
     <script id="dsq-count-scr" src="//himanshumisra.disqus.com/count.js" async></script>
       <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

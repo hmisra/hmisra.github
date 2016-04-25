@@ -1,5 +1,6 @@
 ---
 layout: post
+type: blog
 title: Nature and Humans
 excerpt: A survey on Similarity Metrics
 comments: true
