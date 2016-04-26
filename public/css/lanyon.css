@@ -770,6 +770,10 @@ a.pagination-item:hover {
     list-style-type: none;
 }
 
+#concept-table{
+    border: 0px;
+    
+}
 
 .twitter {
   background-color: #77bcf1;
