@@ -3,13 +3,13 @@ layout: default
 ---
 <div class="container-content-text" >
 <div class="posts">
-  
+  <div style="min-height: 80vh;">
   {% for post in paginator.posts %}
     {% if post.type == 'blog' %}
     <a href="{{ post.url }}">
-  <div class="post post-grid post-book" style="background-image: url({{post.background}});   text-align:center; background-size: contain; ">
-      <div class="transparent-box">
-          <div class="transparent-box-text">
+  <div class="post post-grid shape-panel" >
+      <div >
+          <div >
     <h3 class="post-title" style="opacity:1.0; font-weight: bold;">
       
         {{ post.title }}
@@ -22,7 +22,7 @@ layout: default
      {% endif %}
   {% endfor %}
 
-
+</div>
 <div class="pagination">
   {% if paginator.next_page %}
     <a class="pagination-item older" href="/page{{paginator.next_page}}">Older</a>

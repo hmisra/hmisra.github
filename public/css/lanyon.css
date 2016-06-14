@@ -24,6 +24,7 @@
 html,
 body {
   overflow-x: hidden;
+    
 }
 
 html {
@@ -412,8 +413,7 @@ a.sidebar-nav-item:focus {
     padding-bottom: 0em;
     margin-top: 1em;
   margin-bottom: 1em;
-    border: 1px solid #eee;
-     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
+    
 }
 
 .post-grid {
@@ -492,7 +492,39 @@ a.sidebar-nav-item:focus {
     height: 300px;
     
 }
+.shape-panel
+{
+    border-top:1px solid #ccc;
+    border-right:3px solid #ccc;
+    border-bottom:3px solid #ccc;
+    border-left:1px solid #ccc;
+    min-height:9.375rem;
+    padding:1em 2.1875em 1em .75em;
+    position:relative
+}
+.shape-panel:after,.shape panel:before
+{
+    bottom:-3px;content:'';
+    height:0;position:absolute;
+    right:-3px;width:0
+}
 
+.shape-panel:before
+{border-bottom:35px solid #ccc;
+    border-left:35px solid transparent
+}
+.shape-panel:after{
+    border-bottom:30px solid #fff;
+    border-left:30px solid #102366
+}
+.shape-panel:hover{
+    border-color:#102366
+}
+.shape-panel:hover:before{
+    border-bottom-color:#102366
+}
+.shape-panel{-webkit-align-items:flex-end;-ms-flex-align:end;align-items:flex-end}
+.shape-panel a{display:-webkit-flex;display:-ms-flexbox;display:flex}
 .transparent-box{
     position: relative;
     top: 29%;
