@@ -4,7 +4,5 @@ type: about
 title: About
 ---
 
-<p class="message">
-  Work in Progress
-</p>
+<img src="/resume.jpg" width="100%" height="100%">
 

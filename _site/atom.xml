@@ -4,7 +4,7 @@
  <title>entangledDimensions</title>
  <link href="http://hmisra.github.io/atom.xml" rel="self"/>
  <link href="http://hmisra.github.io/"/>
- <updated>2016-06-14T13:31:12-07:00</updated>
+ <updated>2016-07-06T03:12:28-07:00</updated>
  <id>http://hmisra.github.io</id>
  <author>
    <name>Himanshu Misra</name>
@@ -23,6 +23,1260 @@
 &lt;p&gt;We humans have significantly transformed earth over past 300 years. Images taken from space, one like shown below, are perfect example of this fact. The rate at which we have extended our capabilities and transformed our planet has grown exponentially. 
 Since the time we started evolving from Monkeys we were driven by our insatiable curiosity to understand the nature around us. And this curiosity to understand and explore has been very fruitful for us. Understanding nature has helped us create tools which can manipulate forces of nature to serve us. For example, we invented fire to extract locked energy in wood to keep us warm and cook food. We created wheels to efficiently transport weight from one place to another and the list goes on. (Correlation between us and tools). But if you notice the machines we were using before 17th century were capable of improving our efficiency may be 2 or 3 folds. For example if before invention of wheel if someone took a day to take a parcel from one part of the city to another, after invention of wheel and bicycle that time got reduced to hours.&lt;/p&gt;
 
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Recursive Bayesian Filter</title>
+   <link href="http://hmisra.github.io/2015/07/26/Estimating-Truth_Using-Recursive-Bayesian-Filter/"/>
+   <updated>2015-07-26T00:00:00-07:00</updated>
+   <id>http://hmisra.github.io/2015/07/26/Estimating-Truth_Using-Recursive-Bayesian-Filter</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;Whenever we make any critical decision in our life we tend to take suggestions and recommendations from different people. We try to analyze information from various sources and based on our analysis, we decide what to do.&lt;/p&gt;
+
+&lt;p&gt;To understand this process more intuitively let’s take an example. Last week a friend recommended me to watch a movie called “Attack of the Killer Tomatoes!”. Now looking at the title of the movie I felt bit suspicious and started pondering if it is actually as good as my friend was praising it. The obvious next step was to gather more information about the movie. I checked the movie trailer on YouTube according to which it seemed like a pretty funny movie. Despite the claims made by the trailer like “perhaps the funniest film ever made” I decided to check reviews and ratings for the movie on IMDB and RotttenTomatoes, where it was rated below 5. As I trust IMDB movie ratings more than anything when it comes to watching movies, I decided to pass “Attack of the killer Tomatoes !” and watch it some other time. In real life, we mostly follow this kind of reasoning where we combine various evidence and come to a conclusion.&lt;/p&gt;
+
+&lt;p&gt;Now mathematically we can formulate this process as follows, we can consider that “Attack of the Killer Tomatoes!” is a binomial random variable which can either take values “Good” or “Bad”. Initially, I had a recommendation for the movie so the probability distribution was more toward the value Good i.e &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was 0.7. As we start getting data from different sources, we can start inferring from it if the movie is good or bad, and start changing our initial belief. Sadly, for me at the end the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was below 0.5 so I decided to not watch the movie.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;bayes-theorem&quot;&gt;Bayes Theorem&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;A very elegant mathematical framework called “Bayes Theorem” given by an English philosopher and statistician, Thomas Bayes, allows us to do precisely this kind of reasoning. According to the Bayes rule&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;P(A|B) = P(A)×P(A,B) = (P(A) × P(B|A)) / P(B)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;where P(A)(Prior Distribution) represent our prior knowledge of the world , &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A)P(B)&lt;/code&gt; represent the Probability Distribution of data given our prior knowledge and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; represent the posterior or updated probability distribution. In simple words, you take what you know about the world (i.e your prior distribution), then take the new data and try to evaluate if this new data conforms with your prior knowledge. Multiply the 2 distribution and you get an update belief about the world, which in next iteration you can use as your new prior distribution/belief.&lt;/p&gt;
+
+&lt;p&gt;To help you visualize more clearly first let’s take a simple example which can help you visualize this process and then we will take a toy problem and try to solve it using Bayesian estimation.&lt;/p&gt;
+
+&lt;p&gt;The complete code for computation and plotting can be found &lt;a href=&quot;https://gist.github.com/hmisra/f4edf5b58aedb6075fcd&quot; title=&quot;Source Code&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Assume that you have a random variable A which can take values from 1 to 6. Now you want to know which value of A is the most probable value. You think that it is somewhere close to 3.5 and your belief can be described by a normal distribution around 3.5 with a variance of 0.5. This distribution can be plotted as follows&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive1.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;Now you start getting data B from some source. To calculate &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; we need the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt;, a joint distribution of our prior knowledge and the data. In real life getting this distribution is hard and we normally employ various assumptions and approximation techniques to get this distribution. Later in this article while solving a toy problem we would use a simple assumption to estimate this distribution. For now let’s assume you already have this distribution and can be represented by the 3-D plot drawn below. Now by multiplying our prior distribution and this joint distribution so that we can get an updated distribution. But as you can see our prior is a uni-variate distribution and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is bi-variate, so we can not directly multiply these 2 distribution. We would take a slice out the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; which is shown in graph below as conditional probability &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt;. Now if you are familiar with basic rules of probability theory you must already know that The sum of probability of all the events is equal to 1, i.e. &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A)=1&lt;/code&gt; and also &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A,B)=1&lt;/code&gt; or in simple words area under the surface/curve of a probability distribution must be 1. As we know that the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is a probability distribution and the area under the surface of distribution is 1, so if we take a slice out of this distribution, this conditional distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt; is no more a valid probability distribution. Therefore, if we multiply this distribution with our prior we would get an invalid probability distribution. Hence we need to normalize it by dividing by &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B)&lt;/code&gt; so that we get a valid posterior probability distribution.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive2.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So let’s summarize what we have covered so far, we had our prior knowledge about the world, we took some data, computed the conditional distribution of data and normalized it with the distribution of data. By plugging these values in Bayes theorem, we would get a posterior distribution. Now in later iterations when we will get a new piece of data we would consider this posterior as our prior and again compute our posterior.&lt;/p&gt;
+
+&lt;p&gt;This recursive process is commonly known as Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;Toy Problem: Helping Iron Man to locate Whiplash using Recursive Bayesian Filter
+Now let’s describe a toy problem and try to solve it using Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;I am an ardent fan of Iron Man movies so I couldn’t resist to take example in which we would help Iron Man to kill the bad guy: Whiplash. Imagine that there is a wall of height and width of 40 * 40 ft. and Whiplash is hiding behind the wall. Also, during his duel with Whiplash, Iron man got his Infra-Red sensor damaged and is left with a single bullet using which he wants to kill whiplash. Now, as the IR sensor got damaged Iron Man is getting the erroneous heat signatures on the wall. Hence, Iron Man decides to take 100 readings and sends it to Jarvis. Now as Jarvis it is our job to figure out where precisely Whiplash is hiding.&lt;/p&gt;
+
+&lt;p&gt;So let’s see how we can help him kill “Whiplash” using Recursive Bayesian Estimation we discussed earlier.&lt;/p&gt;
+
+&lt;p&gt;We are performing following steps to get the graph displayed below:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will create a matrix of size 41*41, representing the wall behind which whiplash is hiding.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will mention the true location of whiplash which Iron Man does not know, in the plot this location is represented with Red dot.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will assume that the reading from Infrared sensor is faulty and we will sample 100 readings from a normal distribution with the mean at true location and variance of 10.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive3.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So as we can see the true location of Whiplash is at the red dot in the map, but after taking 100 readings from infrared sensor Iron man can only see the blue dots. Our job now is to estimate the position of the red dot by looking at these 100 dots.&lt;/p&gt;
+
+&lt;p&gt;Next to start using Recursive Bayesian we need a prior distribution which would represent our initial knowledge about the world. Now for this we can either assume that Iron man does not know anything about the location of Whiplash and would use a uniform distribution (i.e. he would assume that Whiplash can be anywhere with equal probability.) or if he saw Whiplash going from left side of the wall then we can create a distribution incorporating this knowledge. To keep things simple for now, I would assume that he does not know anything about the location of Whiplash.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive4.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;As you can see the distribution is uniform and the probability of Whiplash being at any point on this wall is equal.&lt;/p&gt;
+
+&lt;p&gt;Now let’s take this prior distribution and start our recursive Bayesian estimation. We would perform following steps to get a posterior distribution:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;We will take each point and create a normal distribution around this point (earlier in this article I have mentioned that estimation of joint distribution or conditional distribution is difficult in real life and we employ various assumptions and approximations. To get this distribution, here we are assuming that the conditional distribution is just a normal distribution with mean at the location of the point and a variance of 20 on each coordinate)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will multiply this distribution around the data point with our prior distribution to get posterior distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;the posterior distribution which we got is not a probability distribution anymore so we will normalize this distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;make this posterior distribution prior and repeat for all the data points. The output of this part is in the form of video in which you can clearly see the results of each iteration in the form of surface plot and heat map.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;At the end of iterating through 100 data points, you can clearly see that we have estimated that the location of whiplash is near 20,20 as the probability near 20,20 is maximum.&lt;/p&gt;
+
+&lt;center&gt;&lt;iframe width=&quot;420&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/vUFoFwtBqXU&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+&lt;h2 id=&quot;real-world-applications&quot;&gt;Real world applications&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;In application that uses geospatial data for example UBER, where there is a need to locate the precise location of an object through GPS (in case of Uber, a car), we can use this method to estimate the precise location of the car.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Improved methods (like Kalman Filters, Particle Based Estimation methods etc.) based on Recursive Bayesian Filters are used in Radars to track missiles. Check out this &lt;a href=&quot;http://down.cenet.org.cn/upfile/28/20051117121144185.pdf&quot;&gt;Paper&lt;/a&gt; for more details.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Recursive Bayesian Filter</title>
+   <link href="http://hmisra.github.io/2015/07/25/Estimating-Truth_Using-Recursive-Bayesian-Filter/"/>
+   <updated>2015-07-25T00:00:00-07:00</updated>
+   <id>http://hmisra.github.io/2015/07/25/Estimating-Truth_Using-Recursive-Bayesian-Filter</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;Whenever we make any critical decision in our life we tend to take suggestions and recommendations from different people. We try to analyze information from various sources and based on our analysis, we decide what to do.&lt;/p&gt;
+
+&lt;p&gt;To understand this process more intuitively let’s take an example. Last week a friend recommended me to watch a movie called “Attack of the Killer Tomatoes!”. Now looking at the title of the movie I felt bit suspicious and started pondering if it is actually as good as my friend was praising it. The obvious next step was to gather more information about the movie. I checked the movie trailer on YouTube according to which it seemed like a pretty funny movie. Despite the claims made by the trailer like “perhaps the funniest film ever made” I decided to check reviews and ratings for the movie on IMDB and RotttenTomatoes, where it was rated below 5. As I trust IMDB movie ratings more than anything when it comes to watching movies, I decided to pass “Attack of the killer Tomatoes !” and watch it some other time. In real life, we mostly follow this kind of reasoning where we combine various evidence and come to a conclusion.&lt;/p&gt;
+
+&lt;p&gt;Now mathematically we can formulate this process as follows, we can consider that “Attack of the Killer Tomatoes!” is a binomial random variable which can either take values “Good” or “Bad”. Initially, I had a recommendation for the movie so the probability distribution was more toward the value Good i.e &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was 0.7. As we start getting data from different sources, we can start inferring from it if the movie is good or bad, and start changing our initial belief. Sadly, for me at the end the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was below 0.5 so I decided to not watch the movie.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;bayes-theorem&quot;&gt;Bayes Theorem&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;A very elegant mathematical framework called “Bayes Theorem” given by an English philosopher and statistician, Thomas Bayes, allows us to do precisely this kind of reasoning. According to the Bayes rule&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;P(A|B) = P(A)×P(A,B) = (P(A) × P(B|A)) / P(B)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;where P(A)(Prior Distribution) represent our prior knowledge of the world , &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A)P(B)&lt;/code&gt; represent the Probability Distribution of data given our prior knowledge and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; represent the posterior or updated probability distribution. In simple words, you take what you know about the world (i.e your prior distribution), then take the new data and try to evaluate if this new data conforms with your prior knowledge. Multiply the 2 distribution and you get an update belief about the world, which in next iteration you can use as your new prior distribution/belief.&lt;/p&gt;
+
+&lt;p&gt;To help you visualize more clearly first let’s take a simple example which can help you visualize this process and then we will take a toy problem and try to solve it using Bayesian estimation.&lt;/p&gt;
+
+&lt;p&gt;The complete code for computation and plotting can be found &lt;a href=&quot;https://gist.github.com/hmisra/f4edf5b58aedb6075fcd&quot; title=&quot;Source Code&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Assume that you have a random variable A which can take values from 1 to 6. Now you want to know which value of A is the most probable value. You think that it is somewhere close to 3.5 and your belief can be described by a normal distribution around 3.5 with a variance of 0.5. This distribution can be plotted as follows&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive1.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;Now you start getting data B from some source. To calculate &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; we need the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt;, a joint distribution of our prior knowledge and the data. In real life getting this distribution is hard and we normally employ various assumptions and approximation techniques to get this distribution. Later in this article while solving a toy problem we would use a simple assumption to estimate this distribution. For now let’s assume you already have this distribution and can be represented by the 3-D plot drawn below. Now by multiplying our prior distribution and this joint distribution so that we can get an updated distribution. But as you can see our prior is a uni-variate distribution and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is bi-variate, so we can not directly multiply these 2 distribution. We would take a slice out the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; which is shown in graph below as conditional probability &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt;. Now if you are familiar with basic rules of probability theory you must already know that The sum of probability of all the events is equal to 1, i.e. &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A)=1&lt;/code&gt; and also &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A,B)=1&lt;/code&gt; or in simple words area under the surface/curve of a probability distribution must be 1. As we know that the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is a probability distribution and the area under the surface of distribution is 1, so if we take a slice out of this distribution, this conditional distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt; is no more a valid probability distribution. Therefore, if we multiply this distribution with our prior we would get an invalid probability distribution. Hence we need to normalize it by dividing by &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B)&lt;/code&gt; so that we get a valid posterior probability distribution.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive2.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So let’s summarize what we have covered so far, we had our prior knowledge about the world, we took some data, computed the conditional distribution of data and normalized it with the distribution of data. By plugging these values in Bayes theorem, we would get a posterior distribution. Now in later iterations when we will get a new piece of data we would consider this posterior as our prior and again compute our posterior.&lt;/p&gt;
+
+&lt;p&gt;This recursive process is commonly known as Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;Toy Problem: Helping Iron Man to locate Whiplash using Recursive Bayesian Filter
+Now let’s describe a toy problem and try to solve it using Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;I am an ardent fan of Iron Man movies so I couldn’t resist to take example in which we would help Iron Man to kill the bad guy: Whiplash. Imagine that there is a wall of height and width of 40 * 40 ft. and Whiplash is hiding behind the wall. Also, during his duel with Whiplash, Iron man got his Infra-Red sensor damaged and is left with a single bullet using which he wants to kill whiplash. Now, as the IR sensor got damaged Iron Man is getting the erroneous heat signatures on the wall. Hence, Iron Man decides to take 100 readings and sends it to Jarvis. Now as Jarvis it is our job to figure out where precisely Whiplash is hiding.&lt;/p&gt;
+
+&lt;p&gt;So let’s see how we can help him kill “Whiplash” using Recursive Bayesian Estimation we discussed earlier.&lt;/p&gt;
+
+&lt;p&gt;We are performing following steps to get the graph displayed below:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will create a matrix of size 41*41, representing the wall behind which whiplash is hiding.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will mention the true location of whiplash which Iron Man does not know, in the plot this location is represented with Red dot.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will assume that the reading from Infrared sensor is faulty and we will sample 100 readings from a normal distribution with the mean at true location and variance of 10.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive3.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So as we can see the true location of Whiplash is at the red dot in the map, but after taking 100 readings from infrared sensor Iron man can only see the blue dots. Our job now is to estimate the position of the red dot by looking at these 100 dots.&lt;/p&gt;
+
+&lt;p&gt;Next to start using Recursive Bayesian we need a prior distribution which would represent our initial knowledge about the world. Now for this we can either assume that Iron man does not know anything about the location of Whiplash and would use a uniform distribution (i.e. he would assume that Whiplash can be anywhere with equal probability.) or if he saw Whiplash going from left side of the wall then we can create a distribution incorporating this knowledge. To keep things simple for now, I would assume that he does not know anything about the location of Whiplash.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive4.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;As you can see the distribution is uniform and the probability of Whiplash being at any point on this wall is equal.&lt;/p&gt;
+
+&lt;p&gt;Now let’s take this prior distribution and start our recursive Bayesian estimation. We would perform following steps to get a posterior distribution:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;We will take each point and create a normal distribution around this point (earlier in this article I have mentioned that estimation of joint distribution or conditional distribution is difficult in real life and we employ various assumptions and approximations. To get this distribution, here we are assuming that the conditional distribution is just a normal distribution with mean at the location of the point and a variance of 20 on each coordinate)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will multiply this distribution around the data point with our prior distribution to get posterior distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;the posterior distribution which we got is not a probability distribution anymore so we will normalize this distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;make this posterior distribution prior and repeat for all the data points. The output of this part is in the form of video in which you can clearly see the results of each iteration in the form of surface plot and heat map.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;At the end of iterating through 100 data points, you can clearly see that we have estimated that the location of whiplash is near 20,20 as the probability near 20,20 is maximum.&lt;/p&gt;
+
+&lt;center&gt;&lt;iframe width=&quot;420&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/vUFoFwtBqXU&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+&lt;h2 id=&quot;real-world-applications&quot;&gt;Real world applications&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;In application that uses geospatial data for example UBER, where there is a need to locate the precise location of an object through GPS (in case of Uber, a car), we can use this method to estimate the precise location of the car.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Improved methods (like Kalman Filters, Particle Based Estimation methods etc.) based on Recursive Bayesian Filters are used in Radars to track missiles. Check out this &lt;a href=&quot;http://down.cenet.org.cn/upfile/28/20051117121144185.pdf&quot;&gt;Paper&lt;/a&gt; for more details.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Recursive Bayesian Filter</title>
+   <link href="http://hmisra.github.io/2015/07/24/Estimating-Truth_Using-Recursive-Bayesian-Filter/"/>
+   <updated>2015-07-24T00:00:00-07:00</updated>
+   <id>http://hmisra.github.io/2015/07/24/Estimating-Truth_Using-Recursive-Bayesian-Filter</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;Whenever we make any critical decision in our life we tend to take suggestions and recommendations from different people. We try to analyze information from various sources and based on our analysis, we decide what to do.&lt;/p&gt;
+
+&lt;p&gt;To understand this process more intuitively let’s take an example. Last week a friend recommended me to watch a movie called “Attack of the Killer Tomatoes!”. Now looking at the title of the movie I felt bit suspicious and started pondering if it is actually as good as my friend was praising it. The obvious next step was to gather more information about the movie. I checked the movie trailer on YouTube according to which it seemed like a pretty funny movie. Despite the claims made by the trailer like “perhaps the funniest film ever made” I decided to check reviews and ratings for the movie on IMDB and RotttenTomatoes, where it was rated below 5. As I trust IMDB movie ratings more than anything when it comes to watching movies, I decided to pass “Attack of the killer Tomatoes !” and watch it some other time. In real life, we mostly follow this kind of reasoning where we combine various evidence and come to a conclusion.&lt;/p&gt;
+
+&lt;p&gt;Now mathematically we can formulate this process as follows, we can consider that “Attack of the Killer Tomatoes!” is a binomial random variable which can either take values “Good” or “Bad”. Initially, I had a recommendation for the movie so the probability distribution was more toward the value Good i.e &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was 0.7. As we start getting data from different sources, we can start inferring from it if the movie is good or bad, and start changing our initial belief. Sadly, for me at the end the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was below 0.5 so I decided to not watch the movie.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;bayes-theorem&quot;&gt;Bayes Theorem&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;A very elegant mathematical framework called “Bayes Theorem” given by an English philosopher and statistician, Thomas Bayes, allows us to do precisely this kind of reasoning. According to the Bayes rule&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;P(A|B) = P(A)×P(A,B) = (P(A) × P(B|A)) / P(B)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;where P(A)(Prior Distribution) represent our prior knowledge of the world , &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A)P(B)&lt;/code&gt; represent the Probability Distribution of data given our prior knowledge and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; represent the posterior or updated probability distribution. In simple words, you take what you know about the world (i.e your prior distribution), then take the new data and try to evaluate if this new data conforms with your prior knowledge. Multiply the 2 distribution and you get an update belief about the world, which in next iteration you can use as your new prior distribution/belief.&lt;/p&gt;
+
+&lt;p&gt;To help you visualize more clearly first let’s take a simple example which can help you visualize this process and then we will take a toy problem and try to solve it using Bayesian estimation.&lt;/p&gt;
+
+&lt;p&gt;The complete code for computation and plotting can be found &lt;a href=&quot;https://gist.github.com/hmisra/f4edf5b58aedb6075fcd&quot; title=&quot;Source Code&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Assume that you have a random variable A which can take values from 1 to 6. Now you want to know which value of A is the most probable value. You think that it is somewhere close to 3.5 and your belief can be described by a normal distribution around 3.5 with a variance of 0.5. This distribution can be plotted as follows&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive1.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;Now you start getting data B from some source. To calculate &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; we need the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt;, a joint distribution of our prior knowledge and the data. In real life getting this distribution is hard and we normally employ various assumptions and approximation techniques to get this distribution. Later in this article while solving a toy problem we would use a simple assumption to estimate this distribution. For now let’s assume you already have this distribution and can be represented by the 3-D plot drawn below. Now by multiplying our prior distribution and this joint distribution so that we can get an updated distribution. But as you can see our prior is a uni-variate distribution and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is bi-variate, so we can not directly multiply these 2 distribution. We would take a slice out the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; which is shown in graph below as conditional probability &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt;. Now if you are familiar with basic rules of probability theory you must already know that The sum of probability of all the events is equal to 1, i.e. &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A)=1&lt;/code&gt; and also &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A,B)=1&lt;/code&gt; or in simple words area under the surface/curve of a probability distribution must be 1. As we know that the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is a probability distribution and the area under the surface of distribution is 1, so if we take a slice out of this distribution, this conditional distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt; is no more a valid probability distribution. Therefore, if we multiply this distribution with our prior we would get an invalid probability distribution. Hence we need to normalize it by dividing by &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B)&lt;/code&gt; so that we get a valid posterior probability distribution.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive2.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So let’s summarize what we have covered so far, we had our prior knowledge about the world, we took some data, computed the conditional distribution of data and normalized it with the distribution of data. By plugging these values in Bayes theorem, we would get a posterior distribution. Now in later iterations when we will get a new piece of data we would consider this posterior as our prior and again compute our posterior.&lt;/p&gt;
+
+&lt;p&gt;This recursive process is commonly known as Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;Toy Problem: Helping Iron Man to locate Whiplash using Recursive Bayesian Filter
+Now let’s describe a toy problem and try to solve it using Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;I am an ardent fan of Iron Man movies so I couldn’t resist to take example in which we would help Iron Man to kill the bad guy: Whiplash. Imagine that there is a wall of height and width of 40 * 40 ft. and Whiplash is hiding behind the wall. Also, during his duel with Whiplash, Iron man got his Infra-Red sensor damaged and is left with a single bullet using which he wants to kill whiplash. Now, as the IR sensor got damaged Iron Man is getting the erroneous heat signatures on the wall. Hence, Iron Man decides to take 100 readings and sends it to Jarvis. Now as Jarvis it is our job to figure out where precisely Whiplash is hiding.&lt;/p&gt;
+
+&lt;p&gt;So let’s see how we can help him kill “Whiplash” using Recursive Bayesian Estimation we discussed earlier.&lt;/p&gt;
+
+&lt;p&gt;We are performing following steps to get the graph displayed below:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will create a matrix of size 41*41, representing the wall behind which whiplash is hiding.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will mention the true location of whiplash which Iron Man does not know, in the plot this location is represented with Red dot.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will assume that the reading from Infrared sensor is faulty and we will sample 100 readings from a normal distribution with the mean at true location and variance of 10.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive3.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So as we can see the true location of Whiplash is at the red dot in the map, but after taking 100 readings from infrared sensor Iron man can only see the blue dots. Our job now is to estimate the position of the red dot by looking at these 100 dots.&lt;/p&gt;
+
+&lt;p&gt;Next to start using Recursive Bayesian we need a prior distribution which would represent our initial knowledge about the world. Now for this we can either assume that Iron man does not know anything about the location of Whiplash and would use a uniform distribution (i.e. he would assume that Whiplash can be anywhere with equal probability.) or if he saw Whiplash going from left side of the wall then we can create a distribution incorporating this knowledge. To keep things simple for now, I would assume that he does not know anything about the location of Whiplash.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive4.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;As you can see the distribution is uniform and the probability of Whiplash being at any point on this wall is equal.&lt;/p&gt;
+
+&lt;p&gt;Now let’s take this prior distribution and start our recursive Bayesian estimation. We would perform following steps to get a posterior distribution:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;We will take each point and create a normal distribution around this point (earlier in this article I have mentioned that estimation of joint distribution or conditional distribution is difficult in real life and we employ various assumptions and approximations. To get this distribution, here we are assuming that the conditional distribution is just a normal distribution with mean at the location of the point and a variance of 20 on each coordinate)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will multiply this distribution around the data point with our prior distribution to get posterior distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;the posterior distribution which we got is not a probability distribution anymore so we will normalize this distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;make this posterior distribution prior and repeat for all the data points. The output of this part is in the form of video in which you can clearly see the results of each iteration in the form of surface plot and heat map.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;At the end of iterating through 100 data points, you can clearly see that we have estimated that the location of whiplash is near 20,20 as the probability near 20,20 is maximum.&lt;/p&gt;
+
+&lt;center&gt;&lt;iframe width=&quot;420&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/vUFoFwtBqXU&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+&lt;h2 id=&quot;real-world-applications&quot;&gt;Real world applications&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;In application that uses geospatial data for example UBER, where there is a need to locate the precise location of an object through GPS (in case of Uber, a car), we can use this method to estimate the precise location of the car.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Improved methods (like Kalman Filters, Particle Based Estimation methods etc.) based on Recursive Bayesian Filters are used in Radars to track missiles. Check out this &lt;a href=&quot;http://down.cenet.org.cn/upfile/28/20051117121144185.pdf&quot;&gt;Paper&lt;/a&gt; for more details.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Recursive Bayesian Filter</title>
+   <link href="http://hmisra.github.io/2015/07/23/Estimating-Truth_Using-Recursive-Bayesian-Filter/"/>
+   <updated>2015-07-23T00:00:00-07:00</updated>
+   <id>http://hmisra.github.io/2015/07/23/Estimating-Truth_Using-Recursive-Bayesian-Filter</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;Whenever we make any critical decision in our life we tend to take suggestions and recommendations from different people. We try to analyze information from various sources and based on our analysis, we decide what to do.&lt;/p&gt;
+
+&lt;p&gt;To understand this process more intuitively let’s take an example. Last week a friend recommended me to watch a movie called “Attack of the Killer Tomatoes!”. Now looking at the title of the movie I felt bit suspicious and started pondering if it is actually as good as my friend was praising it. The obvious next step was to gather more information about the movie. I checked the movie trailer on YouTube according to which it seemed like a pretty funny movie. Despite the claims made by the trailer like “perhaps the funniest film ever made” I decided to check reviews and ratings for the movie on IMDB and RotttenTomatoes, where it was rated below 5. As I trust IMDB movie ratings more than anything when it comes to watching movies, I decided to pass “Attack of the killer Tomatoes !” and watch it some other time. In real life, we mostly follow this kind of reasoning where we combine various evidence and come to a conclusion.&lt;/p&gt;
+
+&lt;p&gt;Now mathematically we can formulate this process as follows, we can consider that “Attack of the Killer Tomatoes!” is a binomial random variable which can either take values “Good” or “Bad”. Initially, I had a recommendation for the movie so the probability distribution was more toward the value Good i.e &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was 0.7. As we start getting data from different sources, we can start inferring from it if the movie is good or bad, and start changing our initial belief. Sadly, for me at the end the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was below 0.5 so I decided to not watch the movie.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;bayes-theorem&quot;&gt;Bayes Theorem&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;A very elegant mathematical framework called “Bayes Theorem” given by an English philosopher and statistician, Thomas Bayes, allows us to do precisely this kind of reasoning. According to the Bayes rule&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;P(A|B) = P(A)×P(A,B) = (P(A) × P(B|A)) / P(B)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;where P(A)(Prior Distribution) represent our prior knowledge of the world , &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A)P(B)&lt;/code&gt; represent the Probability Distribution of data given our prior knowledge and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; represent the posterior or updated probability distribution. In simple words, you take what you know about the world (i.e your prior distribution), then take the new data and try to evaluate if this new data conforms with your prior knowledge. Multiply the 2 distribution and you get an update belief about the world, which in next iteration you can use as your new prior distribution/belief.&lt;/p&gt;
+
+&lt;p&gt;To help you visualize more clearly first let’s take a simple example which can help you visualize this process and then we will take a toy problem and try to solve it using Bayesian estimation.&lt;/p&gt;
+
+&lt;p&gt;The complete code for computation and plotting can be found &lt;a href=&quot;https://gist.github.com/hmisra/f4edf5b58aedb6075fcd&quot; title=&quot;Source Code&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Assume that you have a random variable A which can take values from 1 to 6. Now you want to know which value of A is the most probable value. You think that it is somewhere close to 3.5 and your belief can be described by a normal distribution around 3.5 with a variance of 0.5. This distribution can be plotted as follows&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive1.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;Now you start getting data B from some source. To calculate &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; we need the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt;, a joint distribution of our prior knowledge and the data. In real life getting this distribution is hard and we normally employ various assumptions and approximation techniques to get this distribution. Later in this article while solving a toy problem we would use a simple assumption to estimate this distribution. For now let’s assume you already have this distribution and can be represented by the 3-D plot drawn below. Now by multiplying our prior distribution and this joint distribution so that we can get an updated distribution. But as you can see our prior is a uni-variate distribution and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is bi-variate, so we can not directly multiply these 2 distribution. We would take a slice out the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; which is shown in graph below as conditional probability &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt;. Now if you are familiar with basic rules of probability theory you must already know that The sum of probability of all the events is equal to 1, i.e. &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A)=1&lt;/code&gt; and also &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A,B)=1&lt;/code&gt; or in simple words area under the surface/curve of a probability distribution must be 1. As we know that the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is a probability distribution and the area under the surface of distribution is 1, so if we take a slice out of this distribution, this conditional distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt; is no more a valid probability distribution. Therefore, if we multiply this distribution with our prior we would get an invalid probability distribution. Hence we need to normalize it by dividing by &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B)&lt;/code&gt; so that we get a valid posterior probability distribution.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive2.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So let’s summarize what we have covered so far, we had our prior knowledge about the world, we took some data, computed the conditional distribution of data and normalized it with the distribution of data. By plugging these values in Bayes theorem, we would get a posterior distribution. Now in later iterations when we will get a new piece of data we would consider this posterior as our prior and again compute our posterior.&lt;/p&gt;
+
+&lt;p&gt;This recursive process is commonly known as Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;Toy Problem: Helping Iron Man to locate Whiplash using Recursive Bayesian Filter
+Now let’s describe a toy problem and try to solve it using Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;I am an ardent fan of Iron Man movies so I couldn’t resist to take example in which we would help Iron Man to kill the bad guy: Whiplash. Imagine that there is a wall of height and width of 40 * 40 ft. and Whiplash is hiding behind the wall. Also, during his duel with Whiplash, Iron man got his Infra-Red sensor damaged and is left with a single bullet using which he wants to kill whiplash. Now, as the IR sensor got damaged Iron Man is getting the erroneous heat signatures on the wall. Hence, Iron Man decides to take 100 readings and sends it to Jarvis. Now as Jarvis it is our job to figure out where precisely Whiplash is hiding.&lt;/p&gt;
+
+&lt;p&gt;So let’s see how we can help him kill “Whiplash” using Recursive Bayesian Estimation we discussed earlier.&lt;/p&gt;
+
+&lt;p&gt;We are performing following steps to get the graph displayed below:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will create a matrix of size 41*41, representing the wall behind which whiplash is hiding.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will mention the true location of whiplash which Iron Man does not know, in the plot this location is represented with Red dot.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will assume that the reading from Infrared sensor is faulty and we will sample 100 readings from a normal distribution with the mean at true location and variance of 10.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive3.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So as we can see the true location of Whiplash is at the red dot in the map, but after taking 100 readings from infrared sensor Iron man can only see the blue dots. Our job now is to estimate the position of the red dot by looking at these 100 dots.&lt;/p&gt;
+
+&lt;p&gt;Next to start using Recursive Bayesian we need a prior distribution which would represent our initial knowledge about the world. Now for this we can either assume that Iron man does not know anything about the location of Whiplash and would use a uniform distribution (i.e. he would assume that Whiplash can be anywhere with equal probability.) or if he saw Whiplash going from left side of the wall then we can create a distribution incorporating this knowledge. To keep things simple for now, I would assume that he does not know anything about the location of Whiplash.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive4.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;As you can see the distribution is uniform and the probability of Whiplash being at any point on this wall is equal.&lt;/p&gt;
+
+&lt;p&gt;Now let’s take this prior distribution and start our recursive Bayesian estimation. We would perform following steps to get a posterior distribution:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;We will take each point and create a normal distribution around this point (earlier in this article I have mentioned that estimation of joint distribution or conditional distribution is difficult in real life and we employ various assumptions and approximations. To get this distribution, here we are assuming that the conditional distribution is just a normal distribution with mean at the location of the point and a variance of 20 on each coordinate)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will multiply this distribution around the data point with our prior distribution to get posterior distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;the posterior distribution which we got is not a probability distribution anymore so we will normalize this distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;make this posterior distribution prior and repeat for all the data points. The output of this part is in the form of video in which you can clearly see the results of each iteration in the form of surface plot and heat map.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;At the end of iterating through 100 data points, you can clearly see that we have estimated that the location of whiplash is near 20,20 as the probability near 20,20 is maximum.&lt;/p&gt;
+
+&lt;center&gt;&lt;iframe width=&quot;420&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/vUFoFwtBqXU&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+&lt;h2 id=&quot;real-world-applications&quot;&gt;Real world applications&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;In application that uses geospatial data for example UBER, where there is a need to locate the precise location of an object through GPS (in case of Uber, a car), we can use this method to estimate the precise location of the car.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Improved methods (like Kalman Filters, Particle Based Estimation methods etc.) based on Recursive Bayesian Filters are used in Radars to track missiles. Check out this &lt;a href=&quot;http://down.cenet.org.cn/upfile/28/20051117121144185.pdf&quot;&gt;Paper&lt;/a&gt; for more details.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Recursive Bayesian Filter</title>
+   <link href="http://hmisra.github.io/2015/07/22/Estimating-Truth_Using-Recursive-Bayesian-Filter/"/>
+   <updated>2015-07-22T00:00:00-07:00</updated>
+   <id>http://hmisra.github.io/2015/07/22/Estimating-Truth_Using-Recursive-Bayesian-Filter</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;Whenever we make any critical decision in our life we tend to take suggestions and recommendations from different people. We try to analyze information from various sources and based on our analysis, we decide what to do.&lt;/p&gt;
+
+&lt;p&gt;To understand this process more intuitively let’s take an example. Last week a friend recommended me to watch a movie called “Attack of the Killer Tomatoes!”. Now looking at the title of the movie I felt bit suspicious and started pondering if it is actually as good as my friend was praising it. The obvious next step was to gather more information about the movie. I checked the movie trailer on YouTube according to which it seemed like a pretty funny movie. Despite the claims made by the trailer like “perhaps the funniest film ever made” I decided to check reviews and ratings for the movie on IMDB and RotttenTomatoes, where it was rated below 5. As I trust IMDB movie ratings more than anything when it comes to watching movies, I decided to pass “Attack of the killer Tomatoes !” and watch it some other time. In real life, we mostly follow this kind of reasoning where we combine various evidence and come to a conclusion.&lt;/p&gt;
+
+&lt;p&gt;Now mathematically we can formulate this process as follows, we can consider that “Attack of the Killer Tomatoes!” is a binomial random variable which can either take values “Good” or “Bad”. Initially, I had a recommendation for the movie so the probability distribution was more toward the value Good i.e &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was 0.7. As we start getting data from different sources, we can start inferring from it if the movie is good or bad, and start changing our initial belief. Sadly, for me at the end the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was below 0.5 so I decided to not watch the movie.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;bayes-theorem&quot;&gt;Bayes Theorem&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;A very elegant mathematical framework called “Bayes Theorem” given by an English philosopher and statistician, Thomas Bayes, allows us to do precisely this kind of reasoning. According to the Bayes rule&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;P(A|B) = P(A)×P(A,B) = (P(A) × P(B|A)) / P(B)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;where P(A)(Prior Distribution) represent our prior knowledge of the world , &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A)P(B)&lt;/code&gt; represent the Probability Distribution of data given our prior knowledge and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; represent the posterior or updated probability distribution. In simple words, you take what you know about the world (i.e your prior distribution), then take the new data and try to evaluate if this new data conforms with your prior knowledge. Multiply the 2 distribution and you get an update belief about the world, which in next iteration you can use as your new prior distribution/belief.&lt;/p&gt;
+
+&lt;p&gt;To help you visualize more clearly first let’s take a simple example which can help you visualize this process and then we will take a toy problem and try to solve it using Bayesian estimation.&lt;/p&gt;
+
+&lt;p&gt;The complete code for computation and plotting can be found &lt;a href=&quot;https://gist.github.com/hmisra/f4edf5b58aedb6075fcd&quot; title=&quot;Source Code&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Assume that you have a random variable A which can take values from 1 to 6. Now you want to know which value of A is the most probable value. You think that it is somewhere close to 3.5 and your belief can be described by a normal distribution around 3.5 with a variance of 0.5. This distribution can be plotted as follows&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive1.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;Now you start getting data B from some source. To calculate &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; we need the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt;, a joint distribution of our prior knowledge and the data. In real life getting this distribution is hard and we normally employ various assumptions and approximation techniques to get this distribution. Later in this article while solving a toy problem we would use a simple assumption to estimate this distribution. For now let’s assume you already have this distribution and can be represented by the 3-D plot drawn below. Now by multiplying our prior distribution and this joint distribution so that we can get an updated distribution. But as you can see our prior is a uni-variate distribution and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is bi-variate, so we can not directly multiply these 2 distribution. We would take a slice out the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; which is shown in graph below as conditional probability &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt;. Now if you are familiar with basic rules of probability theory you must already know that The sum of probability of all the events is equal to 1, i.e. &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A)=1&lt;/code&gt; and also &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A,B)=1&lt;/code&gt; or in simple words area under the surface/curve of a probability distribution must be 1. As we know that the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is a probability distribution and the area under the surface of distribution is 1, so if we take a slice out of this distribution, this conditional distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt; is no more a valid probability distribution. Therefore, if we multiply this distribution with our prior we would get an invalid probability distribution. Hence we need to normalize it by dividing by &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B)&lt;/code&gt; so that we get a valid posterior probability distribution.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive2.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So let’s summarize what we have covered so far, we had our prior knowledge about the world, we took some data, computed the conditional distribution of data and normalized it with the distribution of data. By plugging these values in Bayes theorem, we would get a posterior distribution. Now in later iterations when we will get a new piece of data we would consider this posterior as our prior and again compute our posterior.&lt;/p&gt;
+
+&lt;p&gt;This recursive process is commonly known as Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;Toy Problem: Helping Iron Man to locate Whiplash using Recursive Bayesian Filter
+Now let’s describe a toy problem and try to solve it using Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;I am an ardent fan of Iron Man movies so I couldn’t resist to take example in which we would help Iron Man to kill the bad guy: Whiplash. Imagine that there is a wall of height and width of 40 * 40 ft. and Whiplash is hiding behind the wall. Also, during his duel with Whiplash, Iron man got his Infra-Red sensor damaged and is left with a single bullet using which he wants to kill whiplash. Now, as the IR sensor got damaged Iron Man is getting the erroneous heat signatures on the wall. Hence, Iron Man decides to take 100 readings and sends it to Jarvis. Now as Jarvis it is our job to figure out where precisely Whiplash is hiding.&lt;/p&gt;
+
+&lt;p&gt;So let’s see how we can help him kill “Whiplash” using Recursive Bayesian Estimation we discussed earlier.&lt;/p&gt;
+
+&lt;p&gt;We are performing following steps to get the graph displayed below:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will create a matrix of size 41*41, representing the wall behind which whiplash is hiding.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will mention the true location of whiplash which Iron Man does not know, in the plot this location is represented with Red dot.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will assume that the reading from Infrared sensor is faulty and we will sample 100 readings from a normal distribution with the mean at true location and variance of 10.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive3.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So as we can see the true location of Whiplash is at the red dot in the map, but after taking 100 readings from infrared sensor Iron man can only see the blue dots. Our job now is to estimate the position of the red dot by looking at these 100 dots.&lt;/p&gt;
+
+&lt;p&gt;Next to start using Recursive Bayesian we need a prior distribution which would represent our initial knowledge about the world. Now for this we can either assume that Iron man does not know anything about the location of Whiplash and would use a uniform distribution (i.e. he would assume that Whiplash can be anywhere with equal probability.) or if he saw Whiplash going from left side of the wall then we can create a distribution incorporating this knowledge. To keep things simple for now, I would assume that he does not know anything about the location of Whiplash.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive4.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;As you can see the distribution is uniform and the probability of Whiplash being at any point on this wall is equal.&lt;/p&gt;
+
+&lt;p&gt;Now let’s take this prior distribution and start our recursive Bayesian estimation. We would perform following steps to get a posterior distribution:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;We will take each point and create a normal distribution around this point (earlier in this article I have mentioned that estimation of joint distribution or conditional distribution is difficult in real life and we employ various assumptions and approximations. To get this distribution, here we are assuming that the conditional distribution is just a normal distribution with mean at the location of the point and a variance of 20 on each coordinate)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will multiply this distribution around the data point with our prior distribution to get posterior distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;the posterior distribution which we got is not a probability distribution anymore so we will normalize this distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;make this posterior distribution prior and repeat for all the data points. The output of this part is in the form of video in which you can clearly see the results of each iteration in the form of surface plot and heat map.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;At the end of iterating through 100 data points, you can clearly see that we have estimated that the location of whiplash is near 20,20 as the probability near 20,20 is maximum.&lt;/p&gt;
+
+&lt;center&gt;&lt;iframe width=&quot;420&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/vUFoFwtBqXU&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+&lt;h2 id=&quot;real-world-applications&quot;&gt;Real world applications&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;In application that uses geospatial data for example UBER, where there is a need to locate the precise location of an object through GPS (in case of Uber, a car), we can use this method to estimate the precise location of the car.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Improved methods (like Kalman Filters, Particle Based Estimation methods etc.) based on Recursive Bayesian Filters are used in Radars to track missiles. Check out this &lt;a href=&quot;http://down.cenet.org.cn/upfile/28/20051117121144185.pdf&quot;&gt;Paper&lt;/a&gt; for more details.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Recursive Bayesian Filter</title>
+   <link href="http://hmisra.github.io/2015/07/21/Estimating-Truth_Using-Recursive-Bayesian-Filter/"/>
+   <updated>2015-07-21T00:00:00-07:00</updated>
+   <id>http://hmisra.github.io/2015/07/21/Estimating-Truth_Using-Recursive-Bayesian-Filter</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;Whenever we make any critical decision in our life we tend to take suggestions and recommendations from different people. We try to analyze information from various sources and based on our analysis, we decide what to do.&lt;/p&gt;
+
+&lt;p&gt;To understand this process more intuitively let’s take an example. Last week a friend recommended me to watch a movie called “Attack of the Killer Tomatoes!”. Now looking at the title of the movie I felt bit suspicious and started pondering if it is actually as good as my friend was praising it. The obvious next step was to gather more information about the movie. I checked the movie trailer on YouTube according to which it seemed like a pretty funny movie. Despite the claims made by the trailer like “perhaps the funniest film ever made” I decided to check reviews and ratings for the movie on IMDB and RotttenTomatoes, where it was rated below 5. As I trust IMDB movie ratings more than anything when it comes to watching movies, I decided to pass “Attack of the killer Tomatoes !” and watch it some other time. In real life, we mostly follow this kind of reasoning where we combine various evidence and come to a conclusion.&lt;/p&gt;
+
+&lt;p&gt;Now mathematically we can formulate this process as follows, we can consider that “Attack of the Killer Tomatoes!” is a binomial random variable which can either take values “Good” or “Bad”. Initially, I had a recommendation for the movie so the probability distribution was more toward the value Good i.e &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was 0.7. As we start getting data from different sources, we can start inferring from it if the movie is good or bad, and start changing our initial belief. Sadly, for me at the end the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was below 0.5 so I decided to not watch the movie.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;bayes-theorem&quot;&gt;Bayes Theorem&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;A very elegant mathematical framework called “Bayes Theorem” given by an English philosopher and statistician, Thomas Bayes, allows us to do precisely this kind of reasoning. According to the Bayes rule&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;P(A|B) = P(A)×P(A,B) = (P(A) × P(B|A)) / P(B)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;where P(A)(Prior Distribution) represent our prior knowledge of the world , &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A)P(B)&lt;/code&gt; represent the Probability Distribution of data given our prior knowledge and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; represent the posterior or updated probability distribution. In simple words, you take what you know about the world (i.e your prior distribution), then take the new data and try to evaluate if this new data conforms with your prior knowledge. Multiply the 2 distribution and you get an update belief about the world, which in next iteration you can use as your new prior distribution/belief.&lt;/p&gt;
+
+&lt;p&gt;To help you visualize more clearly first let’s take a simple example which can help you visualize this process and then we will take a toy problem and try to solve it using Bayesian estimation.&lt;/p&gt;
+
+&lt;p&gt;The complete code for computation and plotting can be found &lt;a href=&quot;https://gist.github.com/hmisra/f4edf5b58aedb6075fcd&quot; title=&quot;Source Code&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Assume that you have a random variable A which can take values from 1 to 6. Now you want to know which value of A is the most probable value. You think that it is somewhere close to 3.5 and your belief can be described by a normal distribution around 3.5 with a variance of 0.5. This distribution can be plotted as follows&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive1.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;Now you start getting data B from some source. To calculate &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; we need the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt;, a joint distribution of our prior knowledge and the data. In real life getting this distribution is hard and we normally employ various assumptions and approximation techniques to get this distribution. Later in this article while solving a toy problem we would use a simple assumption to estimate this distribution. For now let’s assume you already have this distribution and can be represented by the 3-D plot drawn below. Now by multiplying our prior distribution and this joint distribution so that we can get an updated distribution. But as you can see our prior is a uni-variate distribution and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is bi-variate, so we can not directly multiply these 2 distribution. We would take a slice out the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; which is shown in graph below as conditional probability &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt;. Now if you are familiar with basic rules of probability theory you must already know that The sum of probability of all the events is equal to 1, i.e. &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A)=1&lt;/code&gt; and also &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A,B)=1&lt;/code&gt; or in simple words area under the surface/curve of a probability distribution must be 1. As we know that the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is a probability distribution and the area under the surface of distribution is 1, so if we take a slice out of this distribution, this conditional distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt; is no more a valid probability distribution. Therefore, if we multiply this distribution with our prior we would get an invalid probability distribution. Hence we need to normalize it by dividing by &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B)&lt;/code&gt; so that we get a valid posterior probability distribution.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive2.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So let’s summarize what we have covered so far, we had our prior knowledge about the world, we took some data, computed the conditional distribution of data and normalized it with the distribution of data. By plugging these values in Bayes theorem, we would get a posterior distribution. Now in later iterations when we will get a new piece of data we would consider this posterior as our prior and again compute our posterior.&lt;/p&gt;
+
+&lt;p&gt;This recursive process is commonly known as Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;Toy Problem: Helping Iron Man to locate Whiplash using Recursive Bayesian Filter
+Now let’s describe a toy problem and try to solve it using Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;I am an ardent fan of Iron Man movies so I couldn’t resist to take example in which we would help Iron Man to kill the bad guy: Whiplash. Imagine that there is a wall of height and width of 40 * 40 ft. and Whiplash is hiding behind the wall. Also, during his duel with Whiplash, Iron man got his Infra-Red sensor damaged and is left with a single bullet using which he wants to kill whiplash. Now, as the IR sensor got damaged Iron Man is getting the erroneous heat signatures on the wall. Hence, Iron Man decides to take 100 readings and sends it to Jarvis. Now as Jarvis it is our job to figure out where precisely Whiplash is hiding.&lt;/p&gt;
+
+&lt;p&gt;So let’s see how we can help him kill “Whiplash” using Recursive Bayesian Estimation we discussed earlier.&lt;/p&gt;
+
+&lt;p&gt;We are performing following steps to get the graph displayed below:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will create a matrix of size 41*41, representing the wall behind which whiplash is hiding.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will mention the true location of whiplash which Iron Man does not know, in the plot this location is represented with Red dot.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will assume that the reading from Infrared sensor is faulty and we will sample 100 readings from a normal distribution with the mean at true location and variance of 10.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive3.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So as we can see the true location of Whiplash is at the red dot in the map, but after taking 100 readings from infrared sensor Iron man can only see the blue dots. Our job now is to estimate the position of the red dot by looking at these 100 dots.&lt;/p&gt;
+
+&lt;p&gt;Next to start using Recursive Bayesian we need a prior distribution which would represent our initial knowledge about the world. Now for this we can either assume that Iron man does not know anything about the location of Whiplash and would use a uniform distribution (i.e. he would assume that Whiplash can be anywhere with equal probability.) or if he saw Whiplash going from left side of the wall then we can create a distribution incorporating this knowledge. To keep things simple for now, I would assume that he does not know anything about the location of Whiplash.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive4.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;As you can see the distribution is uniform and the probability of Whiplash being at any point on this wall is equal.&lt;/p&gt;
+
+&lt;p&gt;Now let’s take this prior distribution and start our recursive Bayesian estimation. We would perform following steps to get a posterior distribution:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;We will take each point and create a normal distribution around this point (earlier in this article I have mentioned that estimation of joint distribution or conditional distribution is difficult in real life and we employ various assumptions and approximations. To get this distribution, here we are assuming that the conditional distribution is just a normal distribution with mean at the location of the point and a variance of 20 on each coordinate)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will multiply this distribution around the data point with our prior distribution to get posterior distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;the posterior distribution which we got is not a probability distribution anymore so we will normalize this distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;make this posterior distribution prior and repeat for all the data points. The output of this part is in the form of video in which you can clearly see the results of each iteration in the form of surface plot and heat map.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;At the end of iterating through 100 data points, you can clearly see that we have estimated that the location of whiplash is near 20,20 as the probability near 20,20 is maximum.&lt;/p&gt;
+
+&lt;center&gt;&lt;iframe width=&quot;420&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/vUFoFwtBqXU&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+&lt;h2 id=&quot;real-world-applications&quot;&gt;Real world applications&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;In application that uses geospatial data for example UBER, where there is a need to locate the precise location of an object through GPS (in case of Uber, a car), we can use this method to estimate the precise location of the car.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Improved methods (like Kalman Filters, Particle Based Estimation methods etc.) based on Recursive Bayesian Filters are used in Radars to track missiles. Check out this &lt;a href=&quot;http://down.cenet.org.cn/upfile/28/20051117121144185.pdf&quot;&gt;Paper&lt;/a&gt; for more details.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Recursive Bayesian Filter</title>
+   <link href="http://hmisra.github.io/2015/07/20/Estimating-Truth_Using-Recursive-Bayesian-Filter/"/>
+   <updated>2015-07-20T00:00:00-07:00</updated>
+   <id>http://hmisra.github.io/2015/07/20/Estimating-Truth_Using-Recursive-Bayesian-Filter</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;Whenever we make any critical decision in our life we tend to take suggestions and recommendations from different people. We try to analyze information from various sources and based on our analysis, we decide what to do.&lt;/p&gt;
+
+&lt;p&gt;To understand this process more intuitively let’s take an example. Last week a friend recommended me to watch a movie called “Attack of the Killer Tomatoes!”. Now looking at the title of the movie I felt bit suspicious and started pondering if it is actually as good as my friend was praising it. The obvious next step was to gather more information about the movie. I checked the movie trailer on YouTube according to which it seemed like a pretty funny movie. Despite the claims made by the trailer like “perhaps the funniest film ever made” I decided to check reviews and ratings for the movie on IMDB and RotttenTomatoes, where it was rated below 5. As I trust IMDB movie ratings more than anything when it comes to watching movies, I decided to pass “Attack of the killer Tomatoes !” and watch it some other time. In real life, we mostly follow this kind of reasoning where we combine various evidence and come to a conclusion.&lt;/p&gt;
+
+&lt;p&gt;Now mathematically we can formulate this process as follows, we can consider that “Attack of the Killer Tomatoes!” is a binomial random variable which can either take values “Good” or “Bad”. Initially, I had a recommendation for the movie so the probability distribution was more toward the value Good i.e &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was 0.7. As we start getting data from different sources, we can start inferring from it if the movie is good or bad, and start changing our initial belief. Sadly, for me at the end the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was below 0.5 so I decided to not watch the movie.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;bayes-theorem&quot;&gt;Bayes Theorem&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;A very elegant mathematical framework called “Bayes Theorem” given by an English philosopher and statistician, Thomas Bayes, allows us to do precisely this kind of reasoning. According to the Bayes rule&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;P(A|B) = P(A)×P(A,B) = (P(A) × P(B|A)) / P(B)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;where P(A)(Prior Distribution) represent our prior knowledge of the world , &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A)P(B)&lt;/code&gt; represent the Probability Distribution of data given our prior knowledge and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; represent the posterior or updated probability distribution. In simple words, you take what you know about the world (i.e your prior distribution), then take the new data and try to evaluate if this new data conforms with your prior knowledge. Multiply the 2 distribution and you get an update belief about the world, which in next iteration you can use as your new prior distribution/belief.&lt;/p&gt;
+
+&lt;p&gt;To help you visualize more clearly first let’s take a simple example which can help you visualize this process and then we will take a toy problem and try to solve it using Bayesian estimation.&lt;/p&gt;
+
+&lt;p&gt;The complete code for computation and plotting can be found &lt;a href=&quot;https://gist.github.com/hmisra/f4edf5b58aedb6075fcd&quot; title=&quot;Source Code&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Assume that you have a random variable A which can take values from 1 to 6. Now you want to know which value of A is the most probable value. You think that it is somewhere close to 3.5 and your belief can be described by a normal distribution around 3.5 with a variance of 0.5. This distribution can be plotted as follows&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive1.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;Now you start getting data B from some source. To calculate &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; we need the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt;, a joint distribution of our prior knowledge and the data. In real life getting this distribution is hard and we normally employ various assumptions and approximation techniques to get this distribution. Later in this article while solving a toy problem we would use a simple assumption to estimate this distribution. For now let’s assume you already have this distribution and can be represented by the 3-D plot drawn below. Now by multiplying our prior distribution and this joint distribution so that we can get an updated distribution. But as you can see our prior is a uni-variate distribution and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is bi-variate, so we can not directly multiply these 2 distribution. We would take a slice out the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; which is shown in graph below as conditional probability &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt;. Now if you are familiar with basic rules of probability theory you must already know that The sum of probability of all the events is equal to 1, i.e. &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A)=1&lt;/code&gt; and also &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A,B)=1&lt;/code&gt; or in simple words area under the surface/curve of a probability distribution must be 1. As we know that the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is a probability distribution and the area under the surface of distribution is 1, so if we take a slice out of this distribution, this conditional distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt; is no more a valid probability distribution. Therefore, if we multiply this distribution with our prior we would get an invalid probability distribution. Hence we need to normalize it by dividing by &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B)&lt;/code&gt; so that we get a valid posterior probability distribution.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive2.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So let’s summarize what we have covered so far, we had our prior knowledge about the world, we took some data, computed the conditional distribution of data and normalized it with the distribution of data. By plugging these values in Bayes theorem, we would get a posterior distribution. Now in later iterations when we will get a new piece of data we would consider this posterior as our prior and again compute our posterior.&lt;/p&gt;
+
+&lt;p&gt;This recursive process is commonly known as Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;Toy Problem: Helping Iron Man to locate Whiplash using Recursive Bayesian Filter
+Now let’s describe a toy problem and try to solve it using Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;I am an ardent fan of Iron Man movies so I couldn’t resist to take example in which we would help Iron Man to kill the bad guy: Whiplash. Imagine that there is a wall of height and width of 40 * 40 ft. and Whiplash is hiding behind the wall. Also, during his duel with Whiplash, Iron man got his Infra-Red sensor damaged and is left with a single bullet using which he wants to kill whiplash. Now, as the IR sensor got damaged Iron Man is getting the erroneous heat signatures on the wall. Hence, Iron Man decides to take 100 readings and sends it to Jarvis. Now as Jarvis it is our job to figure out where precisely Whiplash is hiding.&lt;/p&gt;
+
+&lt;p&gt;So let’s see how we can help him kill “Whiplash” using Recursive Bayesian Estimation we discussed earlier.&lt;/p&gt;
+
+&lt;p&gt;We are performing following steps to get the graph displayed below:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will create a matrix of size 41*41, representing the wall behind which whiplash is hiding.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will mention the true location of whiplash which Iron Man does not know, in the plot this location is represented with Red dot.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will assume that the reading from Infrared sensor is faulty and we will sample 100 readings from a normal distribution with the mean at true location and variance of 10.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive3.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So as we can see the true location of Whiplash is at the red dot in the map, but after taking 100 readings from infrared sensor Iron man can only see the blue dots. Our job now is to estimate the position of the red dot by looking at these 100 dots.&lt;/p&gt;
+
+&lt;p&gt;Next to start using Recursive Bayesian we need a prior distribution which would represent our initial knowledge about the world. Now for this we can either assume that Iron man does not know anything about the location of Whiplash and would use a uniform distribution (i.e. he would assume that Whiplash can be anywhere with equal probability.) or if he saw Whiplash going from left side of the wall then we can create a distribution incorporating this knowledge. To keep things simple for now, I would assume that he does not know anything about the location of Whiplash.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive4.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;As you can see the distribution is uniform and the probability of Whiplash being at any point on this wall is equal.&lt;/p&gt;
+
+&lt;p&gt;Now let’s take this prior distribution and start our recursive Bayesian estimation. We would perform following steps to get a posterior distribution:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;We will take each point and create a normal distribution around this point (earlier in this article I have mentioned that estimation of joint distribution or conditional distribution is difficult in real life and we employ various assumptions and approximations. To get this distribution, here we are assuming that the conditional distribution is just a normal distribution with mean at the location of the point and a variance of 20 on each coordinate)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will multiply this distribution around the data point with our prior distribution to get posterior distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;the posterior distribution which we got is not a probability distribution anymore so we will normalize this distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;make this posterior distribution prior and repeat for all the data points. The output of this part is in the form of video in which you can clearly see the results of each iteration in the form of surface plot and heat map.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;At the end of iterating through 100 data points, you can clearly see that we have estimated that the location of whiplash is near 20,20 as the probability near 20,20 is maximum.&lt;/p&gt;
+
+&lt;center&gt;&lt;iframe width=&quot;420&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/vUFoFwtBqXU&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+&lt;h2 id=&quot;real-world-applications&quot;&gt;Real world applications&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;In application that uses geospatial data for example UBER, where there is a need to locate the precise location of an object through GPS (in case of Uber, a car), we can use this method to estimate the precise location of the car.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Improved methods (like Kalman Filters, Particle Based Estimation methods etc.) based on Recursive Bayesian Filters are used in Radars to track missiles. Check out this &lt;a href=&quot;http://down.cenet.org.cn/upfile/28/20051117121144185.pdf&quot;&gt;Paper&lt;/a&gt; for more details.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Recursive Bayesian Filter</title>
+   <link href="http://hmisra.github.io/2015/07/19/Estimating-Truth_Using-Recursive-Bayesian-Filter/"/>
+   <updated>2015-07-19T00:00:00-07:00</updated>
+   <id>http://hmisra.github.io/2015/07/19/Estimating-Truth_Using-Recursive-Bayesian-Filter</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;Whenever we make any critical decision in our life we tend to take suggestions and recommendations from different people. We try to analyze information from various sources and based on our analysis, we decide what to do.&lt;/p&gt;
+
+&lt;p&gt;To understand this process more intuitively let’s take an example. Last week a friend recommended me to watch a movie called “Attack of the Killer Tomatoes!”. Now looking at the title of the movie I felt bit suspicious and started pondering if it is actually as good as my friend was praising it. The obvious next step was to gather more information about the movie. I checked the movie trailer on YouTube according to which it seemed like a pretty funny movie. Despite the claims made by the trailer like “perhaps the funniest film ever made” I decided to check reviews and ratings for the movie on IMDB and RotttenTomatoes, where it was rated below 5. As I trust IMDB movie ratings more than anything when it comes to watching movies, I decided to pass “Attack of the killer Tomatoes !” and watch it some other time. In real life, we mostly follow this kind of reasoning where we combine various evidence and come to a conclusion.&lt;/p&gt;
+
+&lt;p&gt;Now mathematically we can formulate this process as follows, we can consider that “Attack of the Killer Tomatoes!” is a binomial random variable which can either take values “Good” or “Bad”. Initially, I had a recommendation for the movie so the probability distribution was more toward the value Good i.e &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was 0.7. As we start getting data from different sources, we can start inferring from it if the movie is good or bad, and start changing our initial belief. Sadly, for me at the end the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was below 0.5 so I decided to not watch the movie.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;bayes-theorem&quot;&gt;Bayes Theorem&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;A very elegant mathematical framework called “Bayes Theorem” given by an English philosopher and statistician, Thomas Bayes, allows us to do precisely this kind of reasoning. According to the Bayes rule&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;P(A|B) = P(A)×P(A,B) = (P(A) × P(B|A)) / P(B)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;where P(A)(Prior Distribution) represent our prior knowledge of the world , &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A)P(B)&lt;/code&gt; represent the Probability Distribution of data given our prior knowledge and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; represent the posterior or updated probability distribution. In simple words, you take what you know about the world (i.e your prior distribution), then take the new data and try to evaluate if this new data conforms with your prior knowledge. Multiply the 2 distribution and you get an update belief about the world, which in next iteration you can use as your new prior distribution/belief.&lt;/p&gt;
+
+&lt;p&gt;To help you visualize more clearly first let’s take a simple example which can help you visualize this process and then we will take a toy problem and try to solve it using Bayesian estimation.&lt;/p&gt;
+
+&lt;p&gt;The complete code for computation and plotting can be found &lt;a href=&quot;https://gist.github.com/hmisra/f4edf5b58aedb6075fcd&quot; title=&quot;Source Code&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Assume that you have a random variable A which can take values from 1 to 6. Now you want to know which value of A is the most probable value. You think that it is somewhere close to 3.5 and your belief can be described by a normal distribution around 3.5 with a variance of 0.5. This distribution can be plotted as follows&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive1.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;Now you start getting data B from some source. To calculate &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; we need the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt;, a joint distribution of our prior knowledge and the data. In real life getting this distribution is hard and we normally employ various assumptions and approximation techniques to get this distribution. Later in this article while solving a toy problem we would use a simple assumption to estimate this distribution. For now let’s assume you already have this distribution and can be represented by the 3-D plot drawn below. Now by multiplying our prior distribution and this joint distribution so that we can get an updated distribution. But as you can see our prior is a uni-variate distribution and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is bi-variate, so we can not directly multiply these 2 distribution. We would take a slice out the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; which is shown in graph below as conditional probability &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt;. Now if you are familiar with basic rules of probability theory you must already know that The sum of probability of all the events is equal to 1, i.e. &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A)=1&lt;/code&gt; and also &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A,B)=1&lt;/code&gt; or in simple words area under the surface/curve of a probability distribution must be 1. As we know that the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is a probability distribution and the area under the surface of distribution is 1, so if we take a slice out of this distribution, this conditional distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt; is no more a valid probability distribution. Therefore, if we multiply this distribution with our prior we would get an invalid probability distribution. Hence we need to normalize it by dividing by &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B)&lt;/code&gt; so that we get a valid posterior probability distribution.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive2.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So let’s summarize what we have covered so far, we had our prior knowledge about the world, we took some data, computed the conditional distribution of data and normalized it with the distribution of data. By plugging these values in Bayes theorem, we would get a posterior distribution. Now in later iterations when we will get a new piece of data we would consider this posterior as our prior and again compute our posterior.&lt;/p&gt;
+
+&lt;p&gt;This recursive process is commonly known as Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;Toy Problem: Helping Iron Man to locate Whiplash using Recursive Bayesian Filter
+Now let’s describe a toy problem and try to solve it using Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;I am an ardent fan of Iron Man movies so I couldn’t resist to take example in which we would help Iron Man to kill the bad guy: Whiplash. Imagine that there is a wall of height and width of 40 * 40 ft. and Whiplash is hiding behind the wall. Also, during his duel with Whiplash, Iron man got his Infra-Red sensor damaged and is left with a single bullet using which he wants to kill whiplash. Now, as the IR sensor got damaged Iron Man is getting the erroneous heat signatures on the wall. Hence, Iron Man decides to take 100 readings and sends it to Jarvis. Now as Jarvis it is our job to figure out where precisely Whiplash is hiding.&lt;/p&gt;
+
+&lt;p&gt;So let’s see how we can help him kill “Whiplash” using Recursive Bayesian Estimation we discussed earlier.&lt;/p&gt;
+
+&lt;p&gt;We are performing following steps to get the graph displayed below:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will create a matrix of size 41*41, representing the wall behind which whiplash is hiding.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will mention the true location of whiplash which Iron Man does not know, in the plot this location is represented with Red dot.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will assume that the reading from Infrared sensor is faulty and we will sample 100 readings from a normal distribution with the mean at true location and variance of 10.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive3.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So as we can see the true location of Whiplash is at the red dot in the map, but after taking 100 readings from infrared sensor Iron man can only see the blue dots. Our job now is to estimate the position of the red dot by looking at these 100 dots.&lt;/p&gt;
+
+&lt;p&gt;Next to start using Recursive Bayesian we need a prior distribution which would represent our initial knowledge about the world. Now for this we can either assume that Iron man does not know anything about the location of Whiplash and would use a uniform distribution (i.e. he would assume that Whiplash can be anywhere with equal probability.) or if he saw Whiplash going from left side of the wall then we can create a distribution incorporating this knowledge. To keep things simple for now, I would assume that he does not know anything about the location of Whiplash.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive4.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;As you can see the distribution is uniform and the probability of Whiplash being at any point on this wall is equal.&lt;/p&gt;
+
+&lt;p&gt;Now let’s take this prior distribution and start our recursive Bayesian estimation. We would perform following steps to get a posterior distribution:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;We will take each point and create a normal distribution around this point (earlier in this article I have mentioned that estimation of joint distribution or conditional distribution is difficult in real life and we employ various assumptions and approximations. To get this distribution, here we are assuming that the conditional distribution is just a normal distribution with mean at the location of the point and a variance of 20 on each coordinate)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will multiply this distribution around the data point with our prior distribution to get posterior distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;the posterior distribution which we got is not a probability distribution anymore so we will normalize this distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;make this posterior distribution prior and repeat for all the data points. The output of this part is in the form of video in which you can clearly see the results of each iteration in the form of surface plot and heat map.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;At the end of iterating through 100 data points, you can clearly see that we have estimated that the location of whiplash is near 20,20 as the probability near 20,20 is maximum.&lt;/p&gt;
+
+&lt;center&gt;&lt;iframe width=&quot;420&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/vUFoFwtBqXU&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+&lt;h2 id=&quot;real-world-applications&quot;&gt;Real world applications&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;In application that uses geospatial data for example UBER, where there is a need to locate the precise location of an object through GPS (in case of Uber, a car), we can use this method to estimate the precise location of the car.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Improved methods (like Kalman Filters, Particle Based Estimation methods etc.) based on Recursive Bayesian Filters are used in Radars to track missiles. Check out this &lt;a href=&quot;http://down.cenet.org.cn/upfile/28/20051117121144185.pdf&quot;&gt;Paper&lt;/a&gt; for more details.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Recursive Bayesian Filter</title>
+   <link href="http://hmisra.github.io/2015/07/18/Estimating-Truth_Using-Recursive-Bayesian-Filter/"/>
+   <updated>2015-07-18T00:00:00-07:00</updated>
+   <id>http://hmisra.github.io/2015/07/18/Estimating-Truth_Using-Recursive-Bayesian-Filter</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;Whenever we make any critical decision in our life we tend to take suggestions and recommendations from different people. We try to analyze information from various sources and based on our analysis, we decide what to do.&lt;/p&gt;
+
+&lt;p&gt;To understand this process more intuitively let’s take an example. Last week a friend recommended me to watch a movie called “Attack of the Killer Tomatoes!”. Now looking at the title of the movie I felt bit suspicious and started pondering if it is actually as good as my friend was praising it. The obvious next step was to gather more information about the movie. I checked the movie trailer on YouTube according to which it seemed like a pretty funny movie. Despite the claims made by the trailer like “perhaps the funniest film ever made” I decided to check reviews and ratings for the movie on IMDB and RotttenTomatoes, where it was rated below 5. As I trust IMDB movie ratings more than anything when it comes to watching movies, I decided to pass “Attack of the killer Tomatoes !” and watch it some other time. In real life, we mostly follow this kind of reasoning where we combine various evidence and come to a conclusion.&lt;/p&gt;
+
+&lt;p&gt;Now mathematically we can formulate this process as follows, we can consider that “Attack of the Killer Tomatoes!” is a binomial random variable which can either take values “Good” or “Bad”. Initially, I had a recommendation for the movie so the probability distribution was more toward the value Good i.e &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was 0.7. As we start getting data from different sources, we can start inferring from it if the movie is good or bad, and start changing our initial belief. Sadly, for me at the end the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was below 0.5 so I decided to not watch the movie.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;bayes-theorem&quot;&gt;Bayes Theorem&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;A very elegant mathematical framework called “Bayes Theorem” given by an English philosopher and statistician, Thomas Bayes, allows us to do precisely this kind of reasoning. According to the Bayes rule&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;P(A|B) = P(A)×P(A,B) = (P(A) × P(B|A)) / P(B)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;where P(A)(Prior Distribution) represent our prior knowledge of the world , &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A)P(B)&lt;/code&gt; represent the Probability Distribution of data given our prior knowledge and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; represent the posterior or updated probability distribution. In simple words, you take what you know about the world (i.e your prior distribution), then take the new data and try to evaluate if this new data conforms with your prior knowledge. Multiply the 2 distribution and you get an update belief about the world, which in next iteration you can use as your new prior distribution/belief.&lt;/p&gt;
+
+&lt;p&gt;To help you visualize more clearly first let’s take a simple example which can help you visualize this process and then we will take a toy problem and try to solve it using Bayesian estimation.&lt;/p&gt;
+
+&lt;p&gt;The complete code for computation and plotting can be found &lt;a href=&quot;https://gist.github.com/hmisra/f4edf5b58aedb6075fcd&quot; title=&quot;Source Code&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Assume that you have a random variable A which can take values from 1 to 6. Now you want to know which value of A is the most probable value. You think that it is somewhere close to 3.5 and your belief can be described by a normal distribution around 3.5 with a variance of 0.5. This distribution can be plotted as follows&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive1.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;Now you start getting data B from some source. To calculate &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; we need the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt;, a joint distribution of our prior knowledge and the data. In real life getting this distribution is hard and we normally employ various assumptions and approximation techniques to get this distribution. Later in this article while solving a toy problem we would use a simple assumption to estimate this distribution. For now let’s assume you already have this distribution and can be represented by the 3-D plot drawn below. Now by multiplying our prior distribution and this joint distribution so that we can get an updated distribution. But as you can see our prior is a uni-variate distribution and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is bi-variate, so we can not directly multiply these 2 distribution. We would take a slice out the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; which is shown in graph below as conditional probability &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt;. Now if you are familiar with basic rules of probability theory you must already know that The sum of probability of all the events is equal to 1, i.e. &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A)=1&lt;/code&gt; and also &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A,B)=1&lt;/code&gt; or in simple words area under the surface/curve of a probability distribution must be 1. As we know that the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is a probability distribution and the area under the surface of distribution is 1, so if we take a slice out of this distribution, this conditional distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt; is no more a valid probability distribution. Therefore, if we multiply this distribution with our prior we would get an invalid probability distribution. Hence we need to normalize it by dividing by &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B)&lt;/code&gt; so that we get a valid posterior probability distribution.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive2.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So let’s summarize what we have covered so far, we had our prior knowledge about the world, we took some data, computed the conditional distribution of data and normalized it with the distribution of data. By plugging these values in Bayes theorem, we would get a posterior distribution. Now in later iterations when we will get a new piece of data we would consider this posterior as our prior and again compute our posterior.&lt;/p&gt;
+
+&lt;p&gt;This recursive process is commonly known as Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;Toy Problem: Helping Iron Man to locate Whiplash using Recursive Bayesian Filter
+Now let’s describe a toy problem and try to solve it using Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;I am an ardent fan of Iron Man movies so I couldn’t resist to take example in which we would help Iron Man to kill the bad guy: Whiplash. Imagine that there is a wall of height and width of 40 * 40 ft. and Whiplash is hiding behind the wall. Also, during his duel with Whiplash, Iron man got his Infra-Red sensor damaged and is left with a single bullet using which he wants to kill whiplash. Now, as the IR sensor got damaged Iron Man is getting the erroneous heat signatures on the wall. Hence, Iron Man decides to take 100 readings and sends it to Jarvis. Now as Jarvis it is our job to figure out where precisely Whiplash is hiding.&lt;/p&gt;
+
+&lt;p&gt;So let’s see how we can help him kill “Whiplash” using Recursive Bayesian Estimation we discussed earlier.&lt;/p&gt;
+
+&lt;p&gt;We are performing following steps to get the graph displayed below:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will create a matrix of size 41*41, representing the wall behind which whiplash is hiding.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will mention the true location of whiplash which Iron Man does not know, in the plot this location is represented with Red dot.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will assume that the reading from Infrared sensor is faulty and we will sample 100 readings from a normal distribution with the mean at true location and variance of 10.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive3.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So as we can see the true location of Whiplash is at the red dot in the map, but after taking 100 readings from infrared sensor Iron man can only see the blue dots. Our job now is to estimate the position of the red dot by looking at these 100 dots.&lt;/p&gt;
+
+&lt;p&gt;Next to start using Recursive Bayesian we need a prior distribution which would represent our initial knowledge about the world. Now for this we can either assume that Iron man does not know anything about the location of Whiplash and would use a uniform distribution (i.e. he would assume that Whiplash can be anywhere with equal probability.) or if he saw Whiplash going from left side of the wall then we can create a distribution incorporating this knowledge. To keep things simple for now, I would assume that he does not know anything about the location of Whiplash.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive4.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;As you can see the distribution is uniform and the probability of Whiplash being at any point on this wall is equal.&lt;/p&gt;
+
+&lt;p&gt;Now let’s take this prior distribution and start our recursive Bayesian estimation. We would perform following steps to get a posterior distribution:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;We will take each point and create a normal distribution around this point (earlier in this article I have mentioned that estimation of joint distribution or conditional distribution is difficult in real life and we employ various assumptions and approximations. To get this distribution, here we are assuming that the conditional distribution is just a normal distribution with mean at the location of the point and a variance of 20 on each coordinate)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will multiply this distribution around the data point with our prior distribution to get posterior distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;the posterior distribution which we got is not a probability distribution anymore so we will normalize this distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;make this posterior distribution prior and repeat for all the data points. The output of this part is in the form of video in which you can clearly see the results of each iteration in the form of surface plot and heat map.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;At the end of iterating through 100 data points, you can clearly see that we have estimated that the location of whiplash is near 20,20 as the probability near 20,20 is maximum.&lt;/p&gt;
+
+&lt;center&gt;&lt;iframe width=&quot;420&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/vUFoFwtBqXU&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+&lt;h2 id=&quot;real-world-applications&quot;&gt;Real world applications&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;In application that uses geospatial data for example UBER, where there is a need to locate the precise location of an object through GPS (in case of Uber, a car), we can use this method to estimate the precise location of the car.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Improved methods (like Kalman Filters, Particle Based Estimation methods etc.) based on Recursive Bayesian Filters are used in Radars to track missiles. Check out this &lt;a href=&quot;http://down.cenet.org.cn/upfile/28/20051117121144185.pdf&quot;&gt;Paper&lt;/a&gt; for more details.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Recursive Bayesian Filter</title>
+   <link href="http://hmisra.github.io/2015/07/17/Estimating-Truth_Using-Recursive-Bayesian-Filter/"/>
+   <updated>2015-07-17T00:00:00-07:00</updated>
+   <id>http://hmisra.github.io/2015/07/17/Estimating-Truth_Using-Recursive-Bayesian-Filter</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;Whenever we make any critical decision in our life we tend to take suggestions and recommendations from different people. We try to analyze information from various sources and based on our analysis, we decide what to do.&lt;/p&gt;
+
+&lt;p&gt;To understand this process more intuitively let’s take an example. Last week a friend recommended me to watch a movie called “Attack of the Killer Tomatoes!”. Now looking at the title of the movie I felt bit suspicious and started pondering if it is actually as good as my friend was praising it. The obvious next step was to gather more information about the movie. I checked the movie trailer on YouTube according to which it seemed like a pretty funny movie. Despite the claims made by the trailer like “perhaps the funniest film ever made” I decided to check reviews and ratings for the movie on IMDB and RotttenTomatoes, where it was rated below 5. As I trust IMDB movie ratings more than anything when it comes to watching movies, I decided to pass “Attack of the killer Tomatoes !” and watch it some other time. In real life, we mostly follow this kind of reasoning where we combine various evidence and come to a conclusion.&lt;/p&gt;
+
+&lt;p&gt;Now mathematically we can formulate this process as follows, we can consider that “Attack of the Killer Tomatoes!” is a binomial random variable which can either take values “Good” or “Bad”. Initially, I had a recommendation for the movie so the probability distribution was more toward the value Good i.e &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was 0.7. As we start getting data from different sources, we can start inferring from it if the movie is good or bad, and start changing our initial belief. Sadly, for me at the end the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was below 0.5 so I decided to not watch the movie.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;bayes-theorem&quot;&gt;Bayes Theorem&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;A very elegant mathematical framework called “Bayes Theorem” given by an English philosopher and statistician, Thomas Bayes, allows us to do precisely this kind of reasoning. According to the Bayes rule&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;P(A|B) = P(A)×P(A,B) = (P(A) × P(B|A)) / P(B)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;where P(A)(Prior Distribution) represent our prior knowledge of the world , &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A)P(B)&lt;/code&gt; represent the Probability Distribution of data given our prior knowledge and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; represent the posterior or updated probability distribution. In simple words, you take what you know about the world (i.e your prior distribution), then take the new data and try to evaluate if this new data conforms with your prior knowledge. Multiply the 2 distribution and you get an update belief about the world, which in next iteration you can use as your new prior distribution/belief.&lt;/p&gt;
+
+&lt;p&gt;To help you visualize more clearly first let’s take a simple example which can help you visualize this process and then we will take a toy problem and try to solve it using Bayesian estimation.&lt;/p&gt;
+
+&lt;p&gt;The complete code for computation and plotting can be found &lt;a href=&quot;https://gist.github.com/hmisra/f4edf5b58aedb6075fcd&quot; title=&quot;Source Code&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Assume that you have a random variable A which can take values from 1 to 6. Now you want to know which value of A is the most probable value. You think that it is somewhere close to 3.5 and your belief can be described by a normal distribution around 3.5 with a variance of 0.5. This distribution can be plotted as follows&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive1.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;Now you start getting data B from some source. To calculate &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; we need the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt;, a joint distribution of our prior knowledge and the data. In real life getting this distribution is hard and we normally employ various assumptions and approximation techniques to get this distribution. Later in this article while solving a toy problem we would use a simple assumption to estimate this distribution. For now let’s assume you already have this distribution and can be represented by the 3-D plot drawn below. Now by multiplying our prior distribution and this joint distribution so that we can get an updated distribution. But as you can see our prior is a uni-variate distribution and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is bi-variate, so we can not directly multiply these 2 distribution. We would take a slice out the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; which is shown in graph below as conditional probability &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt;. Now if you are familiar with basic rules of probability theory you must already know that The sum of probability of all the events is equal to 1, i.e. &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A)=1&lt;/code&gt; and also &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A,B)=1&lt;/code&gt; or in simple words area under the surface/curve of a probability distribution must be 1. As we know that the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is a probability distribution and the area under the surface of distribution is 1, so if we take a slice out of this distribution, this conditional distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt; is no more a valid probability distribution. Therefore, if we multiply this distribution with our prior we would get an invalid probability distribution. Hence we need to normalize it by dividing by &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B)&lt;/code&gt; so that we get a valid posterior probability distribution.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive2.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So let’s summarize what we have covered so far, we had our prior knowledge about the world, we took some data, computed the conditional distribution of data and normalized it with the distribution of data. By plugging these values in Bayes theorem, we would get a posterior distribution. Now in later iterations when we will get a new piece of data we would consider this posterior as our prior and again compute our posterior.&lt;/p&gt;
+
+&lt;p&gt;This recursive process is commonly known as Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;Toy Problem: Helping Iron Man to locate Whiplash using Recursive Bayesian Filter
+Now let’s describe a toy problem and try to solve it using Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;I am an ardent fan of Iron Man movies so I couldn’t resist to take example in which we would help Iron Man to kill the bad guy: Whiplash. Imagine that there is a wall of height and width of 40 * 40 ft. and Whiplash is hiding behind the wall. Also, during his duel with Whiplash, Iron man got his Infra-Red sensor damaged and is left with a single bullet using which he wants to kill whiplash. Now, as the IR sensor got damaged Iron Man is getting the erroneous heat signatures on the wall. Hence, Iron Man decides to take 100 readings and sends it to Jarvis. Now as Jarvis it is our job to figure out where precisely Whiplash is hiding.&lt;/p&gt;
+
+&lt;p&gt;So let’s see how we can help him kill “Whiplash” using Recursive Bayesian Estimation we discussed earlier.&lt;/p&gt;
+
+&lt;p&gt;We are performing following steps to get the graph displayed below:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will create a matrix of size 41*41, representing the wall behind which whiplash is hiding.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will mention the true location of whiplash which Iron Man does not know, in the plot this location is represented with Red dot.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will assume that the reading from Infrared sensor is faulty and we will sample 100 readings from a normal distribution with the mean at true location and variance of 10.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive3.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So as we can see the true location of Whiplash is at the red dot in the map, but after taking 100 readings from infrared sensor Iron man can only see the blue dots. Our job now is to estimate the position of the red dot by looking at these 100 dots.&lt;/p&gt;
+
+&lt;p&gt;Next to start using Recursive Bayesian we need a prior distribution which would represent our initial knowledge about the world. Now for this we can either assume that Iron man does not know anything about the location of Whiplash and would use a uniform distribution (i.e. he would assume that Whiplash can be anywhere with equal probability.) or if he saw Whiplash going from left side of the wall then we can create a distribution incorporating this knowledge. To keep things simple for now, I would assume that he does not know anything about the location of Whiplash.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive4.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;As you can see the distribution is uniform and the probability of Whiplash being at any point on this wall is equal.&lt;/p&gt;
+
+&lt;p&gt;Now let’s take this prior distribution and start our recursive Bayesian estimation. We would perform following steps to get a posterior distribution:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;We will take each point and create a normal distribution around this point (earlier in this article I have mentioned that estimation of joint distribution or conditional distribution is difficult in real life and we employ various assumptions and approximations. To get this distribution, here we are assuming that the conditional distribution is just a normal distribution with mean at the location of the point and a variance of 20 on each coordinate)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will multiply this distribution around the data point with our prior distribution to get posterior distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;the posterior distribution which we got is not a probability distribution anymore so we will normalize this distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;make this posterior distribution prior and repeat for all the data points. The output of this part is in the form of video in which you can clearly see the results of each iteration in the form of surface plot and heat map.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;At the end of iterating through 100 data points, you can clearly see that we have estimated that the location of whiplash is near 20,20 as the probability near 20,20 is maximum.&lt;/p&gt;
+
+&lt;center&gt;&lt;iframe width=&quot;420&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/vUFoFwtBqXU&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+&lt;h2 id=&quot;real-world-applications&quot;&gt;Real world applications&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;In application that uses geospatial data for example UBER, where there is a need to locate the precise location of an object through GPS (in case of Uber, a car), we can use this method to estimate the precise location of the car.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Improved methods (like Kalman Filters, Particle Based Estimation methods etc.) based on Recursive Bayesian Filters are used in Radars to track missiles. Check out this &lt;a href=&quot;http://down.cenet.org.cn/upfile/28/20051117121144185.pdf&quot;&gt;Paper&lt;/a&gt; for more details.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Recursive Bayesian Filter</title>
+   <link href="http://hmisra.github.io/2015/07/16/Estimating-Truth_Using-Recursive-Bayesian-Filter/"/>
+   <updated>2015-07-16T00:00:00-07:00</updated>
+   <id>http://hmisra.github.io/2015/07/16/Estimating-Truth_Using-Recursive-Bayesian-Filter</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;Whenever we make any critical decision in our life we tend to take suggestions and recommendations from different people. We try to analyze information from various sources and based on our analysis, we decide what to do.&lt;/p&gt;
+
+&lt;p&gt;To understand this process more intuitively let’s take an example. Last week a friend recommended me to watch a movie called “Attack of the Killer Tomatoes!”. Now looking at the title of the movie I felt bit suspicious and started pondering if it is actually as good as my friend was praising it. The obvious next step was to gather more information about the movie. I checked the movie trailer on YouTube according to which it seemed like a pretty funny movie. Despite the claims made by the trailer like “perhaps the funniest film ever made” I decided to check reviews and ratings for the movie on IMDB and RotttenTomatoes, where it was rated below 5. As I trust IMDB movie ratings more than anything when it comes to watching movies, I decided to pass “Attack of the killer Tomatoes !” and watch it some other time. In real life, we mostly follow this kind of reasoning where we combine various evidence and come to a conclusion.&lt;/p&gt;
+
+&lt;p&gt;Now mathematically we can formulate this process as follows, we can consider that “Attack of the Killer Tomatoes!” is a binomial random variable which can either take values “Good” or “Bad”. Initially, I had a recommendation for the movie so the probability distribution was more toward the value Good i.e &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was 0.7. As we start getting data from different sources, we can start inferring from it if the movie is good or bad, and start changing our initial belief. Sadly, for me at the end the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was below 0.5 so I decided to not watch the movie.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;bayes-theorem&quot;&gt;Bayes Theorem&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;A very elegant mathematical framework called “Bayes Theorem” given by an English philosopher and statistician, Thomas Bayes, allows us to do precisely this kind of reasoning. According to the Bayes rule&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;P(A|B) = P(A)×P(A,B) = (P(A) × P(B|A)) / P(B)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;where P(A)(Prior Distribution) represent our prior knowledge of the world , &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A)P(B)&lt;/code&gt; represent the Probability Distribution of data given our prior knowledge and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; represent the posterior or updated probability distribution. In simple words, you take what you know about the world (i.e your prior distribution), then take the new data and try to evaluate if this new data conforms with your prior knowledge. Multiply the 2 distribution and you get an update belief about the world, which in next iteration you can use as your new prior distribution/belief.&lt;/p&gt;
+
+&lt;p&gt;To help you visualize more clearly first let’s take a simple example which can help you visualize this process and then we will take a toy problem and try to solve it using Bayesian estimation.&lt;/p&gt;
+
+&lt;p&gt;The complete code for computation and plotting can be found &lt;a href=&quot;https://gist.github.com/hmisra/f4edf5b58aedb6075fcd&quot; title=&quot;Source Code&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Assume that you have a random variable A which can take values from 1 to 6. Now you want to know which value of A is the most probable value. You think that it is somewhere close to 3.5 and your belief can be described by a normal distribution around 3.5 with a variance of 0.5. This distribution can be plotted as follows&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive1.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;Now you start getting data B from some source. To calculate &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A|B)&lt;/code&gt; we need the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt;, a joint distribution of our prior knowledge and the data. In real life getting this distribution is hard and we normally employ various assumptions and approximation techniques to get this distribution. Later in this article while solving a toy problem we would use a simple assumption to estimate this distribution. For now let’s assume you already have this distribution and can be represented by the 3-D plot drawn below. Now by multiplying our prior distribution and this joint distribution so that we can get an updated distribution. But as you can see our prior is a uni-variate distribution and &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is bi-variate, so we can not directly multiply these 2 distribution. We would take a slice out the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; which is shown in graph below as conditional probability &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt;. Now if you are familiar with basic rules of probability theory you must already know that The sum of probability of all the events is equal to 1, i.e. &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A)=1&lt;/code&gt; and also &lt;code class=&quot;highlighter-rouge&quot;&gt;∫P(A,B)=1&lt;/code&gt; or in simple words area under the surface/curve of a probability distribution must be 1. As we know that the distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(A,B)&lt;/code&gt; is a probability distribution and the area under the surface of distribution is 1, so if we take a slice out of this distribution, this conditional distribution &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B|A=3)&lt;/code&gt; is no more a valid probability distribution. Therefore, if we multiply this distribution with our prior we would get an invalid probability distribution. Hence we need to normalize it by dividing by &lt;code class=&quot;highlighter-rouge&quot;&gt;P(B)&lt;/code&gt; so that we get a valid posterior probability distribution.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive2.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So let’s summarize what we have covered so far, we had our prior knowledge about the world, we took some data, computed the conditional distribution of data and normalized it with the distribution of data. By plugging these values in Bayes theorem, we would get a posterior distribution. Now in later iterations when we will get a new piece of data we would consider this posterior as our prior and again compute our posterior.&lt;/p&gt;
+
+&lt;p&gt;This recursive process is commonly known as Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;Toy Problem: Helping Iron Man to locate Whiplash using Recursive Bayesian Filter
+Now let’s describe a toy problem and try to solve it using Recursive Bayesian Filter.&lt;/p&gt;
+
+&lt;p&gt;I am an ardent fan of Iron Man movies so I couldn’t resist to take example in which we would help Iron Man to kill the bad guy: Whiplash. Imagine that there is a wall of height and width of 40 * 40 ft. and Whiplash is hiding behind the wall. Also, during his duel with Whiplash, Iron man got his Infra-Red sensor damaged and is left with a single bullet using which he wants to kill whiplash. Now, as the IR sensor got damaged Iron Man is getting the erroneous heat signatures on the wall. Hence, Iron Man decides to take 100 readings and sends it to Jarvis. Now as Jarvis it is our job to figure out where precisely Whiplash is hiding.&lt;/p&gt;
+
+&lt;p&gt;So let’s see how we can help him kill “Whiplash” using Recursive Bayesian Estimation we discussed earlier.&lt;/p&gt;
+
+&lt;p&gt;We are performing following steps to get the graph displayed below:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will create a matrix of size 41*41, representing the wall behind which whiplash is hiding.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will mention the true location of whiplash which Iron Man does not know, in the plot this location is represented with Red dot.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will assume that the reading from Infrared sensor is faulty and we will sample 100 readings from a normal distribution with the mean at true location and variance of 10.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive3.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;So as we can see the true location of Whiplash is at the red dot in the map, but after taking 100 readings from infrared sensor Iron man can only see the blue dots. Our job now is to estimate the position of the red dot by looking at these 100 dots.&lt;/p&gt;
+
+&lt;p&gt;Next to start using Recursive Bayesian we need a prior distribution which would represent our initial knowledge about the world. Now for this we can either assume that Iron man does not know anything about the location of Whiplash and would use a uniform distribution (i.e. he would assume that Whiplash can be anywhere with equal probability.) or if he saw Whiplash going from left side of the wall then we can create a distribution incorporating this knowledge. To keep things simple for now, I would assume that he does not know anything about the location of Whiplash.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;/recursive4.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;As you can see the distribution is uniform and the probability of Whiplash being at any point on this wall is equal.&lt;/p&gt;
+
+&lt;p&gt;Now let’s take this prior distribution and start our recursive Bayesian estimation. We would perform following steps to get a posterior distribution:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;We will take each point and create a normal distribution around this point (earlier in this article I have mentioned that estimation of joint distribution or conditional distribution is difficult in real life and we employ various assumptions and approximations. To get this distribution, here we are assuming that the conditional distribution is just a normal distribution with mean at the location of the point and a variance of 20 on each coordinate)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;we will multiply this distribution around the data point with our prior distribution to get posterior distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;the posterior distribution which we got is not a probability distribution anymore so we will normalize this distribution.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;make this posterior distribution prior and repeat for all the data points. The output of this part is in the form of video in which you can clearly see the results of each iteration in the form of surface plot and heat map.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;At the end of iterating through 100 data points, you can clearly see that we have estimated that the location of whiplash is near 20,20 as the probability near 20,20 is maximum.&lt;/p&gt;
+
+&lt;center&gt;&lt;iframe width=&quot;420&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/vUFoFwtBqXU&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+&lt;h2 id=&quot;real-world-applications&quot;&gt;Real world applications&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;In application that uses geospatial data for example UBER, where there is a need to locate the precise location of an object through GPS (in case of Uber, a car), we can use this method to estimate the precise location of the car.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Improved methods (like Kalman Filters, Particle Based Estimation methods etc.) based on Recursive Bayesian Filters are used in Radars to track missiles. Check out this &lt;a href=&quot;http://down.cenet.org.cn/upfile/28/20051117121144185.pdf&quot;&gt;Paper&lt;/a&gt; for more details.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
 </content>
  </entry>
  

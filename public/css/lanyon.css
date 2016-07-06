@@ -92,7 +92,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .container-content-text {
     position: relative;
-    left: 9%;
+    left: 10%;
     
   max-width: 82%;
 }
@@ -418,8 +418,8 @@ a.sidebar-nav-item:focus {
 
 .post-grid {
     width: 11em;
-    
-    margin-right: 3em;
+    margin-bottom: 0.00em;
+    margin-right: 0.005em;
     display: inline-block;
 }
 
@@ -487,6 +487,27 @@ a.sidebar-nav-item:focus {
 *
 */
 
+.hoverdiv{
+}
+#sub-hover{
+    padding: 10px;
+    background-color: #fafafa;
+    min-height:146px;
+}
+
+.hoverdiv:hover>#sub-hover
+{
+ background-color: #fff!important;
+}
+
+.hoverdiv:hover>#sub-hover
+{
+ background-color: #fff!important;
+}
+
+
+hr { margin: 1px 0 1px 0; }
+
 .post-book
 {
     height: 300px;
@@ -494,35 +515,57 @@ a.sidebar-nav-item:focus {
 }
 .shape-panel
 {
+/*
     border-top:1px solid #ccc;
-    border-right:3px solid #ccc;
-    border-bottom:3px solid #ccc;
+    border-right:1px solid #ccc;
+    border-bottom:1px solid #ccc;
     border-left:1px solid #ccc;
-    min-height:9.375rem;
-    padding:1em 2.1875em 1em .75em;
-    position:relative
+*/
+    border-radius: 3px;
+    min-height:320px;
+    max-height:320px;
+    min-width: 13rem;
+    position:relative;
+    text-align: center
 }
+/*
 .shape-panel:after,.shape panel:before
 {
     bottom:-3px;content:'';
     height:0;position:absolute;
     right:-3px;width:0
 }
+*/
 
-.shape-panel:before
-{border-bottom:35px solid #ccc;
-    border-left:35px solid transparent
+fieldset.cat {
+    font-size: 14px;
+    border-top: 1px solid #aaa;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    display: block;
+    text-align: center;
+    width: 50%;
+    margin-bottom: 2px;
+    color: #F59B00;
 }
-.shape-panel:after{
-    border-bottom:30px solid #fff;
-    border-left:30px solid #102366
+.hoverdiv:hover fieldset{
+  animation-name: change-width;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
 }
-.shape-panel:hover{
-    border-color:#102366
+
+@keyframes change-width {
+    from {width: 50%;}
+    to {width: 80%;}
 }
-.shape-panel:hover:before{
-    border-bottom-color:#102366
+
+
+fieldset.title legend {
+    padding: 5px 1px;
 }
+
 .shape-panel{-webkit-align-items:flex-end;-ms-flex-align:end;align-items:flex-end}
 .shape-panel a{display:-webkit-flex;display:-ms-flexbox;display:flex}
 .transparent-box{
