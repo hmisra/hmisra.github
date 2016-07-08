@@ -20,19 +20,20 @@
   <link rel="stylesheet" href="/public/css/syntax.css">
   <link rel="stylesheet" href="/public/css/lanyon.css">
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
-
-   
+  <link rel="stylesheet" href="/public/css/font-awesome.min.css">
   <!-- Icons -->
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
   <link rel="shortcut icon" href="/public/favicon.ico">
     <link rel="logo" href="/logo.png">
 
+    <script  type="text/javascript" src="/public/js/jquery-2.1.4.min.js"></script>
   <!-- RSS -->
   <!--<link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">--> 
 </head>
 
 
   <body class="theme-base-15">
+      <progress value="0"></progress>
       <script>
   window.fbAsyncInit = function() {
     FB.init({
@@ -92,8 +93,6 @@
     
       
     
-      
-    
 <a class="sidebar-nav-item" href="/about">About</a>
 <!--    <a class="sidebar-nav-item" href="https://github.com/hmisra/archive/v.zip">Download</a>-->
 <!--    <a class="sidebar-nav-item" href="https://github.com/hmisra">GitHub project</a>-->
@@ -139,14 +138,116 @@
       </div>
 
       <div class="container-content" style="margin-bottom:1%;">
-        <div style="position:relative; background-image: url(/network.jpg);  background-size: contain; background-repeat: repeat; width:100%; height:400px;"><p></p></div>
-<div class="container-content-text" style="background-color:white;margin-top: -13rem; ">
+            <script  >$(document).ready(function(){
+    
+    var getMax = function(){
+        return $(document).height() - $(window).height();
+    }
+    
+    var getValue = function(){
+        return $(window).scrollTop();
+    }
+    
+    if('max' in document.createElement('progress')){
+        // Browser supports progress element
+        var progressBar = $('progress');
+        
+        // Set the Max attr for the first time
+        progressBar.attr({ max: getMax() });
+
+        $(document).on('scroll', function(){
+            // On scroll only Value attr needs to be calculated
+            progressBar.attr({ value: getValue() });
+        });
+      
+        $(window).resize(function(){
+            // On resize, both Max/Value attr needs to be calculated
+            progressBar.attr({ max: getMax(), value: getValue() });
+        });   
+    }
+    else {
+        var progressBar = $('.progress-bar'), 
+            max = getMax(), 
+            value, width;
+        
+        var getWidth = function(){
+            // Calculate width in percentage
+            value = getValue();            
+            width = (value/max) * 100;
+            width = width + '%';
+            return width;
+        }
+        
+        var setWidth = function(){
+            progressBar.css({ width: getWidth() });
+        }
+        
+        $(document).on('scroll', setWidth);
+        $(window).on('resize', function(){
+            // Need to reset the Max attr
+            max = getMax();
+            setWidth();
+        });
+    }
+});
+
+
+$(document).ready(function(){
+  
+  $('#flat').addClass("active");
+  $('#progressBar').addClass('flat');
+    
+  $('#flat').on('click', function(){
+    $('#progressBar').removeClass().addClass('flat');
+    $('a').removeClass();
+    $(this).addClass('active');
+    $(this).preventDefault();
+  });
+
+
+  $(document).on('scroll', function(){
+
+      maxAttr = $('#progressBar').attr('max');
+      valueAttr = $('#progressBar').attr('value');
+      percentage = (valueAttr/maxAttr) * 100;
+      
+      
+  });
+  
+});</script>
+<div style="position:relative; background-image: url(/network.jpg);  background-size: contain; background-repeat: repeat; width:100%; height:400px;"><p></p></div>
+<div class="container-content-text hvr-glow" style="background-color:white;margin-top: -13rem; border-radius:4px; ">
 
 <div class="posts">
 <div class="post" style="padding: 20px;">
   <h1 class="post-title" >Recursive Bayesian Filter</h1>
-  <span class="post-date">26 Jul 2015</span>
-  <h2 id="introduction">Introduction</h2>
+
+  <span class="post-date"> published on 26 Jul 2015</span>
+    <hr style="margin:1px;">
+    <div style="margin:1px;">
+    <table>
+  <tr>
+    <td width= 6em height = 6em style="padding:0.78em;"> <div class="hvr-grow" style="border:2px solid #102366; background-image: url(/himanshu.jpg); background-size: contain;  height:4.7em; width:4.7em; border-radius:2.35em; "></div></td>
+    <td style="padding-left:1.2em;  "><div style="margin:0px; padding:0px; height:1rem; color: #102366; font-size: 0.9rem; font-weight: 600; line-height: 1rem;">Himanshu Misra</div> <div style="margin:0px; padding:0px; height:1rem; color: rgba(0, 0, 0, 0.55); font-size: 0.65rem; font-weight: 400; line-height: 1rem;">Data Scientist @ Legacy.com</div></td>
+
+    <td style="text-align:right;" >
+        
+        <div style="padding-right:3em;">
+            
+      <a href="https://www.linkedin.com/in/hmisra"><i class="fa fa-linkedin-square fa-2x hvr-grow " aria-hidden="true" style="color:#102366;"></i></a>
+      <a href="https://www.facebook.com/himanshumisra1990"><i class="fa fa-facebook-square fa-2x hvr-grow " aria-hidden="true" style="color:#102366;"></i></a>
+        
+        <a href="https://twitter.com/himanshumisra"><i class="fa fa-twitter fa-2x hvr-grow " aria-hidden="true" style="color:#102366;"></i></a>
+        <a href="https://github.com/hmisra"><i class="fa fa-github fa-2x hvr-grow " aria-hidden="true" style="color:#102366;"></i></a>
+            
+            </div>
+        </td>
+  </tr>
+</table>
+    </div>
+<hr>
+
+<h2 id="introduction">Introduction</h2>
 <hr />
 <p>Whenever we make any critical decision in our life we tend to take suggestions and recommendations from different people. We try to analyze information from various sources and based on our analysis, we decide what to do.</p>
 
@@ -256,38 +357,24 @@ Now let’s describe a toy problem and try to solve it using Recursive Bayesian 
 </div>
     </div>
 <div class="share-buttons">
-    <center>Share     
-        
-<script>
-// Only works after `FB.init` is called
-function myFacebookLogin() {
-    console.log("function called");
-  FB.login(function(){FB.api('/me', {fields: 'last_name'}, function(response) {console.log(response);})}, {scope: 'public_profile'});};
-</script>
-<button onclick="myFacebookLogin();">Login with Facebook</button></center>
-    <br>
-  <ul id ="button-share">
-      
-    <li>
-      <a href="https://twitter.com/intent/tweet?text=http://hmisra.github.io/2015/07/26/Estimating-Truth_Using-Recursive-Bayesian-Filter/"  title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
-    </li>
-    <li>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=http://hmisra.github.io/2015/07/26/Estimating-Truth_Using-Recursive-Bayesian-Filter/"  title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
-    </li>
-    <li>
-      <a href="https://plus.google.com/share?url=http://hmisra.github.io/2015/07/26/Estimating-Truth_Using-Recursive-Bayesian-Filter/"  title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
-    </li>
-    <li>
-      <a href="https://news.ycombinator.com/submitlink?u=http://hmisra.github.io/2015/07/26/Estimating-Truth_Using-Recursive-Bayesian-Filter/" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
-    </li>
-    <li>
-      <a href="https://www.reddit.com/submit?url=http://hmisra.github.io/2015/07/26/Estimating-Truth_Using-Recursive-Bayesian-Filter/"  title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
-    </li>
-  </ul>
+    
+<!--    <i class="fa fa-share-square-o fa-2x" style=" color:#102366;" aria-hidden="true"></i>-->
+   <center><fieldset class="cat" style="width: 30%;"><legend><b>&nbsp;Share&nbsp;</b> </legend>
+    <a href="https://twitter.com/intent/tweet?text=http://hmisra.github.io/2015/07/26/Estimating-Truth_Using-Recursive-Bayesian-Filter/" style="padding-right:1em;" title="Share on Twitter"><i class="fa fa-twitter fa-3x hvr-float" style="color:#102366;"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http://hmisra.github.io/2015/07/26/Estimating-Truth_Using-Recursive-Bayesian-Filter/" style="padding-right:1em;" title="Share on Facebook"><i class="fa fa-facebook-square fa-3x hvr-float" style="color:#102366;"></i></a>
+    <a href="https://plus.google.com/share?url=http://hmisra.github.io/2015/07/26/Estimating-Truth_Using-Recursive-Bayesian-Filter/"  style="padding-right:1em;" title="Share on Google Plus"><i class="fa fa-google-plus fa-3x hvr-float" style="color:#102366;"></i></a>
+    <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fhttp://hmisra.github.io/2015/07/26/Estimating-Truth_Using-Recursive-Bayesian-Filter/&title=Recursive Bayesian Filter&summary=Truth Estimation using RBF&source=http%3A%2F%2Fhttp://hmisra.github.io/2015/07/26/Estimating-Truth_Using-Recursive-Bayesian-Filter/" style="padding-right:1em;" title="Share on Linkedin"><i class="fa fa-linkedin-square fa-3x hvr-float" style="color:#102366;"></i></a>
+      <a href="https://www.reddit.com/submit?url=http://hmisra.github.io/2015/07/26/Estimating-Truth_Using-Recursive-Bayesian-Filter/"  style="padding-right:1em;" title="Share on Reddit"><i class="fa fa-reddit fa-3x hvr-float" style="color:#102366;"></i>
+    </a>
+    
+    
+    </fieldset>   
+       </center>
+    
 </div><!-- end share-buttons -->
 
 
-<div id="disqus_thread"></div>
+<div id="disqus_thread" style="padding-left:80px; padding-right:80px; border-bottom:1px solid black;"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = 'hmisra';
@@ -301,9 +388,19 @@ function myFacebookLogin() {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
+<!--
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/06/07/Introduction-to-Spark/">
+            Introduction to Spark
+            <small>07 Jun 2016</small>
+          </a>
+        </h3>
+      </li>
     
       <li>
         <h3>
@@ -314,26 +411,9 @@ function myFacebookLogin() {
         </h3>
       </li>
     
-      <li>
-        <h3>
-          <a href="/2015/07/25/Estimating-Truth_Using-Recursive-Bayesian-Filter/">
-            Recursive Bayesian Filter
-            <small>25 Jul 2015</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2015/07/24/Estimating-Truth_Using-Recursive-Bayesian-Filter/">
-            Recursive Bayesian Filter
-            <small>24 Jul 2015</small>
-          </a>
-        </h3>
-      </li>
-    
   </ul>
 </div>
+-->
 </div>
       </div>
     </div>

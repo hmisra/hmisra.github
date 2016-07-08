@@ -5,7 +5,7 @@ layout: default
 <div class="posts">
   <div style="min-height: 80vh;">
   {% for post in paginator.posts %}
-    {% if post.type == 'blog' %}
+    {% if post.published == true %}
     <a href="{{ post.url }}">
   <div class="post post-grid shape-panel hvr-bob hvr-underline-reveal hvr-glow hoverdiv" >
       
@@ -22,7 +22,7 @@ layout: default
         {{ post.title }}
       
     </h5>
-    <span class="post-date">{{ post.date | date_to_string }}<br> {{ post.excerpt }}</span></div>
+    <span class="post-date"> <i class="fa fa-clock-o" aria-hidden="true" style="padding-right:3px;"></i>{{ post.date | date_to_string }}<br> {{ post.excerpt }}</span></div>
       
   </div>
     </a>

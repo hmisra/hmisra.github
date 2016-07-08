@@ -6,6 +6,9 @@ excerpt: A survey on Similarity Metrics
 comments: true
 background: /distance.gif
 published: true
+authorname: Himanshu Misra
+authordesignation: Data Scientist @ Legacy.com
+authorimage: /himanshu.jpg
 ---
 
 

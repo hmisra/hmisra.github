@@ -1,49 +1,138 @@
 ---
 layout: default
 ---
+
+    <script  >$(document).ready(function(){
+    
+    var getMax = function(){
+        return $(document).height() - $(window).height();
+    }
+    
+    var getValue = function(){
+        return $(window).scrollTop();
+    }
+    
+    if('max' in document.createElement('progress')){
+        // Browser supports progress element
+        var progressBar = $('progress');
+        
+        // Set the Max attr for the first time
+        progressBar.attr({ max: getMax() });
+
+        $(document).on('scroll', function(){
+            // On scroll only Value attr needs to be calculated
+            progressBar.attr({ value: getValue() });
+        });
+      
+        $(window).resize(function(){
+            // On resize, both Max/Value attr needs to be calculated
+            progressBar.attr({ max: getMax(), value: getValue() });
+        });   
+    }
+    else {
+        var progressBar = $('.progress-bar'), 
+            max = getMax(), 
+            value, width;
+        
+        var getWidth = function(){
+            // Calculate width in percentage
+            value = getValue();            
+            width = (value/max) * 100;
+            width = width + '%';
+            return width;
+        }
+        
+        var setWidth = function(){
+            progressBar.css({ width: getWidth() });
+        }
+        
+        $(document).on('scroll', setWidth);
+        $(window).on('resize', function(){
+            // Need to reset the Max attr
+            max = getMax();
+            setWidth();
+        });
+    }
+});
+
+
+$(document).ready(function(){
+  
+  $('#flat').addClass("active");
+  $('#progressBar').addClass('flat');
+    
+  $('#flat').on('click', function(){
+    $('#progressBar').removeClass().addClass('flat');
+    $('a').removeClass();
+    $(this).addClass('active');
+    $(this).preventDefault();
+  });
+
+
+  $(document).on('scroll', function(){
+
+      maxAttr = $('#progressBar').attr('max');
+      valueAttr = $('#progressBar').attr('value');
+      percentage = (valueAttr/maxAttr) * 100;
+      
+      
+  });
+  
+});</script>
 <div style="position:relative; background-image: url({{page.background}});  background-size: contain; background-repeat: repeat; width:100%; height:400px;"><p></p></div>
-<div class="container-content-text" style="background-color:white;margin-top: -13rem; ">
+<div class="container-content-text hvr-glow" style="background-color:white;margin-top: -13rem; border-radius:4px; ">
 
 <div class="posts">
 <div class="post" style="padding: 20px;">
   <h1 class="post-title" >{{ page.title }}</h1>
-  <span class="post-date">{{ page.date | date_to_string }}</span>
-  {{ content }}
+
+  <span class="post-date"> published on {{ page.date | date_to_string }}</span>
+    <hr style="margin:1px;">
+    <div style="margin:1px;">
+    <table>
+  <tr>
+    <td width= 6em height = 6em style="padding:0.78em;"> <div class="hvr-grow" style="border:2px solid #102366; background-image: url({{page.authorimage}}); background-size: contain;  height:4.7em; width:4.7em; border-radius:2.35em; "></div></td>
+    <td style="padding-left:1.2em;  "><div style="margin:0px; padding:0px; height:1rem; color: #102366; font-size: 0.9rem; font-weight: 600; line-height: 1rem;">{{page.authorname}}</div> <div style="margin:0px; padding:0px; height:1rem; color: rgba(0, 0, 0, 0.55); font-size: 0.65rem; font-weight: 400; line-height: 1rem;">{{page.authordesignation}}</div></td>
+
+    <td style="text-align:right;" >
+        
+        <div style="padding-right:3em;">
+            
+      <a href="{{page.authorlinkedin}}"><i class="fa fa-linkedin-square fa-2x hvr-grow " aria-hidden="true" style="color:#102366;"></i></a>
+      <a href="{{page.authorfacebook}}"><i class="fa fa-facebook-square fa-2x hvr-grow " aria-hidden="true" style="color:#102366;"></i></a>
+        
+        <a href="{{page.authortwitter}}"><i class="fa fa-twitter fa-2x hvr-grow " aria-hidden="true" style="color:#102366;"></i></a>
+        <a href="{{page.authorgithub}}"><i class="fa fa-github fa-2x hvr-grow " aria-hidden="true" style="color:#102366;"></i></a>
+            
+            </div>
+        </td>
+  </tr>
+</table>
+    </div>
+<hr>
+
+{{ content }}
 </div>
     </div>
 <div class="share-buttons">
-    <center>Share     
-        
-<script>
-// Only works after `FB.init` is called
-function myFacebookLogin() {
-    console.log("function called");
-  FB.login(function(){FB.api('/me', {fields: 'last_name'}, function(response) {console.log(response);})}, {scope: 'public_profile'});};
-</script>
-<button onclick="myFacebookLogin();">Login with Facebook</button></center>
-    <br>
-  <ul id ="button-share">
-      
-    <li>
-      <a href="https://twitter.com/intent/tweet?text={{ site.url }}{{ page.url }}"  title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
-    </li>
-    <li>
-      <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}"  title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
-    </li>
-    <li>
-      <a href="https://plus.google.com/share?url={{ site.url }}{{ page.url }}"  title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
-    </li>
-    <li>
-      <a href="https://news.ycombinator.com/submitlink?u={{ site.url }}{{ page.url }}" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
-    </li>
-    <li>
-      <a href="https://www.reddit.com/submit?url={{ site.url }}{{ page.url }}"  title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
-    </li>
-  </ul>
+    
+<!--    <i class="fa fa-share-square-o fa-2x" style=" color:#102366;" aria-hidden="true"></i>-->
+   <center><fieldset class="cat" style="width: 30%;"><legend><b>&nbsp;Share&nbsp;</b> </legend>
+    <a href="https://twitter.com/intent/tweet?text={{ site.url }}{{ page.url }}" style="padding-right:1em;" title="Share on Twitter"><i class="fa fa-twitter fa-3x hvr-float" style="color:#102366;"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" style="padding-right:1em;" title="Share on Facebook"><i class="fa fa-facebook-square fa-3x hvr-float" style="color:#102366;"></i></a>
+    <a href="https://plus.google.com/share?url={{ site.url }}{{ page.url }}"  style="padding-right:1em;" title="Share on Google Plus"><i class="fa fa-google-plus fa-3x hvr-float" style="color:#102366;"></i></a>
+    <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2F{{ site.url }}{{ page.url }}&title={{page.title}}&summary={{page.excerpt}}&source=http%3A%2F%2F{{ site.url }}{{ page.url }}" style="padding-right:1em;" title="Share on Linkedin"><i class="fa fa-linkedin-square fa-3x hvr-float" style="color:#102366;"></i></a>
+      <a href="https://www.reddit.com/submit?url={{ site.url }}{{ page.url }}"  style="padding-right:1em;" title="Share on Reddit"><i class="fa fa-reddit fa-3x hvr-float" style="color:#102366;"></i>
+    </a>
+    
+    
+    </fieldset>   
+       </center>
+    
 </div><!-- end share-buttons -->
 
 {% if site.owner.disqus-shortname and page.comments == true %}
-<div id="disqus_thread"></div>
+<div id="disqus_thread" style="padding-left:80px; padding-right:80px; border-bottom:1px solid black;"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = '{{ site.owner.disqus-shortname }}';
@@ -57,6 +146,7 @@ function myFacebookLogin() {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 {% endif %}
+<!--
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
@@ -72,4 +162,5 @@ function myFacebookLogin() {
     {% endfor %}
   </ul>
 </div>
+-->
 </div>

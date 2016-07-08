@@ -5,6 +5,14 @@ title: Recursive Bayesian Filter
 excerpt: Truth Estimation using RBF
 comments: true
 background: /network.jpg
+published: true
+authorname: Himanshu Misra
+authordesignation: Data Scientist @ Legacy.com
+authorimage: /himanshu.jpg
+authorlinkedin: https://www.linkedin.com/in/hmisra
+authorfacebook: https://www.facebook.com/himanshumisra1990
+authorgithub: https://github.com/hmisra
+authortwitter: https://twitter.com/himanshumisra
 ---
 
 ## Introduction
