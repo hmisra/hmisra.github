@@ -168,7 +168,7 @@ df.describe()
 ```
 
 ## Best Programming practices for Spark
-------
+-------
 
 1. Use predefined transformations and actions whereever possible. Check spark Data Frame API referece.
 2. Never use collect() in production, it may crash your system, instead use take(n) to perform select operations on your data frame.

@@ -27,7 +27,7 @@
 
     <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
          content to avoid any CSS collisions with our real content. -->
-    <div class="wrap">
+    <div class="wrap" style=" position:relative;">
       <div class="masthead">
         <div class="container">
            
@@ -55,8 +55,12 @@
         </div>
       </div>
 
-      <div class="container-content" style="margin-bottom:1%;">
+      <div class="container-content" style="margin-bottom:2%;">
         {{ content }}
+      </div>
+      </div>
+        <div class="footer roboto" style=" align:center; vertical-align:middle; min-height:50px;max-height:50px; width:100%; border-top:2px solid #eee; position: relative; bottom:0px; left:0px;padding-top:0.90%;"><center>
+      Powered By <i class="fa fa-github-square fa-lg" aria-hidden="true" style="padding-left:25px; color: #102366;"></i> <i class="fa fa-css3 fa-lg" aria-hidden="true" style="padding-left:25px; "></i><i class="fa fa-html5 fa-lg" aria-hidden="true" style="padding-left:25px;"></i></center>
       </div>
     </div>
     
@@ -71,5 +75,6 @@
   ga('send', 'pageview');
 
 </script>
+      
   </body>
 </html>
