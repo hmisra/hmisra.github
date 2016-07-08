@@ -83,7 +83,7 @@ $(document).ready(function(){
 <div class="container-content-text hvr-glow" style="background-color:white;margin-top: -13rem; border-radius:4px; ">
 
 <div class="posts">
-<div class="post" style="padding-left: 40px; padding-top:20px;padding-right:40px; padding-bottom:20px;">
+<div class="post" style="padding-left: 60px; padding-top:20px;padding-right:60px; padding-bottom:20px;">
   <h1 class="post-title" >{{ page.title }}</h1>
 
   <span class="post-date"> &nbsp;<span style="color:#F59B00;">{{page.type}}</span> published on {{ page.date | date_to_string }}</span>
@@ -91,7 +91,7 @@ $(document).ready(function(){
     <div style="margin:1px;">
     <table>
   <tr>
-    <td width= 6em height = 6em style="padding:0.78em;"> <div class="hvr-grow" style="border:2px solid #102366; background-image: url({{page.authorimage}}); background-size: contain;  height:4.7em; width:4.7em; border-radius:2.35em; "></div></td>
+    <td width= 6em height = 6em style="padding-right:0.78em; padding-top:0.78em; padding-bottom:0.78em;"> <div class="hvr-grow" style="border:2px solid #102366; background-image: url({{page.authorimage}}); background-size: contain;  height:4.7em; width:4.7em; border-radius:2.35em; "></div></td>
     <td style="padding-left:1.2em;  "><div style="margin:0px; padding:0px; height:1rem; color: #102366; font-size: 0.9rem; font-weight: 600; line-height: 1rem;">{{page.authorname}}</div> <div style="margin:0px; padding:0px; height:1rem; color: rgba(0, 0, 0, 0.65); font-size: 0.65rem; font-weight: 700; line-height: 1rem; ">{{page.authordesignation}}</div></td>
 
     <td style="text-align:right;" >
@@ -110,8 +110,9 @@ $(document).ready(function(){
 </table>
     </div>
 <hr>
-
+<div class="roboto" style="padding:0px;">
 {{ content }}
+    </div>
     
 </div>
     </div>

@@ -104,6 +104,7 @@ At the end of iterating through 100 data points, you can clearly see that we hav
 </center>
 
 ## Real world applications
+------
 
 1. In application that uses geospatial data for example UBER, where there is a need to locate the precise location of an object through GPS (in case of Uber, a car), we can use this method to estimate the precise location of the car.
 

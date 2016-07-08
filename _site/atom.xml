@@ -4,7 +4,7 @@
  <title>entangledDimensions</title>
  <link href="http://hmisra.github.io/atom.xml" rel="self"/>
  <link href="http://hmisra.github.io/"/>
- <updated>2016-07-07T19:15:12-07:00</updated>
+ <updated>2016-07-07T21:35:55-07:00</updated>
  <id>http://hmisra.github.io</id>
  <author>
    <name>Himanshu Misra</name>
@@ -17,7 +17,8 @@
    <link href="http://hmisra.github.io/2016/06/07/Introduction-to-Spark/"/>
    <updated>2016-06-07T00:00:00-07:00</updated>
    <id>http://hmisra.github.io/2016/06/07/Introduction-to-Spark</id>
-   <content type="html">&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;hr /&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Apache Spark is large scale data processing engine which allows fast and scalable computation.&lt;/li&gt;
@@ -31,7 +32,8 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;how-do-you-write-a-spark-job&quot;&gt;How do you write a spark job&lt;/h3&gt;
+&lt;h2 id=&quot;how-to-write-a-spark-job&quot;&gt;How to write a spark job?&lt;/h2&gt;
+&lt;hr /&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Create a spark context (in most of the environment like pyspark or any other spark only platform this step is already done for you, but if you are writing your own python code in ipython or some python IDE you must define a spark context). Using Master parameter you can specify which type of cluster to use&lt;/li&gt;
@@ -39,7 +41,8 @@
   &lt;li&gt;Then use SQL Context to create a DataFrame.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;data-frames&quot;&gt;Data Frames&lt;/h3&gt;
+&lt;h2 id=&quot;data-frames&quot;&gt;Data Frames&lt;/h2&gt;
+&lt;hr /&gt;
 
 &lt;p&gt;Data Frames are spark abstraction which allows spark to perform parallel processing on them.&lt;/p&gt;
 
@@ -49,27 +52,31 @@
   &lt;li&gt;Enable operations on collection of elements in parallel.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;how-to-create-data-frames&quot;&gt;How to create Data Frames&lt;/h4&gt;
+&lt;h3 id=&quot;how-to-create-data-frames&quot;&gt;How to create Data Frames&lt;/h3&gt;
 
-&lt;p&gt;We can create data frames in 3 main ways:
-* by parallelizing exisiting python collection.
-* by transforming existing Data Frame or Pandas Data Frame.
-* by files on HDFS or File System&lt;/p&gt;
+&lt;p&gt;We can create data frames in 3 main ways:&lt;/p&gt;
 
-&lt;h4 id=&quot;more-on-data-frames&quot;&gt;More on Data Frames&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;by parallelizing exisiting python collection.&lt;/li&gt;
+  &lt;li&gt;by transforming existing Data Frame or Pandas Data Frame.&lt;/li&gt;
+  &lt;li&gt;by files on HDFS or File System&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;more-on-data-frames&quot;&gt;More on Data Frames&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;each row in a data frame is a Row() object.&lt;/li&gt;
   &lt;li&gt;columns can be accessed as attributes of data frames.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;operations-on-spark-dataframes&quot;&gt;Operations on Spark DataFrames&lt;/h3&gt;
+&lt;h2 id=&quot;operations-on-spark-dataframes&quot;&gt;Operations on Spark DataFrames&lt;/h2&gt;
+&lt;hr /&gt;
 
 &lt;p&gt;There are 2 types of operations we can perform on Spark DataFrame:
 1. Transformations 
 2. Actions&lt;/p&gt;
 
-&lt;h4 id=&quot;transformations&quot;&gt;Transformations&lt;/h4&gt;
+&lt;h3 id=&quot;transformations&quot;&gt;Transformations&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Transformations are primarily slicing and dicing operations on Data Frames.&lt;/li&gt;
@@ -78,7 +85,7 @@
   &lt;li&gt;Spark performs transformations on Worker Nodes.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;actions&quot;&gt;Actions&lt;/h4&gt;
+&lt;h3 id=&quot;actions&quot;&gt;Actions&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Actions are operations where you try to get information out of the data frame.&lt;/li&gt;
@@ -86,9 +93,10 @@
   &lt;li&gt;Spark perform actions on both worker and driver nodes.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;examples&quot;&gt;Examples&lt;/h3&gt;
+&lt;h2 id=&quot;examples&quot;&gt;Examples&lt;/h2&gt;
+&lt;hr /&gt;
 
-&lt;h4 id=&quot;creating-data-frames&quot;&gt;Creating Data Frames&lt;/h4&gt;
+&lt;h3 id=&quot;creating-data-frames&quot;&gt;Creating Data Frames&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# create data frame from SQL Context&lt;/span&gt;
 
@@ -106,7 +114,7 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h4 id=&quot;transformations-1&quot;&gt;Transformations&lt;/h4&gt;
+&lt;h3 id=&quot;transformations-1&quot;&gt;Transformations&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 &lt;span class=&quot;c&quot;&gt;# create people data frame&lt;/span&gt;
@@ -149,7 +157,7 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h4 id=&quot;actions-1&quot;&gt;Actions&lt;/h4&gt;
+&lt;h3 id=&quot;actions-1&quot;&gt;Actions&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 &lt;span class=&quot;c&quot;&gt;#Show returns n rows as DF&lt;/span&gt;
@@ -170,7 +178,8 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;best-programming-practices-for-spark&quot;&gt;Best Programming practices for Spark&lt;/h3&gt;
+&lt;h2 id=&quot;best-programming-practices-for-spark&quot;&gt;Best Programming practices for Spark&lt;/h2&gt;
+&lt;hr /&gt;
 
 &lt;ol&gt;
   &lt;li&gt;Use predefined transformations and actions whereever possible. Check spark Data Frame API referece.&lt;/li&gt;
@@ -296,6 +305,7 @@ Now let’s describe a toy problem and try to solve it using Recursive Bayesian 
 &lt;/center&gt;
 
 &lt;h2 id=&quot;real-world-applications&quot;&gt;Real world applications&lt;/h2&gt;
+&lt;hr /&gt;
 
 &lt;ol&gt;
   &lt;li&gt;

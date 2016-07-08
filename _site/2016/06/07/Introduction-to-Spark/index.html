@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="/public/css/lanyon.css">
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
   <link rel="stylesheet" href="/public/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lora:700|Open+Sans|Roboto" rel="stylesheet">
   <!-- Icons -->
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
   <link rel="shortcut icon" href="/public/favicon.ico">
@@ -219,7 +220,7 @@ $(document).ready(function(){
 <div class="container-content-text hvr-glow" style="background-color:white;margin-top: -13rem; border-radius:4px; ">
 
 <div class="posts">
-<div class="post" style="padding-left: 40px; padding-top:20px;padding-right:40px; padding-bottom:20px;">
+<div class="post" style="padding-left: 60px; padding-top:20px;padding-right:60px; padding-bottom:20px;">
   <h1 class="post-title" >Introduction to Spark</h1>
 
   <span class="post-date"> &nbsp;<span style="color:#F59B00;">notes</span> published on 07 Jun 2016</span>
@@ -227,7 +228,7 @@ $(document).ready(function(){
     <div style="margin:1px;">
     <table>
   <tr>
-    <td width= 6em height = 6em style="padding:0.78em;"> <div class="hvr-grow" style="border:2px solid #102366; background-image: url(/himanshu.jpg); background-size: contain;  height:4.7em; width:4.7em; border-radius:2.35em; "></div></td>
+    <td width= 6em height = 6em style="padding-right:0.78em; padding-top:0.78em; padding-bottom:0.78em;"> <div class="hvr-grow" style="border:2px solid #102366; background-image: url(/himanshu.jpg); background-size: contain;  height:4.7em; width:4.7em; border-radius:2.35em; "></div></td>
     <td style="padding-left:1.2em;  "><div style="margin:0px; padding:0px; height:1rem; color: #102366; font-size: 0.9rem; font-weight: 600; line-height: 1rem;">Himanshu Misra</div> <div style="margin:0px; padding:0px; height:1rem; color: rgba(0, 0, 0, 0.65); font-size: 0.65rem; font-weight: 700; line-height: 1rem; ">Data Scientist @ Legacy.com</div></td>
 
     <td style="text-align:right;" >
@@ -246,8 +247,9 @@ $(document).ready(function(){
 </table>
     </div>
 <hr>
-
-<h3 id="introduction">Introduction</h3>
+<div class="roboto" style="padding:0px;">
+<h2 id="introduction">Introduction</h2>
+<hr />
 
 <ul>
   <li>Apache Spark is large scale data processing engine which allows fast and scalable computation.</li>
@@ -261,7 +263,8 @@ $(document).ready(function(){
   </li>
 </ul>
 
-<h3 id="how-do-you-write-a-spark-job">How do you write a spark job</h3>
+<h2 id="how-to-write-a-spark-job">How to write a spark job?</h2>
+<hr />
 
 <ul>
   <li>Create a spark context (in most of the environment like pyspark or any other spark only platform this step is already done for you, but if you are writing your own python code in ipython or some python IDE you must define a spark context). Using Master parameter you can specify which type of cluster to use</li>
@@ -269,7 +272,8 @@ $(document).ready(function(){
   <li>Then use SQL Context to create a DataFrame.</li>
 </ul>
 
-<h3 id="data-frames">Data Frames</h3>
+<h2 id="data-frames">Data Frames</h2>
+<hr />
 
 <p>Data Frames are spark abstraction which allows spark to perform parallel processing on them.</p>
 
@@ -279,27 +283,31 @@ $(document).ready(function(){
   <li>Enable operations on collection of elements in parallel.</li>
 </ul>
 
-<h4 id="how-to-create-data-frames">How to create Data Frames</h4>
+<h3 id="how-to-create-data-frames">How to create Data Frames</h3>
 
-<p>We can create data frames in 3 main ways:
-* by parallelizing exisiting python collection.
-* by transforming existing Data Frame or Pandas Data Frame.
-* by files on HDFS or File System</p>
+<p>We can create data frames in 3 main ways:</p>
 
-<h4 id="more-on-data-frames">More on Data Frames</h4>
+<ul>
+  <li>by parallelizing exisiting python collection.</li>
+  <li>by transforming existing Data Frame or Pandas Data Frame.</li>
+  <li>by files on HDFS or File System</li>
+</ul>
+
+<h3 id="more-on-data-frames">More on Data Frames</h3>
 
 <ul>
   <li>each row in a data frame is a Row() object.</li>
   <li>columns can be accessed as attributes of data frames.</li>
 </ul>
 
-<h3 id="operations-on-spark-dataframes">Operations on Spark DataFrames</h3>
+<h2 id="operations-on-spark-dataframes">Operations on Spark DataFrames</h2>
+<hr />
 
 <p>There are 2 types of operations we can perform on Spark DataFrame:
 1. Transformations 
 2. Actions</p>
 
-<h4 id="transformations">Transformations</h4>
+<h3 id="transformations">Transformations</h3>
 
 <ul>
   <li>Transformations are primarily slicing and dicing operations on Data Frames.</li>
@@ -308,7 +316,7 @@ $(document).ready(function(){
   <li>Spark performs transformations on Worker Nodes.</li>
 </ul>
 
-<h4 id="actions">Actions</h4>
+<h3 id="actions">Actions</h3>
 
 <ul>
   <li>Actions are operations where you try to get information out of the data frame.</li>
@@ -316,9 +324,10 @@ $(document).ready(function(){
   <li>Spark perform actions on both worker and driver nodes.</li>
 </ul>
 
-<h3 id="examples">Examples</h3>
+<h2 id="examples">Examples</h2>
+<hr />
 
-<h4 id="creating-data-frames">Creating Data Frames</h4>
+<h3 id="creating-data-frames">Creating Data Frames</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code><span class="c"># create data frame from SQL Context</span>
 
@@ -336,7 +345,7 @@ $(document).ready(function(){
 </code></pre>
 </div>
 
-<h4 id="transformations-1">Transformations</h4>
+<h3 id="transformations-1">Transformations</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>
 <span class="c"># create people data frame</span>
@@ -379,7 +388,7 @@ $(document).ready(function(){
 </code></pre>
 </div>
 
-<h4 id="actions-1">Actions</h4>
+<h3 id="actions-1">Actions</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>
 <span class="c">#Show returns n rows as DF</span>
@@ -400,7 +409,8 @@ $(document).ready(function(){
 </code></pre>
 </div>
 
-<h3 id="best-programming-practices-for-spark">Best Programming practices for Spark</h3>
+<h2 id="best-programming-practices-for-spark">Best Programming practices for Spark</h2>
+<hr />
 
 <ol>
   <li>Use predefined transformations and actions whereever possible. Check spark Data Frame API referece.</li>
@@ -408,6 +418,7 @@ $(document).ready(function(){
   <li>use cache() function to persist your data frame to avoid recomputation.</li>
 </ol>
 
+    </div>
     
 </div>
     </div>
@@ -418,7 +429,7 @@ $(document).ready(function(){
     <a href="https://twitter.com/intent/tweet?text=http://hmisra.github.io/2016/06/07/Introduction-to-Spark/" style="padding-right:1em;" title="Share on Twitter"><i class="fa fa-twitter fa-3x hvr-float" style="color:#102366;"></i></a>
     <a href="https://www.facebook.com/sharer/sharer.php?u=http://hmisra.github.io/2016/06/07/Introduction-to-Spark/" style="padding-right:1em;" title="Share on Facebook"><i class="fa fa-facebook-square fa-3x hvr-float" style="color:#102366;"></i></a>
     <a href="https://plus.google.com/share?url=http://hmisra.github.io/2016/06/07/Introduction-to-Spark/"  style="padding-right:1em;" title="Share on Google Plus"><i class="fa fa-google-plus fa-3x hvr-float" style="color:#102366;"></i></a>
-    <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fhttp://hmisra.github.io/2016/06/07/Introduction-to-Spark/&title=Introduction to Spark&summary=Note 1&source=http%3A%2F%2Fhttp://hmisra.github.io/2016/06/07/Introduction-to-Spark/" style="padding-right:1em;" title="Share on Linkedin"><i class="fa fa-linkedin-square fa-3x hvr-float" style="color:#102366;"></i></a>
+    <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fhttp://hmisra.github.io/2016/06/07/Introduction-to-Spark/&title=Introduction to Spark&summary=Week 1 notes for "Introduction to Apache Spark" on EdX&source=http%3A%2F%2Fhttp://hmisra.github.io/2016/06/07/Introduction-to-Spark/" style="padding-right:1em;" title="Share on Linkedin"><i class="fa fa-linkedin-square fa-3x hvr-float" style="color:#102366;"></i></a>
       <a href="https://www.reddit.com/submit?url=http://hmisra.github.io/2016/06/07/Introduction-to-Spark/"  style="padding-right:1em;" title="Share on Reddit"><i class="fa fa-reddit fa-3x hvr-float" style="color:#102366;"></i>
     </a>
     

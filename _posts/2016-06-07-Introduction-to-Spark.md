@@ -2,7 +2,7 @@
 layout: post
 type: notes
 title: Introduction to Spark
-excerpt: Note 1
+excerpt: Week 1 notes for "Introduction to Apache Spark" on EdX
 comments: true
 background: /network.jpg
 published: true
@@ -18,7 +18,8 @@ authortwitter: https://twitter.com/himanshumisra
 
 
 
-### Introduction
+## Introduction
+------
 
 * Apache Spark is large scale data processing engine which allows fast and scalable computation.
 * It is commonly used for ETL, Analytics and Visualization on Big Data.
@@ -28,13 +29,15 @@ authortwitter: https://twitter.com/himanshumisra
     - Worker : Can run on same machine or as a cluster.
 
 
-### How do you write a spark job
+## How to write a spark job?
+------
 
 * Create a spark context (in most of the environment like pyspark or any other spark only platform this step is already done for you, but if you are writing your own python code in ipython or some python IDE you must define a spark context). Using Master parameter you can specify which type of cluster to use
 * Create a SQL Context.
 * Then use SQL Context to create a DataFrame.
 
-### Data Frames
+## Data Frames
+------
 
 Data Frames are spark abstraction which allows spark to perform parallel processing on them.
 
@@ -42,40 +45,45 @@ Data Frames are spark abstraction which allows spark to perform parallel process
 * Track lineage information to recompile lost data, so fault tolerant.
 * Enable operations on collection of elements in parallel.
 
-#### How to create Data Frames
+### How to create Data Frames
+
 
 We can create data frames in 3 main ways:
+
 * by parallelizing exisiting python collection.
 * by transforming existing Data Frame or Pandas Data Frame.
 * by files on HDFS or File System
 
-#### More on Data Frames
+### More on Data Frames
+
 
 * each row in a data frame is a Row() object.
 * columns can be accessed as attributes of data frames.
 
-### Operations on Spark DataFrames
+## Operations on Spark DataFrames
+------
 
 There are 2 types of operations we can perform on Spark DataFrame:
 1. Transformations 
 2. Actions
 
-#### Transformations
+### Transformations
 
 * Transformations are primarily slicing and dicing operations on Data Frames.
 * Lazy Evaluation: these operations are not actually performed on Data Frames untill a Action operation is performed on the Data Frame. For this Spark keeps track of all the transformation actions to be performed on the Data Frame.
 * You can persist a Data Frame on Disk to avoid Recomputation.
 * Spark performs transformations on Worker Nodes.
 
-#### Actions
+### Actions
 
 * Actions are operations where you try to get information out of the data frame. 
 * When you try to execute and Action then Spark performs all the transformation actions on DataFrame and then gives you results
 * Spark perform actions on both worker and driver nodes.
 
-### Examples
+## Examples
+------
 
-#### Creating Data Frames
+### Creating Data Frames
 
 ``` python
 # create data frame from SQL Context
@@ -94,7 +102,7 @@ df = sqlContext.read.text('filename.txt')
 ```
 
 
-#### Transformations
+### Transformations
 
 
 ```python
@@ -138,7 +146,7 @@ ageCol = people.age
 
 ```
 
-#### Actions
+### Actions
 
 ``` python
 
@@ -159,7 +167,8 @@ df.describe()
 
 ```
 
-### Best Programming practices for Spark
+## Best Programming practices for Spark
+------
 
 1. Use predefined transformations and actions whereever possible. Check spark Data Frame API referece.
 2. Never use collect() in production, it may crash your system, instead use take(n) to perform select operations on your data frame.

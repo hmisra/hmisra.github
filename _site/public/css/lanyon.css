@@ -432,7 +432,7 @@ progress {
 
   /* Dimensions */
   width: 100%;
-  height: 3px;
+  height: 5px;
 
   /* Reset the appearance */
   -webkit-appearance: none;
@@ -531,6 +531,7 @@ progress::-moz-progress-bar {
     padding: 10px;
     background-color: #fafafa;
     min-height:146px;
+    max-height: 146px;
 }
 
 .hoverdiv:hover>#sub-hover
@@ -629,6 +630,24 @@ fieldset.title legend {
     
 }
 
+/* fonts
+
+*/
+
+.opensans{
+font-family: 'Open Sans', sans-serif;
+    font-size: 17px;
+}
+.roboto{
+font-family: 'Roboto', sans-serif;
+    font-size: 17px;
+    color: #333;
+}
+
+
+.lora{
+font-family: 'Lora', serif;
+}
 /*
  * Pagination
  *
