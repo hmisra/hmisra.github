@@ -96,12 +96,54 @@ $$
  {% endraw %}
 
 
-So first lets review what we have done so far and then proceed further, we selected an arbitrary line as our decision boundary assuming that it is our optimal decision boundary. They we took 2 points on the dotted lines which are parallel to the decision boundary we selected. We substituted both of these points in the equation of line and then computed the difference between them. We projected that difference on the unit weight vector which we called our margin. 
+> So first lets review what we have done so far and then proceed further, we selected an arbitrary line as our decision boundary assuming that it is our optimal decision boundary. They we took 2 points on the dotted lines which are parallel to the decision boundary we selected. We substituted both of these points in the equation of line and then computed the difference between them. We projected that difference on the unit weight vector which we called our margin. 
 
 Now recall that we decided that the optimum line would be the one which maximises the margin. So we will now create an optimization problem which would give us a weight vector which can maximize this margin.
 
-Also, this would be an constrained optimization problem as we need the W which maximizes the margin but also classifies the points correctly. 
+Also, this would be an constrained optimization problem as we need the $ {W} $ which maximizes the margin but also classifies the points correctly. 
 
+
+$$
+
+maximize \dfrac{2}{||W||}
+
+$$
+
+<center> constrained by:  </center>
+
+$$
+
+{y_i}({W}^T {x_i} + {c}) \geq 1
+
+$$
+
+
+To solve this optimization problem we would translate into a form which we can solve. Lets's first convert this to a equivalent minimization problem, for which we would reciprocate the margin and square the weight:
+
+$$
+
+minimize \dfrac{||W||^2}{2} 
+
+$$
+
+<center> constrained by:  </center>
+
+$$
+
+{y_i}({W}^T {x_i} + {c}) \geq 1
+
+$$
+
+
+Now this form of optimization problem can be solved using quardatic programming. Here in this post I would not go into Quardatic Programming much but you can take my word for the steps to follow.
+
+Using quardatic programming we can translate the minimization problem mentioned above into a standard form 
+
+$$
+
+F(\alpha) = \sum_{i} \alpha_i - \dfrac{1}{2} \sum_{ij} \alpha_i \alpha_j y_i y_j x_i^T x_j
+
+$$
 
 
 
