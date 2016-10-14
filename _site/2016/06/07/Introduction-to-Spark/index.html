@@ -27,7 +27,21 @@
   <link rel="shortcut icon" href="/public/favicon.ico">
     <link rel="logo" href="/logo.png">
 
-    <script  type="text/javascript" src="/public/js/jquery-2.1.4.min.js"></script>
+    <script  type="text/javascript" async src="/public/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+    
+  </script>
   <!-- RSS -->
   <!--<link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">--> 
 </head>
@@ -458,6 +472,15 @@ $(document).ready(function(){
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/10/12/Support-Vector-Machines/">
+            Support Vector Machine
+            <small>12 Oct 2016</small>
+          </a>
+        </h3>
+      </li>
     
       <li>
         <h3>

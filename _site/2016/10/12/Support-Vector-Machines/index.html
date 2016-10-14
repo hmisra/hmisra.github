@@ -10,7 +10,7 @@
 
   <title>
     
-      Nature and Humans &middot; entangledDimensions
+      Support Vector Machine &middot; entangledDimensions
     
   </title>
 
@@ -230,14 +230,14 @@ $(document).ready(function(){
   });
   
 });</script>
-<div style="position:relative; background-image: url(/distance.gif);  background-size: contain; background-repeat: repeat; width:100%; height:400px;"><p></p></div>
+<div style="position:relative; background-image: url(/svm-1.png);  background-size: contain; background-repeat: repeat; width:100%; height:400px;"><p></p></div>
 <div class="container-content-text hvr-glow" style="background-color:white;margin-top: -13rem; border-radius:4px; ">
 
 <div class="posts">
 <div class="post" style="padding-left: 60px; padding-top:20px;padding-right:60px; padding-bottom:20px;">
-  <h1 class="post-title" >Nature and Humans</h1>
+  <h1 class="post-title" >Support Vector Machine</h1>
 
-  <span class="post-date"> &nbsp;<span style="color:#F59B00;">blog</span> published on 22 Mar 2016</span>
+  <span class="post-date"> &nbsp;<span style="color:#F59B00;">blog</span> published on 12 Oct 2016</span>
     <hr style="margin:1px;">
     <div style="margin:1px;">
     <table>
@@ -264,9 +264,36 @@ $(document).ready(function(){
 <div class="roboto" style="padding:0px;">
 <h2 id="introduction">Introduction</h2>
 <hr />
+<p>Support Vector Machines were introduced in 1962 as non-probabilistic binary linear classifiers by Vladimir Vapnik and Alexey Ya. Chervonenkis. Later, Bernhard E. Boser, Isabelle M. Guyon and Vladimir Vapnik proposed a way to learn non-linear decision boundaries using SVM.</p>
 
-<p>We humans have significantly transformed earth over past 300 years. Images taken from space, one like shown below, are perfect example of this fact. The rate at which we have extended our capabilities and transformed our planet has grown exponentially. 
-Since the time we started evolving from Monkeys we were driven by our insatiable curiosity to understand the nature around us. And this curiosity to understand and explore has been very fruitful for us. Understanding nature has helped us create tools which can manipulate forces of nature to serve us. For example, we invented fire to extract locked energy in wood to keep us warm and cook food. We created wheels to efficiently transport weight from one place to another and the list goes on. (Correlation between us and tools). But if you notice the machines we were using before 17th century were capable of improving our efficiency may be 2 or 3 folds. For example if before invention of wheel if someone took a day to take a parcel from one part of the city to another, after invention of wheel and bicycle that time got reduced to hours.</p>
+<p>In this post I intend to provide my understanding of SVM’s with as little mathematics as possible.</p>
+
+<h2 id="mathematical-pre-requisite">Mathematical Pre-requisite</h2>
+<hr />
+<p>I understand that toward the end of previous section I mentioned that there would be very little mathematics, but these mathematical concepts are bare minimum requirements for understanding how does a SVM does what it does.</p>
+
+<ol>
+  <li><strong>Dot Product</strong>: $ \vec {u} . \vec{v} $ is an operation which computes projection of vector $ \vec {u} $ on vector $ \vec {v} $ . The result of dot product of 2 vectors is a scalar quantity which can be interpreted as the magnitude of the similarity between 2 vectors with range {-1, 1} where the result of 1 means they point in the same direction, -1 means they point in opposite direction and 0 means they are orthogonal to each other.</li>
+</ol>
+
+<h2 id="the-binary-classification-problem">The binary classification problem</h2>
+
+<p>The binary classification problem can be defined as assigning one out of 2 classes to n dimensional points. Lets consider an example so that we can visualize it much better.</p>
+<center>
+<img src="/svm-2.png" width="400" height="400" />
+</center>
+<p>Here the $ {x_1} $ and $ {x_2} $ are the input dimensions and the label of the data points $ {y} $ is the target dimension. Hence the binary classification problem can be defined as learning a classifier (can also be read as a function) which can predict the label $ {y} $ for unseen data points. SVM falls into a class of classifiers which does so by learning a decision boundary. You can imagine this as a line or hyperplane for higher dimensional data points which tries to separate the 2 classes and the equation of this line or hyperplane can then be used to check which side of the line or hyperplane the new data point falls. In the diagram above you can see that line 1 which is separating the positive and negative classes can be a decision boundary. After learning the parameters of this line once you get a new point you can check which side of the line the point falls into by putting the x into the equation and by checking the sign of the result. Most of the linear classifiers like logistic regression tries to learn the decision boundaries in a similar way.</p>
+
+<p>SVM goes a step further. You can see in the diagram above that there can be multiple lines which can divide the 2 classes. But out of all the possible line one line would be best which would allow classifier to generalize well. For example line 2 might misclassify the positive data points present on the upper left side of the point close to the line 2. This over fitting would restrict the classifier to generalize with new points. To restrict this Logistic Regression uses regularization (restricts the weights of the classifier) but SVM uses a different mathematical solution to find an optimum decision boundary.</p>
+
+<h2 id="support-vector-machine">Support Vector Machine</h2>
+
+<p>Lets first intutively try to formalize the notion of optimum decision boundary. Consider the 2 points $ {a} $ and $ {b} $ which falls into negative and positive class respectivily. What can you notice special about these points ? You can notice that these points are closest to the points of the other class, or to put it in other words you can say that they are the last points in their classes if we consider the dotted lines as our decision boundries. There can be multiple such points which falls close to the dotted decision boundries. Now try to think how can you define an optimal decision boundry with the help of dotted lines. Intutively you can see that the best line you can put would be at the center of the zone between 2 dotted lines.</p>
+
+<p>Now lets formalize this notion mathematically,</p>
+<center>
+<img src="/svm-1.png" width="400" height="400" />
+</center>
 
 
     </div>
@@ -277,11 +304,11 @@ Since the time we started evolving from Monkeys we were driven by our insatiable
     
 <!--    <i class="fa fa-share-square-o fa-2x" style=" color:#102366;" aria-hidden="true"></i>-->
    <center><fieldset class="cat" style="width: 30%;"><legend><b>&nbsp;Share&nbsp;</b> </legend>
-    <a href="https://twitter.com/intent/tweet?text=http://hmisra.github.io/2016/03/22/Measures-Of-Similarity-And-Distances/" style="padding-right:1em;" title="Share on Twitter"><i class="fa fa-twitter fa-3x hvr-float" style="color:#102366;"></i></a>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=http://hmisra.github.io/2016/03/22/Measures-Of-Similarity-And-Distances/" style="padding-right:1em;" title="Share on Facebook"><i class="fa fa-facebook-square fa-3x hvr-float" style="color:#102366;"></i></a>
-    <a href="https://plus.google.com/share?url=http://hmisra.github.io/2016/03/22/Measures-Of-Similarity-And-Distances/"  style="padding-right:1em;" title="Share on Google Plus"><i class="fa fa-google-plus fa-3x hvr-float" style="color:#102366;"></i></a>
-    <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fhttp://hmisra.github.io/2016/03/22/Measures-Of-Similarity-And-Distances/&title=Nature and Humans&summary=On Evolution [In Progress]&source=http%3A%2F%2Fhttp://hmisra.github.io/2016/03/22/Measures-Of-Similarity-And-Distances/" style="padding-right:1em;" title="Share on Linkedin"><i class="fa fa-linkedin-square fa-3x hvr-float" style="color:#102366;"></i></a>
-      <a href="https://www.reddit.com/submit?url=http://hmisra.github.io/2016/03/22/Measures-Of-Similarity-And-Distances/"  style="padding-right:1em;" title="Share on Reddit"><i class="fa fa-reddit fa-3x hvr-float" style="color:#102366;"></i>
+    <a href="https://twitter.com/intent/tweet?text=http://hmisra.github.io/2016/10/12/Support-Vector-Machines/" style="padding-right:1em;" title="Share on Twitter"><i class="fa fa-twitter fa-3x hvr-float" style="color:#102366;"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http://hmisra.github.io/2016/10/12/Support-Vector-Machines/" style="padding-right:1em;" title="Share on Facebook"><i class="fa fa-facebook-square fa-3x hvr-float" style="color:#102366;"></i></a>
+    <a href="https://plus.google.com/share?url=http://hmisra.github.io/2016/10/12/Support-Vector-Machines/"  style="padding-right:1em;" title="Share on Google Plus"><i class="fa fa-google-plus fa-3x hvr-float" style="color:#102366;"></i></a>
+    <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fhttp://hmisra.github.io/2016/10/12/Support-Vector-Machines/&title=Support Vector Machine&summary=Description of inner workings of SVM [In Progress]&source=http%3A%2F%2Fhttp://hmisra.github.io/2016/10/12/Support-Vector-Machines/" style="padding-right:1em;" title="Share on Linkedin"><i class="fa fa-linkedin-square fa-3x hvr-float" style="color:#102366;"></i></a>
+      <a href="https://www.reddit.com/submit?url=http://hmisra.github.io/2016/10/12/Support-Vector-Machines/"  style="padding-right:1em;" title="Share on Reddit"><i class="fa fa-reddit fa-3x hvr-float" style="color:#102366;"></i>
     </a>
     
     
@@ -312,18 +339,18 @@ Since the time we started evolving from Monkeys we were driven by our insatiable
     
       <li>
         <h3>
-          <a href="/2016/10/12/Support-Vector-Machines/">
-            Support Vector Machine
-            <small>12 Oct 2016</small>
+          <a href="/2016/06/07/Introduction-to-Spark/">
+            Introduction to Spark
+            <small>07 Jun 2016</small>
           </a>
         </h3>
       </li>
     
       <li>
         <h3>
-          <a href="/2016/06/07/Introduction-to-Spark/">
-            Introduction to Spark
-            <small>07 Jun 2016</small>
+          <a href="/2016/03/22/Measures-Of-Similarity-And-Distances/">
+            Nature and Humans
+            <small>22 Mar 2016</small>
           </a>
         </h3>
       </li>

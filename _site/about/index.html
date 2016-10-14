@@ -27,7 +27,21 @@
   <link rel="shortcut icon" href="/public/favicon.ico">
     <link rel="logo" href="/logo.png">
 
-    <script  type="text/javascript" src="/public/js/jquery-2.1.4.min.js"></script>
+    <script  type="text/javascript" async src="/public/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+    
+  </script>
   <!-- RSS -->
   <!--<link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">--> 
 </head>

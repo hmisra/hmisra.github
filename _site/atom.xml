@@ -4,13 +4,54 @@
  <title>entangledDimensions</title>
  <link href="http://hmisra.github.io/atom.xml" rel="self"/>
  <link href="http://hmisra.github.io/"/>
- <updated>2016-07-08T00:26:41-07:00</updated>
+ <updated>2016-10-14T07:03:31-07:00</updated>
  <id>http://hmisra.github.io</id>
  <author>
    <name>Himanshu Misra</name>
    <email>himanshumisra1990@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Support Vector Machine</title>
+   <link href="http://hmisra.github.io/2016/10/12/Support-Vector-Machines/"/>
+   <updated>2016-10-12T00:00:00-07:00</updated>
+   <id>http://hmisra.github.io/2016/10/12/Support-Vector-Machines</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;Support Vector Machines were introduced in 1962 as non-probabilistic binary linear classifiers by Vladimir Vapnik and Alexey Ya. Chervonenkis. Later, Bernhard E. Boser, Isabelle M. Guyon and Vladimir Vapnik proposed a way to learn non-linear decision boundaries using SVM.&lt;/p&gt;
+
+&lt;p&gt;In this post I intend to provide my understanding of SVM’s with as little mathematics as possible.&lt;/p&gt;
+
+&lt;h2 id=&quot;mathematical-pre-requisite&quot;&gt;Mathematical Pre-requisite&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;I understand that toward the end of previous section I mentioned that there would be very little mathematics, but these mathematical concepts are bare minimum requirements for understanding how does a SVM does what it does.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Dot Product&lt;/strong&gt;: $ \vec {u} . \vec{v} $ is an operation which computes projection of vector $ \vec {u} $ on vector $ \vec {v} $ . The result of dot product of 2 vectors is a scalar quantity which can be interpreted as the magnitude of the similarity between 2 vectors with range {-1, 1} where the result of 1 means they point in the same direction, -1 means they point in opposite direction and 0 means they are orthogonal to each other.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;the-binary-classification-problem&quot;&gt;The binary classification problem&lt;/h2&gt;
+
+&lt;p&gt;The binary classification problem can be defined as assigning one out of 2 classes to n dimensional points. Lets consider an example so that we can visualize it much better.&lt;/p&gt;
+&lt;center&gt;
+&lt;img src=&quot;/svm-2.png&quot; width=&quot;400&quot; height=&quot;400&quot; /&gt;
+&lt;/center&gt;
+&lt;p&gt;Here the $ {x_1} $ and $ {x_2} $ are the input dimensions and the label of the data points $ {y} $ is the target dimension. Hence the binary classification problem can be defined as learning a classifier (can also be read as a function) which can predict the label $ {y} $ for unseen data points. SVM falls into a class of classifiers which does so by learning a decision boundary. You can imagine this as a line or hyperplane for higher dimensional data points which tries to separate the 2 classes and the equation of this line or hyperplane can then be used to check which side of the line or hyperplane the new data point falls. In the diagram above you can see that line 1 which is separating the positive and negative classes can be a decision boundary. After learning the parameters of this line once you get a new point you can check which side of the line the point falls into by putting the x into the equation and by checking the sign of the result. Most of the linear classifiers like logistic regression tries to learn the decision boundaries in a similar way.&lt;/p&gt;
+
+&lt;p&gt;SVM goes a step further. You can see in the diagram above that there can be multiple lines which can divide the 2 classes. But out of all the possible line one line would be best which would allow classifier to generalize well. For example line 2 might misclassify the positive data points present on the upper left side of the point close to the line 2. This over fitting would restrict the classifier to generalize with new points. To restrict this Logistic Regression uses regularization (restricts the weights of the classifier) but SVM uses a different mathematical solution to find an optimum decision boundary.&lt;/p&gt;
+
+&lt;h2 id=&quot;support-vector-machine&quot;&gt;Support Vector Machine&lt;/h2&gt;
+
+&lt;p&gt;Lets first intutively try to formalize the notion of optimum decision boundary. Consider the 2 points $ {a} $ and $ {b} $ which falls into negative and positive class respectivily. What can you notice special about these points ? You can notice that these points are closest to the points of the other class, or to put it in other words you can say that they are the last points in their classes if we consider the dotted lines as our decision boundries. There can be multiple such points which falls close to the dotted decision boundries. Now try to think how can you define an optimal decision boundry with the help of dotted lines. Intutively you can see that the best line you can put would be at the center of the zone between 2 dotted lines.&lt;/p&gt;
+
+&lt;p&gt;Now lets formalize this notion mathematically,&lt;/p&gt;
+&lt;center&gt;
+&lt;img src=&quot;/svm-1.png&quot; width=&quot;400&quot; height=&quot;400&quot; /&gt;
+&lt;/center&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Introduction to Spark</title>
