@@ -264,7 +264,7 @@ $(document).ready(function(){
 <div class="roboto" style="padding:0px;">
 <h2 id="introduction">Introduction</h2>
 <hr />
-<p>Support Vector Machines were introduced in 1962 as non-probabilistic binary linear classifiers by Vladimir Vapnik and Alexey Ya. Chervonenkis. Later, Bernhard E. Boser, Isabelle M. Guyon and Vladimir Vapnik proposed a way to learn non-linear decision boundaries using SVM.</p>
+<p>Support Vector Machines were introduced in 1962 as non-probabilistic binary linear classifiers by Vladimir Vapnik and Alexey Ya. Chervonenkis. Later, in 1992, Bernhard E. Boser, Isabelle M. Guyon and Vladimir Vapnik proposed a way to learn non-linear decision boundaries using SVM.</p>
 
 <p>In this post I intend to provide my understanding of SVM’s with as little mathematics as possible.</p>
 
@@ -288,12 +288,37 @@ $(document).ready(function(){
 
 <h2 id="support-vector-machine">Support Vector Machine</h2>
 
-<p>Lets first intutively try to formalize the notion of optimum decision boundary. Consider the 2 points $ {a} $ and $ {b} $ which falls into negative and positive class respectivily. What can you notice special about these points ? You can notice that these points are closest to the points of the other class, or to put it in other words you can say that they are the last points in their classes if we consider the dotted lines as our decision boundries. There can be multiple such points which falls close to the dotted decision boundries. Now try to think how can you define an optimal decision boundry with the help of dotted lines. Intutively you can see that the best line you can put would be at the center of the zone between 2 dotted lines.</p>
+<p>Lets first intutively try to formalize the notion of optimum decision boundary. Consider the 2 points $ {a} $ and $ {b} $ which falls into negative and positive class respectivily (see the diagram below). What can you notice special about these points ? You can notice that these points are closest to the points of the other class, or to put it in other words you can say that they are the last points in their classes if we consider the dotted lines as our decision boundries. There can be multiple such points which falls close to the dotted decision boundries. Now try to think how can you define an optimal decision boundry with the help of dotted lines. Intutively you can see that the best line you can put would be at the center of the zone between 2 dotted lines.</p>
 
-<p>Now lets formalize this notion mathematically,</p>
 <center>
 <img src="/svm-1.png" width="400" height="400" />
 </center>
+
+<p>Now lets formalize this notion mathematically, We can clearly see that the line that we can consider best decision boundary would be at maximum distance from the 2 dotted line. In other words the line would be at maximum distance from $ {a} $ and $  {b} $ . This distance is called the margin. Now we need to find a line which maximizes this margin and that would be our optimal decision boundary. Here we would make an assumption that all the decision boundaries, line 1, 2 and 3 are parallel to each other, the reason for this assumption would be clear very soon.</p>
+
+<p>Lets consider that the optimum line is line 1 which can be defined by the equation (in vector form) :</p>
+
+<script type="math/tex; mode=display">{y}={W}^T {x} + {c}</script>
+
+<p>If we substitute point a and b into this equation we would get:</p>
+
+<script type="math/tex; mode=display">{W}^T {a} + {c} = {1}</script>
+
+<script type="math/tex; mode=display">{W}^T {b} + {c} = {-1}</script>
+
+<p>Now to compute the margin we would need to find the difference between $ {a} $ and $ {b} $ which we can do by subtracting the 2 equations above and we get:</p>
+
+<script type="math/tex; mode=display">{W}^T ({a} - {b}) = 2</script>
+
+<p>Now recall from the linear algebra class that the weight vector $ {W} $ is orthogonal to the line, so to compute the margin we find the difference between $ {a} $ and $ {b} $ in direction of W. For this we would divide both sides with norm of W and it would give us the margin $  {m} $.</p>
+
+<script type="math/tex; mode=display">\dfrac{W^T ({a} - {b})}{||W||} = \dfrac{2}{||W||} = {m}</script>
+
+<p>So first lets review what we have done so far and then proceed further, we selected an arbitrary line as our decision boundary assuming that it is our optimal decision boundary. They we took 2 points on the dotted lines which are parallel to the decision boundary we selected. We substituted both of these points in the equation of line and then computed the difference between them. We projected that difference on the unit weight vector which we called our margin.</p>
+
+<p>Now recall that we decided that the optimum line would be the one which maximises the margin. So we will now create an optimization problem which would give us a weight vector which can maximize this margin.</p>
+
+<p>Also, this would be an constrained optimization problem as we need the W which maximizes the margin but also classifies the points correctly.</p>
 
 
     </div>
