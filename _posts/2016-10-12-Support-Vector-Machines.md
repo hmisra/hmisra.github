@@ -137,13 +137,92 @@ $$
 
 Now this form of optimization problem can be solved using quardatic programming. Here in this post I would not go into Quardatic Programming much but you can take my word for the steps to follow.
 
-Using quardatic programming we can translate the minimization problem mentioned above into a standard form 
+Using quardatic programming we can translate the minimization problem mentioned above into standard form 
 
 $$
 
 F(\alpha) = \sum_{i} \alpha_i - \dfrac{1}{2} \sum_{ij} \alpha_i \alpha_j y_i y_j x_i^T x_j
 
 $$
+
+
+<center> where </center>
+
+$$
+
+\alpha_i \geq \phi  
+
+$$
+
+<center>and</center>
+
+$$
+\sum_{i} \alpha_i y_i = \phi
+
+$$
+
+
+from by solving these equations we can find the $ \alpha $ which satisfies the conditions. After knowing the value of $ \alpha $ we can retrieve the value of W which minimizes our optimization problem as follows:
+
+$$
+
+{W} = \sum_{i} \alpha_i y_i x_i
+
+$$ 
+
+and having retrieved $ W $ from the equation above we can retirieve the value of {b} from the equations of point $ {a} $ and $ {b} $. Once we have $ W $ and $ b $ we have the equation of decision boundary which have maximum margin and which is an optimal classifier for the classification problem.
+
+
+But the method described well only if there is a linear decision boundary that can seperate the 2 classes. If the data points of 2 classes are not linearly separable, method described above would provide the decision boundary which can do its best but would not be a perfect decision boundary.
+
+
+## The Kernel Trick
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
