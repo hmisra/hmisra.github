@@ -10,7 +10,7 @@
 
   <title>
     
-      Support Vector Machine &middot; entangledDimensions
+      Template &middot; entangledDimensions
     
   </title>
 
@@ -230,14 +230,14 @@ $(document).ready(function(){
   });
   
 });</script>
-<div style="position:relative; background-image: url(/svm-1.png);  background-size: contain; background-repeat: repeat; width:100%; height:400px;"><p></p></div>
+<div style="position:relative; background-image: url(/network.jpg);  background-size: contain; background-repeat: repeat; width:100%; height:400px;"><p></p></div>
 <div class="container-content-text hvr-glow" style="background-color:white;margin-top: -13rem; border-radius:4px; ">
 
 <div class="posts">
 <div class="post" style="padding-left: 60px; padding-top:20px;padding-right:60px; padding-bottom:20px;">
-  <h1 class="post-title" >Support Vector Machine</h1>
+  <h1 class="post-title" >Template</h1>
 
-  <span class="post-date"> &nbsp;<span style="color:#F59B00;">blog</span> published on 12 Oct 2016</span>
+  <span class="post-date"> &nbsp;<span style="color:#F59B00;">blog</span> published on 09 Oct 2016</span>
     <hr style="margin:1px;">
     <div style="margin:1px;">
     <table>
@@ -264,102 +264,20 @@ $(document).ready(function(){
 <div class="roboto" style="padding:0px;">
 <h2 id="introduction">Introduction</h2>
 <hr />
-<p>Support Vector Machines were introduced in 1962 as non-probabilistic binary linear classifiers by Vladimir Vapnik and Alexey Ya. Chervonenkis. Later, in 1992, Bernhard E. Boser, Isabelle M. Guyon and Vladimir Vapnik proposed a way to learn non-linear decision boundaries using SVM.</p>
 
-<p>In this post I intend to provide my understanding of SVM’s with as little mathematics as possible.</p>
+<p><img src="/recursive1.png" /></p>
 
-<h2 id="mathematical-pre-requisite">Mathematical Pre-requisite</h2>
+<p><a href="https://gist.github.com/hmisra/f4edf5b58aedb6075fcd" title="Source Code">here</a></p>
+
+<center>
+<img src="/recursive3.png" />
+</center>
+
+<h2 id="bayes-theorem">Bayes Theorem</h2>
 <hr />
-<p>I understand that toward the end of previous section I mentioned that there would be very little mathematics, but these mathematical concepts are bare minimum requirements for understanding how does a SVM does what it does.</p>
 
-<ol>
-  <li><strong>Dot Product</strong>: $ \vec {u} . \vec{v} $ is an operation which computes projection of vector $ \vec {u} $ on vector $ \vec {v} $ . The result of dot product of 2 vectors is a scalar quantity which can be interpreted as the magnitude of the similarity between 2 vectors with range {-1, 1} where the result of 1 means they point in the same direction, -1 means they point in opposite direction and 0 means they are orthogonal to each other.</li>
-</ol>
-
-<h2 id="the-binary-classification-problem">The binary classification problem</h2>
-
-<p>The binary classification problem can be defined as assigning one out of 2 classes to n dimensional points. Lets consider an example so that we can visualize it much better.</p>
-<center>
-<img src="/svm-2.png" width="400" height="400" />
-</center>
-<p>Here the $ {x_1} $ and $ {x_2} $ are the input dimensions and the label of the data points $ {y} $ is the target dimension. Hence the binary classification problem can be defined as learning a classifier (can also be read as a function) which can predict the label $ {y} $ for unseen data points. SVM falls into a class of classifiers which does so by learning a decision boundary. You can imagine this as a line or hyperplane for higher dimensional data points which tries to separate the 2 classes and the equation of this line or hyperplane can then be used to check which side of the line or hyperplane the new data point falls. In the diagram above you can see that line 1 which is separating the positive and negative classes can be a decision boundary. After learning the parameters of this line once you get a new point you can check which side of the line the point falls into by putting the x into the equation and by checking the sign of the result. Most of the linear classifiers like logistic regression tries to learn the decision boundaries in a similar way.</p>
-
-<p>SVM goes a step further. You can see in the diagram above that there can be multiple lines which can divide the 2 classes. But out of all the possible line one line would be best which would allow classifier to generalize well. For example line 2 might misclassify the positive data points present on the upper left side of the point close to the line 2. This over fitting would restrict the classifier to generalize with new points. To restrict this Logistic Regression uses regularization (restricts the weights of the classifier) but SVM uses a different mathematical solution to find an optimum decision boundary.</p>
-
-<h2 id="support-vector-machine">Support Vector Machine</h2>
-
-<p>Lets first intutively try to formalize the notion of optimum decision boundary. Consider the 2 points $ {a} $ and $ {b} $ which falls into negative and positive class respectivily (see the diagram below). What can you notice special about these points ? You can notice that these points are closest to the points of the other class, or to put it in other words you can say that they are the last points in their classes if we consider the dotted lines as our decision boundries. There can be multiple such points which falls close to the dotted decision boundries. Now try to think how can you define an optimal decision boundry with the help of dotted lines. Intutively you can see that the best line you can put would be at the center of the zone between 2 dotted lines.</p>
-
-<center>
-<img src="/svm-1.png" width="400" height="400" />
-</center>
-
-<p>Now lets formalize this notion mathematically, We can clearly see that the line that we can consider best decision boundary would be at maximum distance from the 2 dotted line. In other words the line would be at maximum distance from $ {a} $ and $  {b} $ . This distance is called the margin. Now we need to find a line which maximizes this margin and that would be our optimal decision boundary. Here we would make an assumption that all the decision boundaries, line 1, 2 and 3 are parallel to each other, the reason for this assumption would be clear very soon.</p>
-
-<p>Lets consider that the optimum line is line 1 which can be defined by the equation (in vector form) :</p>
-
-<script type="math/tex; mode=display">{y}={W}^T {x} + {c}</script>
-
-<p>If we substitute point a and b into this equation we would get:</p>
-
-<script type="math/tex; mode=display">{W}^T {a} + {c} = {1}</script>
-
-<script type="math/tex; mode=display">{W}^T {b} + {c} = {-1}</script>
-
-<p>Now to compute the margin we would need to find the difference between $ {a} $ and $ {b} $ which we can do by subtracting the 2 equations above and we get:</p>
-
-<script type="math/tex; mode=display">{W}^T ({a} - {b}) = 2</script>
-
-<p>Now recall from the linear algebra class that the weight vector $ {W} $ is orthogonal to the line, so to compute the margin we find the difference between $ {a} $ and $ {b} $ in direction of W. For this we would divide both sides with norm of W and it would give us the margin $  {m} $.</p>
-
-<script type="math/tex; mode=display">\dfrac{W^T ({a} - {b})}{||W||} = \dfrac{2}{||W||} = {m}</script>
-
-<blockquote>
-  <p>So first lets review what we have done so far and then proceed further, we selected an arbitrary line as our decision boundary assuming that it is our optimal decision boundary. They we took 2 points on the dotted lines which are parallel to the decision boundary we selected. We substituted both of these points in the equation of line and then computed the difference between them. We projected that difference on the unit weight vector which we called our margin.</p>
-</blockquote>
-
-<p>Now recall that we decided that the optimum line would be the one which maximises the margin. So we will now create an optimization problem which would give us a weight vector which can maximize this margin.</p>
-
-<p>Also, this would be an constrained optimization problem as we need the $ {W} $ which maximizes the margin but also classifies the points correctly.</p>
-
-<script type="math/tex; mode=display">maximize \dfrac{2}{||W||}</script>
-
-<center> constrained by:  </center>
-
-<script type="math/tex; mode=display">{y_i}({W}^T {x_i} + {c}) \geq 1</script>
-
-<p>To solve this optimization problem we would translate into a form which we can solve. Lets’s first convert this to a equivalent minimization problem, for which we would reciprocate the margin and square the weight:</p>
-
-<script type="math/tex; mode=display">minimize \dfrac{||W||^2}{2}</script>
-
-<center> constrained by:  </center>
-
-<script type="math/tex; mode=display">{y_i}({W}^T {x_i} + {c}) \geq 1</script>
-
-<p>Now this form of optimization problem can be solved using quardatic programming. Here in this post I would not go into Quardatic Programming much but you can take my word for the steps to follow.</p>
-
-<p>Using quardatic programming we can translate the minimization problem mentioned above into standard form</p>
-
-<script type="math/tex; mode=display">F(\alpha) = \sum_{i} \alpha_i - \dfrac{1}{2} \sum_{ij} \alpha_i \alpha_j y_i y_j x_i^T x_j</script>
-
-<center> where </center>
-
-<script type="math/tex; mode=display">\alpha_i \geq \phi</script>
-
-<center>and</center>
-
-<script type="math/tex; mode=display">\sum_{i} \alpha_i y_i = \phi</script>
-
-<p>from by solving these equations we can find the $ \alpha $ which satisfies the conditions. After knowing the value of $ \alpha $ we can retrieve the value of W which minimizes our optimization problem as follows:</p>
-
-<script type="math/tex; mode=display">{W} = \sum_{i} \alpha_i y_i x_i</script>
-
-<p>and having retrieved $ W $ from the equation above we can retirieve the value of {b} from the equations of point $ {a} $ and $ {b} $. Once we have $ W $ and $ b $ we have the equation of decision boundary which have maximum margin and which is an optimal classifier for the classification problem.</p>
-
-<p>But the method described well only if there is a linear decision boundary that can seperate the 2 classes. If the data points of 2 classes are not linearly separable, method described above would provide the decision boundary which can do its best but would not be a perfect decision boundary.</p>
-
-<h2 id="the-kernel-trick">The Kernel Trick</h2>
-
+<h2 id="real-world-applications">Real world applications</h2>
+<hr />
 
     </div>
     
@@ -369,11 +287,11 @@ $(document).ready(function(){
     
 <!--    <i class="fa fa-share-square-o fa-2x" style=" color:#102366;" aria-hidden="true"></i>-->
    <center><fieldset class="cat" style="width: 30%;"><legend><b>&nbsp;Share&nbsp;</b> </legend>
-    <a href="https://twitter.com/intent/tweet?text=http://hmisra.github.io/2016/10/12/Support-Vector-Machines/" style="padding-right:1em;" title="Share on Twitter"><i class="fa fa-twitter fa-3x hvr-float" style="color:#102366;"></i></a>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=http://hmisra.github.io/2016/10/12/Support-Vector-Machines/" style="padding-right:1em;" title="Share on Facebook"><i class="fa fa-facebook-square fa-3x hvr-float" style="color:#102366;"></i></a>
-    <a href="https://plus.google.com/share?url=http://hmisra.github.io/2016/10/12/Support-Vector-Machines/"  style="padding-right:1em;" title="Share on Google Plus"><i class="fa fa-google-plus fa-3x hvr-float" style="color:#102366;"></i></a>
-    <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fhttp://hmisra.github.io/2016/10/12/Support-Vector-Machines/&title=Support Vector Machine&summary=Description of inner workings of SVM [In Progress]&source=http%3A%2F%2Fhttp://hmisra.github.io/2016/10/12/Support-Vector-Machines/" style="padding-right:1em;" title="Share on Linkedin"><i class="fa fa-linkedin-square fa-3x hvr-float" style="color:#102366;"></i></a>
-      <a href="https://www.reddit.com/submit?url=http://hmisra.github.io/2016/10/12/Support-Vector-Machines/"  style="padding-right:1em;" title="Share on Reddit"><i class="fa fa-reddit fa-3x hvr-float" style="color:#102366;"></i>
+    <a href="https://twitter.com/intent/tweet?text=http://hmisra.github.io/2016/10/09/template/" style="padding-right:1em;" title="Share on Twitter"><i class="fa fa-twitter fa-3x hvr-float" style="color:#102366;"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http://hmisra.github.io/2016/10/09/template/" style="padding-right:1em;" title="Share on Facebook"><i class="fa fa-facebook-square fa-3x hvr-float" style="color:#102366;"></i></a>
+    <a href="https://plus.google.com/share?url=http://hmisra.github.io/2016/10/09/template/"  style="padding-right:1em;" title="Share on Google Plus"><i class="fa fa-google-plus fa-3x hvr-float" style="color:#102366;"></i></a>
+    <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fhttp://hmisra.github.io/2016/10/09/template/&title=Template&summary=Test Template&source=http%3A%2F%2Fhttp://hmisra.github.io/2016/10/09/template/" style="padding-right:1em;" title="Share on Linkedin"><i class="fa fa-linkedin-square fa-3x hvr-float" style="color:#102366;"></i></a>
+      <a href="https://www.reddit.com/submit?url=http://hmisra.github.io/2016/10/09/template/"  style="padding-right:1em;" title="Share on Reddit"><i class="fa fa-reddit fa-3x hvr-float" style="color:#102366;"></i>
     </a>
     
     
@@ -413,18 +331,18 @@ $(document).ready(function(){
     
       <li>
         <h3>
-          <a href="/2016/06/07/Introduction-to-Spark/">
-            Introduction to Spark
-            <small>07 Jun 2016</small>
+          <a href="/2016/10/12/Support-Vector-Machines/">
+            Support Vector Machine
+            <small>12 Oct 2016</small>
           </a>
         </h3>
       </li>
     
       <li>
         <h3>
-          <a href="/2016/03/22/Measures-Of-Similarity-And-Distances/">
-            Nature and Humans
-            <small>22 Mar 2016</small>
+          <a href="/2016/06/07/Introduction-to-Spark/">
+            Introduction to Spark
+            <small>07 Jun 2016</small>
           </a>
         </h3>
       </li>
