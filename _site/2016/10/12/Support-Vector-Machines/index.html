@@ -277,6 +277,7 @@ $(document).ready(function(){
 </ol>
 
 <h2 id="the-binary-classification-problem">The binary classification problem</h2>
+<hr />
 
 <p>The binary classification problem can be defined as assigning one out of 2 classes to n dimensional points. Lets consider an example so that we can visualize it much better.</p>
 <center>
@@ -287,6 +288,7 @@ $(document).ready(function(){
 <p>SVM goes a step further. You can see in the diagram above that there can be multiple lines which can divide the 2 classes. But out of all the possible line one line would be best which would allow classifier to generalize well. For example line 2 might misclassify the positive data points present on the upper left side of the point close to the line 2. This over fitting would restrict the classifier to generalize with new points. To restrict this Logistic Regression uses regularization (restricts the weights of the classifier) but SVM uses a different mathematical solution to find an optimum decision boundary.</p>
 
 <h2 id="support-vector-machine">Support Vector Machine</h2>
+<hr />
 
 <p>Lets first intutively try to formalize the notion of optimum decision boundary. Consider the 2 points $ {a} $ and $ {b} $ which falls into negative and positive class respectivily (see the diagram below). What can you notice special about these points ? You can notice that these points are closest to the points of the other class, or to put it in other words you can say that they are the last points in their classes if we consider the dotted lines as our decision boundries. There can be multiple such points which falls close to the dotted decision boundries. Now try to think how can you define an optimal decision boundry with the help of dotted lines. Intutively you can see that the best line you can put would be at the center of the zone between 2 dotted lines.</p>
 
@@ -356,31 +358,34 @@ $(document).ready(function(){
 
 <p>and having retrieved $ W $ from the equation above we can retirieve the value of {b} from the equations of point $ {a} $ and $ {b} $. Once we have $ W $ and $ b $ we have the equation of decision boundary which have maximum margin and which is an optimal classifier for the classification problem.</p>
 
+<h2 id="summary-and-conclusion">Summary and Conclusion</h2>
+<hr />
+
 <p>So lets put in words what we have achieved so far:</p>
 
-<ol>
+<ul>
   <li>We started with taking an arbitrary equation of our optimal decision boundary</li>
-</ol>
+</ul>
 
 <script type="math/tex; mode=display">{y}={W}^T {x} + {c}</script>
 
-<ol>
+<ul>
   <li>Then assumed 2 parallel lines to our decision boudary such that they both touch the end points for each class. We called these points $ a $ and $ b $ and got eqation of these points by sustituting in the equation from 1.</li>
-</ol>
+</ul>
 
 <script type="math/tex; mode=display">{W}^T {a} + {c} = {1}</script>
 
 <script type="math/tex; mode=display">{W}^T {b} + {c} = {-1}</script>
 
-<ol>
+<ul>
   <li>Then we defined notion of margin in terms of $ W $ the weight vector of our classifier</li>
-</ol>
+</ul>
 
 <script type="math/tex; mode=display">\dfrac{2}{||W||} = {m}</script>
 
-<ol>
+<ul>
   <li>We created an optimization problem to find $ W $ that maximize the margin. For this we converted our maximization problem into a quardatic programming problem and converted into a normalized form.</li>
-</ol>
+</ul>
 
 <script type="math/tex; mode=display">F(\alpha) = \sum_{i} \alpha_i - \dfrac{1}{2} \sum_{ij} \alpha_i \alpha_j y_i y_j x_i^T x_j</script>
 
@@ -392,11 +397,19 @@ $(document).ready(function(){
 
 <script type="math/tex; mode=display">\sum_{i} \alpha_i y_i = \phi</script>
 
-<ol>
-  <li>We solve for $ \alpha</li>
-</ol>
+<ul>
+  <li>We solve for $ \alpha $ and retrieve W using</li>
+</ul>
 
-<p>But the method described well only if there is a linear decision boundary that can seperate the 2 classes. If the data points of 2 classes are not linearly separable, method described above would provide the decision boundary which can do its best but would not be a perfect decision boundary.</p>
+<script type="math/tex; mode=display">{W} = \sum_{i} \alpha_i y_i x_i</script>
+
+<ul>
+  <li>Using $ W $ obtained in step 5 we retrieve $ b $ by substituting $ W $ in equations in step 2.</li>
+</ul>
+
+<p>The method described well only if there is a linear decision boundary that can seperate the 2 classes. If the data points of 2 classes are not linearly separable, method described above would provide the decision boundary which can do its best but would not be a perfect decision boundary.</p>
+
+<p>In upcoming post I will write about a neat trick (<strong>THE KERNEL TRICK</strong>) proposed by Bernhard E. Boser, Isabelle M. Guyon and Vladimir Vapnik in 1992 which allows SVMs to learn maximum margin non-linear decision boundaries.</p>
 
 
     </div>

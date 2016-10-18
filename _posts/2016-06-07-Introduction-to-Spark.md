@@ -4,7 +4,7 @@ type: notes
 title: Introduction to Spark
 excerpt: Week 1 notes for "Introduction to Apache Spark" on EdX
 comments: true
-background: /network.jpg
+background: /spark.png
 published: true
 authorname: Himanshu Misra
 authordesignation: Data Scientist @ Legacy.com

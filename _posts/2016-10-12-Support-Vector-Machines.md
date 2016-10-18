@@ -31,6 +31,7 @@ I understand that toward the end of previous section I mentioned that there woul
 
 
 ## The binary classification problem
+------------------------------
 
 The binary classification problem can be defined as assigning one out of 2 classes to n dimensional points. Lets consider an example so that we can visualize it much better.
 <center>
@@ -42,6 +43,7 @@ SVM goes a step further. You can see in the diagram above that there can be mult
 
 
 ## Support Vector Machine
+------------------------------
 
 Lets first intutively try to formalize the notion of optimum decision boundary. Consider the 2 points $ {a} $ and $ {b} $ which falls into negative and positive class respectivily (see the diagram below). What can you notice special about these points ? You can notice that these points are closest to the points of the other class, or to put it in other words you can say that they are the last points in their classes if we consider the dotted lines as our decision boundries. There can be multiple such points which falls close to the dotted decision boundries. Now try to think how can you define an optimal decision boundry with the help of dotted lines. Intutively you can see that the best line you can put would be at the center of the zone between 2 dotted lines.
 
@@ -173,9 +175,12 @@ $$
 and having retrieved $ W $ from the equation above we can retirieve the value of {b} from the equations of point $ {a} $ and $ {b} $. Once we have $ W $ and $ b $ we have the equation of decision boundary which have maximum margin and which is an optimal classifier for the classification problem.
 
 
+## Summary and Conclusion
+------------------------------
+
 So lets put in words what we have achieved so far:
 
-1. We started with taking an arbitrary equation of our optimal decision boundary
+* We started with taking an arbitrary equation of our optimal decision boundary
 
 $$
 
@@ -183,7 +188,7 @@ $$
 
 $$
 
-2. Then assumed 2 parallel lines to our decision boudary such that they both touch the end points for each class. We called these points $ a $ and $ b $ and got eqation of these points by sustituting in the equation from 1.
+* Then assumed 2 parallel lines to our decision boudary such that they both touch the end points for each class. We called these points $ a $ and $ b $ and got eqation of these points by sustituting in the equation from 1.
 
 $$
 
@@ -199,7 +204,7 @@ $$
 $$
 
 
-3. Then we defined notion of margin in terms of $ W $ the weight vector of our classifier 
+* Then we defined notion of margin in terms of $ W $ the weight vector of our classifier 
 
 $$
 
@@ -207,7 +212,7 @@ $$
 
 $$
 
-4. We created an optimization problem to find $ W $ that maximize the margin. For this we converted our maximization problem into a quardatic programming problem and converted into a normalized form.
+* We created an optimization problem to find $ W $ that maximize the margin. For this we converted our maximization problem into a quardatic programming problem and converted into a normalized form.
 
 
 $$
@@ -233,11 +238,20 @@ $$
 
 $$
 
-5. We solve for $ \alpha
+* We solve for $ \alpha $ and retrieve W using 
+
+$$
+
+{W} = \sum_{i} \alpha_i y_i x_i
+
+$$
+
+* Using $ W $ obtained in step 5 we retrieve $ b $ by substituting $ W $ in equations in step 2.
 
 
-But the method described well only if there is a linear decision boundary that can seperate the 2 classes. If the data points of 2 classes are not linearly separable, method described above would provide the decision boundary which can do its best but would not be a perfect decision boundary.
+The method described well only if there is a linear decision boundary that can seperate the 2 classes. If the data points of 2 classes are not linearly separable, method described above would provide the decision boundary which can do its best but would not be a perfect decision boundary. 
 
+In upcoming post I will write about a neat trick (**THE KERNEL TRICK**) proposed by Bernhard E. Boser, Isabelle M. Guyon and Vladimir Vapnik in 1992 which allows SVMs to learn maximum margin non-linear decision boundaries. 
 
 
 
