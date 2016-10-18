@@ -356,9 +356,60 @@ $(document).ready(function(){
 
 <p>and having retrieved $ W $ from the equation above we can retirieve the value of {b} from the equations of point $ {a} $ and $ {b} $. Once we have $ W $ and $ b $ we have the equation of decision boundary which have maximum margin and which is an optimal classifier for the classification problem.</p>
 
-<p>But the method described well only if there is a linear decision boundary that can seperate the 2 classes. If the data points of 2 classes are not linearly separable, method described above would provide the decision boundary which can do its best but would not be a perfect decision boundary.</p>
+<p>So lets put in words what we have achieved so far:</p>
 
-<h2 id="the-kernel-trick">The Kernel Trick</h2>
+<ol>
+  <li>We started with taking an arbitrary equation of our optimal decision boundary</li>
+</ol>
+
+<script type="math/tex; mode=display">{y}={W}^T {x} + {c}</script>
+
+<ol>
+  <li>Then assumed 2 parallel lines to our decision boudary such that they both touch the end points for each class. We called these points $ a $ and $ b $ and got eqation of these points by sustituting in the equation from 1.</li>
+</ol>
+
+<p>$</p>
+
+<p>{W}^T {a} + {c} = {1}</p>
+
+<script type="math/tex; mode=display"></script>
+
+<p>{W}^T {b} + {c} = {-1}</p>
+
+<script type="math/tex; mode=display">3. Then we defined notion of margin in terms of $ W $ the weight vector of our classifier</script>
+
+<table>
+  <tbody>
+    <tr>
+      <td>\dfrac{2}{</td>
+      <td> </td>
+      <td>W</td>
+      <td> </td>
+      <td>} = {m}</td>
+    </tr>
+  </tbody>
+</table>
+
+<script type="math/tex; mode=display">4. We created an optimization problem to find $ W $ that maximize the margin. For this we converted our maximization problem into a quardatic programming problem and converted into a normalized form.</script>
+
+<p>F(\alpha) = \sum_{i} \alpha_i - \dfrac{1}{2} \sum_{ij} \alpha_i \alpha_j y_i y_j x_i^T x_j</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+<center> where </center> %]]></script>
+
+<p>\alpha_i \geq \phi</p>
+
+<p>$$</p>
+
+<center>and</center>
+
+<script type="math/tex; mode=display">\sum_{i} \alpha_i y_i = \phi</script>
+
+<ol>
+  <li>We solve for $ \alpha</li>
+</ol>
+
+<p>But the method described well only if there is a linear decision boundary that can seperate the 2 classes. If the data points of 2 classes are not linearly separable, method described above would provide the decision boundary which can do its best but would not be a perfect decision boundary.</p>
 
 
     </div>
