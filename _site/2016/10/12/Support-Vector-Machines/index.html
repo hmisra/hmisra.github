@@ -368,38 +368,25 @@ $(document).ready(function(){
   <li>Then assumed 2 parallel lines to our decision boudary such that they both touch the end points for each class. We called these points $ a $ and $ b $ and got eqation of these points by sustituting in the equation from 1.</li>
 </ol>
 
-<p>$</p>
+<script type="math/tex; mode=display">{W}^T {a} + {c} = {1}</script>
 
-<p>{W}^T {a} + {c} = {1}</p>
+<script type="math/tex; mode=display">{W}^T {b} + {c} = {-1}</script>
 
-<script type="math/tex; mode=display"></script>
+<ol>
+  <li>Then we defined notion of margin in terms of $ W $ the weight vector of our classifier</li>
+</ol>
 
-<p>{W}^T {b} + {c} = {-1}</p>
+<script type="math/tex; mode=display">\dfrac{2}{||W||} = {m}</script>
 
-<script type="math/tex; mode=display">3. Then we defined notion of margin in terms of $ W $ the weight vector of our classifier</script>
+<ol>
+  <li>We created an optimization problem to find $ W $ that maximize the margin. For this we converted our maximization problem into a quardatic programming problem and converted into a normalized form.</li>
+</ol>
 
-<table>
-  <tbody>
-    <tr>
-      <td>\dfrac{2}{</td>
-      <td> </td>
-      <td>W</td>
-      <td> </td>
-      <td>} = {m}</td>
-    </tr>
-  </tbody>
-</table>
+<script type="math/tex; mode=display">F(\alpha) = \sum_{i} \alpha_i - \dfrac{1}{2} \sum_{ij} \alpha_i \alpha_j y_i y_j x_i^T x_j</script>
 
-<script type="math/tex; mode=display">4. We created an optimization problem to find $ W $ that maximize the margin. For this we converted our maximization problem into a quardatic programming problem and converted into a normalized form.</script>
+<center> where </center>
 
-<p>F(\alpha) = \sum_{i} \alpha_i - \dfrac{1}{2} \sum_{ij} \alpha_i \alpha_j y_i y_j x_i^T x_j</p>
-
-<script type="math/tex; mode=display">% <![CDATA[
-<center> where </center> %]]></script>
-
-<p>\alpha_i \geq \phi</p>
-
-<p>$$</p>
+<script type="math/tex; mode=display">\alpha_i \geq \phi</script>
 
 <center>and</center>
 

@@ -185,7 +185,7 @@ $$
 
 2. Then assumed 2 parallel lines to our decision boudary such that they both touch the end points for each class. We called these points $ a $ and $ b $ and got eqation of these points by sustituting in the equation from 1.
 
-$
+$$
 
 {W}^T {a} + {c} = {1}
 
@@ -228,6 +228,7 @@ $$
 <center>and</center>
 
 $$
+
 \sum_{i} \alpha_i y_i = \phi
 
 $$

@@ -4,7 +4,7 @@
  <title>entangledDimensions</title>
  <link href="http://hmisra.github.io/atom.xml" rel="self"/>
  <link href="http://hmisra.github.io/"/>
- <updated>2016-10-18T00:07:04-07:00</updated>
+ <updated>2016-10-18T00:08:10-07:00</updated>
  <id>http://hmisra.github.io</id>
  <author>
    <name>Himanshu Misra</name>
@@ -143,38 +143,25 @@
   &lt;li&gt;Then assumed 2 parallel lines to our decision boudary such that they both touch the end points for each class. We called these points $ a $ and $ b $ and got eqation of these points by sustituting in the equation from 1.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;$&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;{W}^T {a} + {c} = {1}&lt;/script&gt;
 
-&lt;p&gt;{W}^T {a} + {c} = {1}&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;{W}^T {b} + {c} = {-1}&lt;/script&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;&lt;/script&gt;
+&lt;ol&gt;
+  &lt;li&gt;Then we defined notion of margin in terms of $ W $ the weight vector of our classifier&lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;p&gt;{W}^T {b} + {c} = {-1}&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\dfrac{2}{||W||} = {m}&lt;/script&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;3. Then we defined notion of margin in terms of $ W $ the weight vector of our classifier&lt;/script&gt;
+&lt;ol&gt;
+  &lt;li&gt;We created an optimization problem to find $ W $ that maximize the margin. For this we converted our maximization problem into a quardatic programming problem and converted into a normalized form.&lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;\dfrac{2}{&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;W&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;} = {m}&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;F(\alpha) = \sum_{i} \alpha_i - \dfrac{1}{2} \sum_{ij} \alpha_i \alpha_j y_i y_j x_i^T x_j&lt;/script&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;4. We created an optimization problem to find $ W $ that maximize the margin. For this we converted our maximization problem into a quardatic programming problem and converted into a normalized form.&lt;/script&gt;
+&lt;center&gt; where &lt;/center&gt;
 
-&lt;p&gt;F(\alpha) = \sum_{i} \alpha_i - \dfrac{1}{2} \sum_{ij} \alpha_i \alpha_j y_i y_j x_i^T x_j&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-&lt;center&gt; where &lt;/center&gt; %]]&gt;&lt;/script&gt;
-
-&lt;p&gt;\alpha_i \geq \phi&lt;/p&gt;
-
-&lt;p&gt;$$&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\alpha_i \geq \phi&lt;/script&gt;
 
 &lt;center&gt;and&lt;/center&gt;
 
