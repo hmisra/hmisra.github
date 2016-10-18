@@ -4,13 +4,30 @@
  <title>entangledDimensions</title>
  <link href="http://hmisra.github.io/atom.xml" rel="self"/>
  <link href="http://hmisra.github.io/"/>
- <updated>2016-10-16T13:35:40-07:00</updated>
+ <updated>2016-10-17T23:56:42-07:00</updated>
  <id>http://hmisra.github.io</id>
  <author>
    <name>Himanshu Misra</name>
    <email>himanshumisra1990@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Good Read</title>
+   <link href="http://hmisra.github.io/2016/10/15/Good-Reads/"/>
+   <updated>2016-10-15T00:00:00-07:00</updated>
+   <id>http://hmisra.github.io/2016/10/15/Good-Reads</id>
+   <content type="html">&lt;h2 id=&quot;machine-learning&quot;&gt;Machine Learning&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;On Tips, safe guards and best practices for Machine Learning&lt;/strong&gt;
+..* &lt;a href=&quot;https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf&quot; title=&quot;By Pedro Domingos, UW&quot;&gt;A Few Useful Things to Know about Machine Learning&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;deep-learning&quot;&gt;Deep Learning&lt;/h2&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Support Vector Machine</title>
