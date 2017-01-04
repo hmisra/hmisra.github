@@ -2,7 +2,7 @@
 layout: post
 type: blog
 title: Support Vector Machine
-excerpt: Description of inner workings of SVM [In Progress]
+excerpt: Description of inner workings of SVM
 comments: true
 background: /svm-1.png
 published: true
@@ -251,7 +251,7 @@ $$
 
 The method described well only if there is a linear decision boundary that can seperate the 2 classes. If the data points of 2 classes are not linearly separable, method described above would provide the decision boundary which can do its best but would not be a perfect decision boundary. 
 
-In upcoming post I will write about a neat trick (**THE KERNEL TRICK**) proposed by Bernhard E. Boser, Isabelle M. Guyon and Vladimir Vapnik in 1992 which allows SVMs to learn maximum margin non-linear decision boundaries. 
+ 
 
 
 

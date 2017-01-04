@@ -5,7 +5,7 @@ title: Nature and Humans
 excerpt: On Evolution [In Progress]
 comments: true
 background: /distance.gif
-published: true
+published: false
 authorname: Himanshu Misra
 authordesignation: Data Scientist @ Legacy.com
 authorimage: /himanshu.jpg

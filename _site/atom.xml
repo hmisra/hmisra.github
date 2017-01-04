@@ -4,7 +4,7 @@
  <title>entangledDimensions</title>
  <link href="http://hmisra.github.io/atom.xml" rel="self"/>
  <link href="http://hmisra.github.io/"/>
- <updated>2016-10-18T00:27:19-07:00</updated>
+ <updated>2017-01-04T01:07:06-08:00</updated>
  <id>http://hmisra.github.io</id>
  <author>
    <name>Himanshu Misra</name>
@@ -184,8 +184,6 @@
 
 &lt;p&gt;The method described well only if there is a linear decision boundary that can seperate the 2 classes. If the data points of 2 classes are not linearly separable, method described above would provide the decision boundary which can do its best but would not be a perfect decision boundary.&lt;/p&gt;
 
-&lt;p&gt;In upcoming post I will write about a neat trick (&lt;strong&gt;THE KERNEL TRICK&lt;/strong&gt;) proposed by Bernhard E. Boser, Isabelle M. Guyon and Vladimir Vapnik in 1992 which allows SVMs to learn maximum margin non-linear decision boundaries.&lt;/p&gt;
-
 </content>
  </entry>
  
@@ -363,20 +361,6 @@
   &lt;li&gt;Never use collect() in production, it may crash your system, instead use take(n) to perform select operations on your data frame.&lt;/li&gt;
   &lt;li&gt;use cache() function to persist your data frame to avoid recomputation.&lt;/li&gt;
 &lt;/ol&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>Nature and Humans</title>
-   <link href="http://hmisra.github.io/2016/03/22/Measures-Of-Similarity-And-Distances/"/>
-   <updated>2016-03-22T00:00:00-07:00</updated>
-   <id>http://hmisra.github.io/2016/03/22/Measures-Of-Similarity-And-Distances</id>
-   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-&lt;hr /&gt;
-
-&lt;p&gt;We humans have significantly transformed earth over past 300 years. Images taken from space, one like shown below, are perfect example of this fact. The rate at which we have extended our capabilities and transformed our planet has grown exponentially. 
-Since the time we started evolving from Monkeys we were driven by our insatiable curiosity to understand the nature around us. And this curiosity to understand and explore has been very fruitful for us. Understanding nature has helped us create tools which can manipulate forces of nature to serve us. For example, we invented fire to extract locked energy in wood to keep us warm and cook food. We created wheels to efficiently transport weight from one place to another and the list goes on. (Correlation between us and tools). But if you notice the machines we were using before 17th century were capable of improving our efficiency may be 2 or 3 folds. For example if before invention of wheel if someone took a day to take a parcel from one part of the city to another, after invention of wheel and bicycle that time got reduced to hours.&lt;/p&gt;
-
 </content>
  </entry>
  
