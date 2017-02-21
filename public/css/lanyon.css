@@ -865,13 +865,14 @@ a.pagination-item:hover {
 .theme-base-0f .sidebar-toggle,
 .theme-base-0f .related-posts li a:hover {
   color: #8f5536;
+  color: #102366;
 }
 
 /* Royal Blue */
 .theme-base-15 .sidebar,
 .theme-base-15 .sidebar-toggle:active,
 .theme-base-15 #sidebar-checkbox:checked ~ .wrap .sidebar-toggle {
-  background-color: #102366;
+  background-color: #161b2d;
 }
 
 .theme-base-15 .page-title,
@@ -879,7 +880,7 @@ a.pagination-item:hover {
 .theme-base-15 .container a,
 .theme-base-15 .sidebar-toggle,
 .theme-base-15 .related-posts li a:hover {
-  color: #102366;
+  color: #161b2d;
 }
 
 
