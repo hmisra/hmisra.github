@@ -59,6 +59,10 @@ h1, h2, h3, h4, h5, h6 {
  * Center the page content.
  */
 
+ .title-header {
+  color: white;
+ }
+
 .container {
   max-width: 85%;
 }
@@ -419,7 +423,7 @@ a.sidebar-nav-item:focus {
 .post-grid {
     width: 11em;
     margin-bottom: 0.00em;
-    margin-right: 0.005em;
+    margin-right: 0.1em;
     display: inline-block;
 }
 
@@ -529,7 +533,7 @@ progress::-moz-progress-bar {
 }
 #sub-hover{
     padding: 10px;
-    background-color: #fafafa;
+    background-color: #ffffff;
     min-height:146px;
     max-height: 146px;
 }
@@ -564,6 +568,13 @@ hr { margin: 1px 0 1px 0; }
     min-height:320px;
     max-height:320px;
     min-width: 13rem;
+    border-top-color: #161b2d;
+    border-top-width: 0.1px;
+    border-top-style: solid;
+    border-bottom-color: #161b2d;
+    border-bottom-width: 0.1px;
+    border-bottom-style: solid;
+
     position:relative;
     text-align: center
 }
@@ -870,6 +881,9 @@ a.pagination-item:hover {
 .theme-base-15 .related-posts li a:hover {
   color: #102366;
 }
+
+
+
 
 
 .share-buttons {
