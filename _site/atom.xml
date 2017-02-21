@@ -4,7 +4,7 @@
  <title>entangledDimensions</title>
  <link href="http://hmisra.github.io/atom.xml" rel="self"/>
  <link href="http://hmisra.github.io/"/>
- <updated>2017-01-04T01:07:06-08:00</updated>
+ <updated>2017-02-20T23:11:39-08:00</updated>
  <id>http://hmisra.github.io</id>
  <author>
    <name>Himanshu Misra</name>
@@ -369,11 +369,24 @@
    <link href="http://hmisra.github.io/2015/07/26/Estimating-Truth_Using-Recursive-Bayesian-Filter/"/>
    <updated>2015-07-26T00:00:00-07:00</updated>
    <id>http://hmisra.github.io/2015/07/26/Estimating-Truth_Using-Recursive-Bayesian-Filter</id>
-   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+   <content type="html">&lt;div style=&quot;background-color: #F5f5f5;  padding: 50px;&quot;&gt;
+&lt;font size=&quot;3px&quot; color=&quot;#999999&quot; face=&quot;Helvetica&quot; style=&quot;text-transform: uppercase; margin-bottom: 30px;&quot;&gt;In Brief
+&lt;/font&gt; &lt;br /&gt; 
+&lt;hr /&gt;
+
+
+&lt;li&gt; Bayes Theorem &lt;/li&gt;
+&lt;li&gt; Bayesian Filtering Example &lt;/li&gt;
+&lt;li&gt; Few applications of Bayesian Filtering &lt;/li&gt;
+
+
+&lt;/div&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 &lt;hr /&gt;
 &lt;p&gt;Whenever we make any critical decision in our life we tend to take suggestions and recommendations from different people. We try to analyze information from various sources and based on our analysis, we decide what to do.&lt;/p&gt;
 
-&lt;p&gt;To understand this process more intuitively let’s take an example. Last week a friend recommended me to watch a movie called “Attack of the Killer Tomatoes!”. Now looking at the title of the movie I felt bit suspicious and started pondering if it is actually as good as my friend was praising it. The obvious next step was to gather more information about the movie. I checked the movie trailer on YouTube according to which it seemed like a pretty funny movie. Despite the claims made by the trailer like “perhaps the funniest film ever made” I decided to check reviews and ratings for the movie on IMDB and RotttenTomatoes, where it was rated below 5. As I trust IMDB movie ratings more than anything when it comes to watching movies, I decided to pass “Attack of the killer Tomatoes !” and watch it some other time. In real life, we mostly follow this kind of reasoning where we combine various evidence and come to a conclusion.&lt;/p&gt;
+&lt;p&gt;To understand this process of iteratively building our belief more intuitively let’s take an example. Last week a friend recommended me to watch a movie called “Attack of the Killer Tomatoes!”. Now looking at the title of the movie I felt bit suspicious and started pondering if it is actually as good as my friend was praising it. The obvious next step was to gather more information about the movie. I checked the movie trailer on YouTube according to which it seemed like a pretty funny movie. Despite the claims made by the trailer like “perhaps the funniest film ever made” I decided to check reviews and ratings for the movie on IMDB and RotttenTomatoes, where it was rated below 5. As I trust IMDB movie ratings more than anything when it comes to watching movies, I decided to pass “Attack of the killer Tomatoes !” and watch it some other time. In real life, we mostly follow this kind of reasoning where we combine various evidence and come to a conclusion.&lt;/p&gt;
 
 &lt;p&gt;Now mathematically we can formulate this process as follows, we can consider that “Attack of the Killer Tomatoes!” is a binomial random variable which can either take values “Good” or “Bad”. Initially, I had a recommendation for the movie so the probability distribution was more toward the value Good i.e &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was 0.7. As we start getting data from different sources, we can start inferring from it if the movie is good or bad, and start changing our initial belief. Sadly, for me at the end the &lt;code class=&quot;highlighter-rouge&quot;&gt;P(“Attack of the Killer Tomatoes!” =Good)&lt;/code&gt; was below 0.5 so I decided to not watch the movie.
 &lt;br /&gt;&lt;br /&gt;&lt;/p&gt;

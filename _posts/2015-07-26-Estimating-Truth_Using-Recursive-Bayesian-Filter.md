@@ -15,11 +15,25 @@ authorgithub: https://github.com/hmisra
 authortwitter: https://twitter.com/himanshumisra
 ---
 
+<div style="background-color: #F5f5f5;  padding: 50px;" >
+<font size="3px" color="#999999" face="Helvetica" style="text-transform: uppercase; margin-bottom: 30px;">In Brief
+</font> <br> 
+<hr>
+
+
+<li> Bayes Theorem </li>
+<li> Bayesian Filtering Example </li>
+<li> Few applications of Bayesian Filtering </li>
+
+
+</div>
+
+
 ## Introduction
 ----------------------------------
 Whenever we make any critical decision in our life we tend to take suggestions and recommendations from different people. We try to analyze information from various sources and based on our analysis, we decide what to do.
 
-To understand this process more intuitively let's take an example. Last week a friend recommended me to watch a movie called “Attack of the Killer Tomatoes!”. Now looking at the title of the movie I felt bit suspicious and started pondering if it is actually as good as my friend was praising it. The obvious next step was to gather more information about the movie. I checked the movie trailer on YouTube according to which it seemed like a pretty funny movie. Despite the claims made by the trailer like “perhaps the funniest film ever made” I decided to check reviews and ratings for the movie on IMDB and RotttenTomatoes, where it was rated below 5. As I trust IMDB movie ratings more than anything when it comes to watching movies, I decided to pass “Attack of the killer Tomatoes !” and watch it some other time. In real life, we mostly follow this kind of reasoning where we combine various evidence and come to a conclusion.
+To understand this process of iteratively building our belief more intuitively let's take an example. Last week a friend recommended me to watch a movie called “Attack of the Killer Tomatoes!”. Now looking at the title of the movie I felt bit suspicious and started pondering if it is actually as good as my friend was praising it. The obvious next step was to gather more information about the movie. I checked the movie trailer on YouTube according to which it seemed like a pretty funny movie. Despite the claims made by the trailer like “perhaps the funniest film ever made” I decided to check reviews and ratings for the movie on IMDB and RotttenTomatoes, where it was rated below 5. As I trust IMDB movie ratings more than anything when it comes to watching movies, I decided to pass “Attack of the killer Tomatoes !” and watch it some other time. In real life, we mostly follow this kind of reasoning where we combine various evidence and come to a conclusion.
 
 Now mathematically we can formulate this process as follows, we can consider that “Attack of the Killer Tomatoes!” is a binomial random variable which can either take values “Good” or “Bad”. Initially, I had a recommendation for the movie so the probability distribution was more toward the value Good i.e `P(“Attack of the Killer Tomatoes!” =Good)` was 0.7. As we start getting data from different sources, we can start inferring from it if the movie is good or bad, and start changing our initial belief. Sadly, for me at the end the `P(“Attack of the Killer Tomatoes!” =Good)` was below 0.5 so I decided to not watch the movie.
 <br><br>
