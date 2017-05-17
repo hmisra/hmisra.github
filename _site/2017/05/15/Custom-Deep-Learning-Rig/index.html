@@ -10,7 +10,7 @@
 
   <title>
     
-      Good Reads &middot; entangledDimensions
+      Custom Deep Learning Rig &middot; entangledDimensions
     
   </title>
 
@@ -228,14 +228,14 @@ $(document).ready(function(){
   });
   
 });</script>
-<div style="position:relative; background-image: url(/fractal.jpg);  background-size: contain; background-repeat: repeat; width:100%; height:730px;   margin-top: -1em;"><p></p></div>
+<div style="position:relative; background-image: url(/hardware.jpg);  background-size: contain; background-repeat: repeat; width:100%; height:730px;   margin-top: -1em;"><p></p></div>
 <div class="container-content-text hvr-glow" style="background-color:white;margin-top: -25rem; border-radius:4px; ">
 
 <div class="posts">
 <div class="post" style="padding-left: 60px; padding-top:20px;padding-right:60px; padding-bottom:20px;">
-  <h1 class="post-title" >Good Reads</h1>
+  <h1 class="post-title" >Custom Deep Learning Rig</h1>
 
-  <span class="post-date"> &nbsp;<span style="color:#F59B00;">bookmarks</span> published on 15 Oct 2016</span>
+  <span class="post-date"> &nbsp;<span style="color:#F59B00;">blog</span> published on 15 May 2017</span>
     <hr style="margin:1px;">
     <div style="margin:1px;">
     <table>
@@ -260,17 +260,146 @@ $(document).ready(function(){
     </div>
 <hr>
 <div class="roboto" style="padding:0px;">
-<h2 id="machine-learning">Machine Learning</h2>
+<div style="background-color: #F5f5f5;  padding: 50px;">
+<font size="3px" color="#999999" face="Helvetica" style="text-transform: uppercase; margin-bottom: 30px;">In Brief
+</font> <br /> 
+<hr />
+
+
+<li> Hardware Specifications </li>
+<li> Build Logs </li>
+<li> Getting up and Running </li>
+
+
+</div>
+
+<h2 id="introduction">Introduction</h2>
+<hr />
+<p><br /></p>
+
+<p>While finshing up my Udacity Deep Learning Nanodegree projects on my Macbook Pro with 2GB Nvidia Geforce GT 750 M I ended up exhausting all the GPU memory which started giving me out of memory exceptions for even a batch size of 16. This frustration combined with the some online research on cost effectiveness of custom build PC over Amazon P2 instances in long run made me invest some money in building this machine. Here are some helpful links which came up during my initial research.</p>
 
 <ul>
-  <li><strong>On Tips, safe guards and best practices in Machine Learning</strong> : <a href="https://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf" title="By Pedro Domingos, UW">A Few Useful Things to Know about Machine Learning</a></li>
+  <li>
+    <p><a href="http://timdettmers.com/">Tim Dettmers’s</a> blog is like a ray of light when you will find yourself lost in confusion of which component to select out of all myriad choices available in market. Do read all the blog posts to make an informed decision.</p>
+  </li>
+  <li>
+    <p>I used <a href="https://twitter.com/karpathy?lang=en">Andrej Karpathy’s</a> build as a reference which he shared in his 2 year old tweet <a href="https://pcpartpicker.com/user/badmephisto/saved/#view=mM3J7P">here</a></p>
+  </li>
+  <li>
+    <p><a href="https://pcpartpicker.com/">PCPartPicker</a> is a must use tool when you are building your own Computer. It can be used to decide your components, check reviews and ratings of each component, check compatibilities between them and find the best place to order them. In short its a tool which can ensure to large extent that at the end you get a successfull build.</p>
+  </li>
 </ul>
 
-<h2 id="linear-algebra">Linear Algebra</h2>
+<h2 id="hardware-specifications">Hardware Specifications</h2>
+<hr />
+<p><br />
+Here is the list of the components that I used for this build. 
+<br /></p>
 
-<ul>
-  <li><strong>Linear Algebra Review</strong> : <a href="http://cs229.stanford.edu/section/cs229-linalg.pdf" title="created by Zico Kolter, updated by Chuong Do, Stanford University">Linear Algebra Review and Reference</a></li>
-</ul>
+<p><a href="https://pcpartpicker.com/list/kTq43F">PCPartPicker part list</a> / <a href="https://pcpartpicker.com/list/kTq43F/by_merchant/">Price breakdown by merchant</a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Type</th>
+      <th style="text-align: left">Item</th>
+      <th style="text-align: left">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>CPU</strong></td>
+      <td style="text-align: left"><a href="https://pcpartpicker.com/product/VKx9TW/intel-core-i7-7700k-42ghz-quad-core-processor-bx80677i77700k">Intel - Core i7-7700K 4.2GHz Quad-Core Processor</a></td>
+      <td style="text-align: left">$328.79 @ SuperBiiz</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>CPU Cooler</strong></td>
+      <td style="text-align: left"><a href="https://pcpartpicker.com/product/CrDzK8/corsair-cpu-cooler-cw9060025ww">Corsair - H100i v2 70.7 CFM Liquid CPU Cooler</a></td>
+      <td style="text-align: left">$91.99 @ Newegg</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Thermal Compound</strong></td>
+      <td style="text-align: left"><a href="https://pcpartpicker.com/product/6RrG3C/arctic-silver-thermal-paste-as535g">Arctic Silver - 5 High-Density Polysynthetic Silver 3.5g Thermal Paste</a></td>
+      <td style="text-align: left">$11.89 @ OutletPC</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Motherboard</strong></td>
+      <td style="text-align: left"><a href="https://pcpartpicker.com/product/rdtWGX/gigabyte-ga-z270x-gaming-k7-atx-lga1151-motherboard-ga-z270x-gaming-k7">Gigabyte - GA-Z270X-Gaming K7 ATX LGA1151 Motherboard</a></td>
+      <td style="text-align: left">$183.98 @ Newegg</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Memory</strong></td>
+      <td style="text-align: left"><a href="https://pcpartpicker.com/product/Qz648d/corsair-vengeance-led-64gb-4-x-16gb-ddr4-3000-memory-cmu64gx4m4c3000c15r">Corsair - Vengeance LED 64GB (4 x 16GB) DDR4-3000 Memory</a></td>
+      <td style="text-align: left">$459.99 @ Newegg Marketplace</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Storage</strong></td>
+      <td style="text-align: left"><a href="https://pcpartpicker.com/product/FrH48d/samsung-internal-hard-drive-mz75e500bam">Samsung - 850 EVO-Series 500GB 2.5” Solid State Drive</a></td>
+      <td style="text-align: left">$159.99 @ B&amp;H</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Storage</strong></td>
+      <td style="text-align: left"><a href="https://pcpartpicker.com/product/KyCwrH/seagate-internal-hard-drive-st2000dm001">Seagate - Barracuda 2TB 3.5” 7200RPM Internal Hard Drive</a></td>
+      <td style="text-align: left">$69.89 @ OutletPC</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Video Card</strong></td>
+      <td style="text-align: left"><a href="https://pcpartpicker.com/product/dXqbt6/asus-geforce-gtx-1080-ti-11gb-founders-edition-video-card-gtx1080ti-fe">Asus - GeForce GTX 1080 Ti 11GB Founders Edition Video Card</a> (2-Way SLI)</td>
+      <td style="text-align: left">$687.99 @ SuperBiiz</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Video Card</strong></td>
+      <td style="text-align: left"><a href="https://pcpartpicker.com/product/dXqbt6/asus-geforce-gtx-1080-ti-11gb-founders-edition-video-card-gtx1080ti-fe">Asus - GeForce GTX 1080 Ti 11GB Founders Edition Video Card</a> (2-Way SLI)</td>
+      <td style="text-align: left">$687.99 @ SuperBiiz</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Case</strong></td>
+      <td style="text-align: left"><a href="https://pcpartpicker.com/product/2rGj4D/corsair-air-740-atx-full-tower-case-cc-9011096-ww">Corsair - Air 740 ATX Full Tower Case</a></td>
+      <td style="text-align: left">$114.99 @ Newegg</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Power Supply</strong></td>
+      <td style="text-align: left"><a href="https://pcpartpicker.com/product/74M323/seasonic-prime-850w-80-titanium-certified-fully-modular-atx-power-supply-ssr-850td">SeaSonic - PRIME Titanium 850W 80+ Titanium Certified Fully-Modular ATX Power Supply</a></td>
+      <td style="text-align: left">$196.99 @ SuperBiiz</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Wireless Network Adapter</strong></td>
+      <td style="text-align: left"><a href="https://pcpartpicker.com/product/G4H323/tp-link-wireless-network-card-tlwdn4800">TP-Link - TL-WDN4800 PCI-Express x1 802.11a/b/g/n Wi-Fi Adapter</a></td>
+      <td style="text-align: left">$36.88 @ OutletPC</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Other</strong></td>
+      <td style="text-align: left"><a href="https://pcpartpicker.com/product/2HGj4D/plugable-usb-bluetooth-40-low-energy-micro-adapter-windows-10-81-8-7-raspberry-pi-linux-compatible-classic-bluetooth-and-stereo-headset-compatible">Plugable USB Bluetooth 4.0 Low Energy Micro Adapter (Windows 10, 8.1, 8, 7, Raspberry Pi, Linux Compatible; Classic Bluetooth, and Stereo Headset Compatible)</a></td>
+      <td style="text-align: left">$21.98 @ PCM</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Other</strong></td>
+      <td style="text-align: left"><a href="https://pcpartpicker.com/product/j898TW/rosewill-45-piece-premium-computer-tool-kit-rtk-045">Rosewill 45 Piece Premium Computer Tool Kit RTK-045</a></td>
+      <td style="text-align: left">$22.99 @ Amazon</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Other</strong></td>
+      <td style="text-align: left"><a href="https://pcpartpicker.com/product/tCRFf7/10-pairs-white-nonslip-dispensing-cleanness-dustless-anti-static-glove">10 Pairs White Nonslip Dispensing Cleanness Dustless Anti Static Glove</a></td>
+      <td style="text-align: left">$8.75 @ Amazon</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"><em>Prices include shipping, rebates, and discounts</em></td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"><strong>Total</strong></td>
+      <td style="text-align: left"><strong>$3135.08</strong></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">Generated by <a href="http://pcpartpicker.com">PCPartPicker</a> 2017-05-16 21:34 EDT-0400</td>
+      <td style="text-align: left"> </td>
+    </tr>
+  </tbody>
+</table>
 
 
     </div>
@@ -281,11 +410,11 @@ $(document).ready(function(){
     
 <!--    <i class="fa fa-share-square-o fa-2x" style=" color:#102366;" aria-hidden="true"></i>-->
    <center><fieldset class="cat" style="width: 30%;"><legend><b>&nbsp;Share&nbsp;</b> </legend>
-    <a href="https://twitter.com/intent/tweet?text=http://hmisra.github.io/2016/10/15/Good-Reads/" style="padding-right:1em;" title="Share on Twitter"><i class="fa fa-twitter fa-3x hvr-float" style="color:#102366;"></i></a>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=http://hmisra.github.io/2016/10/15/Good-Reads/" style="padding-right:1em;" title="Share on Facebook"><i class="fa fa-facebook-square fa-3x hvr-float" style="color:#102366;"></i></a>
-    <a href="https://plus.google.com/share?url=http://hmisra.github.io/2016/10/15/Good-Reads/"  style="padding-right:1em;" title="Share on Google Plus"><i class="fa fa-google-plus fa-3x hvr-float" style="color:#102366;"></i></a>
-    <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fhttp://hmisra.github.io/2016/10/15/Good-Reads/&title=Good Reads&summary=Books, Research Papers, Articles&source=http%3A%2F%2Fhttp://hmisra.github.io/2016/10/15/Good-Reads/" style="padding-right:1em;" title="Share on Linkedin"><i class="fa fa-linkedin-square fa-3x hvr-float" style="color:#102366;"></i></a>
-      <a href="https://www.reddit.com/submit?url=http://hmisra.github.io/2016/10/15/Good-Reads/"  style="padding-right:1em;" title="Share on Reddit"><i class="fa fa-reddit fa-3x hvr-float" style="color:#102366;"></i>
+    <a href="https://twitter.com/intent/tweet?text=http://hmisra.github.io/2017/05/15/Custom-Deep-Learning-Rig/" style="padding-right:1em;" title="Share on Twitter"><i class="fa fa-twitter fa-3x hvr-float" style="color:#102366;"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http://hmisra.github.io/2017/05/15/Custom-Deep-Learning-Rig/" style="padding-right:1em;" title="Share on Facebook"><i class="fa fa-facebook-square fa-3x hvr-float" style="color:#102366;"></i></a>
+    <a href="https://plus.google.com/share?url=http://hmisra.github.io/2017/05/15/Custom-Deep-Learning-Rig/"  style="padding-right:1em;" title="Share on Google Plus"><i class="fa fa-google-plus fa-3x hvr-float" style="color:#102366;"></i></a>
+    <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fhttp://hmisra.github.io/2017/05/15/Custom-Deep-Learning-Rig/&title=Custom Deep Learning Rig&summary=Logs on building a fast GPU based Deep Learning Machine&source=http%3A%2F%2Fhttp://hmisra.github.io/2017/05/15/Custom-Deep-Learning-Rig/" style="padding-right:1em;" title="Share on Linkedin"><i class="fa fa-linkedin-square fa-3x hvr-float" style="color:#102366;"></i></a>
+      <a href="https://www.reddit.com/submit?url=http://hmisra.github.io/2017/05/15/Custom-Deep-Learning-Rig/"  style="padding-right:1em;" title="Share on Reddit"><i class="fa fa-reddit fa-3x hvr-float" style="color:#102366;"></i>
     </a>
     
     
@@ -316,9 +445,9 @@ $(document).ready(function(){
     
       <li>
         <h3>
-          <a href="/2017/05/15/Custom-Deep-Learning-Rig/">
-            Custom Deep Learning Rig
-            <small>15 May 2017</small>
+          <a href="/2016/10/15/Good-Reads/">
+            Good Reads
+            <small>15 Oct 2016</small>
           </a>
         </h3>
       </li>
