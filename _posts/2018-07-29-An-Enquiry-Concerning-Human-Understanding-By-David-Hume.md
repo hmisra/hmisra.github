@@ -17,12 +17,11 @@ authortwitter: https://twitter.com/himanshumisra
 
 ## Introduction
 _____________________________________
-
-David Hume was born in Edinburgh in 1711. He started his education early and became fascinated with Philosophy. Due to pressure of his family he even took up couple of jobs but later decided to pursure philosophy as his full time profession. His first literary work was a 3 volumne called Treatise of Human Nature published in 1739-1740.
-Hume hoped that his work deserves respectful reception from the scholars of his time. But his work was a strenous read and was deplored by many renowned names of his time. He said :
+David Hume was born in Edinburgh in 1711. He started his education early and became fascinated with Philosophy. Due to pressure of his family he even took up couple of jobs but later decided to pursure philosophy as his full time profession. His first literary work was a 3 volume work called Treatise of Human Nature published in 1739-1740.
+Hume hoped that his work deserves respectful reception from the scholars of his time. But his work was a strenous read and was deplored by many renowned names of his time. He later described reception of treaties as :
 
 > The book feel dead from the press; without reaching such distinction as even to excite a murmur among the zealots.
 
-He later decided to recast his views and published his views in form of essays which resulted in Enquiry concerning Human Understanding (EHU).
+He later decided to recast his views and publishe them in the form of essays which resulted in Enquiry concerning Human Understanding (EHU).
 
 
