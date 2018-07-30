@@ -1,8 +1,8 @@
 ---
 layout: post
-type: blog
-title: Template
-excerpt: Test Template
+type: Notes
+title: An Enquiry Concerning Human Understanding - David Hume
+excerpt: Notes on EHU by David Hume
 comments: true
 background: /network.jpg
 published: true
