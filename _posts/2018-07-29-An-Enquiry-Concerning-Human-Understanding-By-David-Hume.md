@@ -1,7 +1,7 @@
 ---
 layout: post
 type: Notes
-title: An Enquiry Concerning Human Understanding - David Hume
+title: EHU - David Hume
 excerpt: Notes on EHU by David Hume
 comments: true
 background: /network.jpg
